@@ -6,4 +6,4 @@ function printMsg() {
     console.log('Demo tests created. Called: ' + called + ' times');
 }
 
-exports.printMsg = this.printMsg;
+exports.printMsg = printMsg;
