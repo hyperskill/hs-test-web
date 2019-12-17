@@ -1,7 +1,9 @@
 
-const called = 0;
+let called = 0;
 
-export function createTests() {
+function printMsg() {
     called++;
-    console.log('Demo tests created. Called: ' + called + 'times');
+    console.log('Demo tests created. Called: ' + called + ' times');
 }
+
+exports.printMsg = this.printMsg;
