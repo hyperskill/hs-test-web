@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A small framework that simplifies testing educational projects for Hyperskill.",
   "author": "Vladimir Turov",
-  "main": "index.js",
+  "main": "stageTest.js",
   "scripts": {
     "test": "jest"
   },
@@ -15,7 +15,8 @@
     "url": "https://github.com/hyperskill/hs-test-web/issues"
   },
   "files": [
-    "index.js"
+    "stageTest.js",
+    "logger.js"
   ],
   "devDependencies": {
     "jest": "^24.9.0"
