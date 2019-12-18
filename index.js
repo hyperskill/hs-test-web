@@ -18,11 +18,11 @@ function fatalError(testNumber, message) {
     } else {
         whenErrorHappened = 'in test #' + testNumber
     }
-    return 'Wrong answer ' + whenErrorHappened + '\n\n' + message;
+    return ('Wrong answer ' + whenErrorHappened + '\n\n' + message).trim();
 }
 
 function wrongAnswer(testNumber, message) {
-    return 'Wrong answer in test #' + testNumber + '\n\n' + message;
+    return ('Wrong answer in test #' + testNumber + '\n\n' + message).trim();
 }
 
 function wrong(message) {
@@ -47,6 +47,7 @@ function test(...tests) {
 
         if (typeof currTest != 'function') {
             failed(fatalError(
+                testNum,
                 'Invalid test. ' + 
                 'Typeof testCase == "' + (typeof currTest) + 
                 '", but should be "function".' 
@@ -58,12 +59,13 @@ function test(...tests) {
         try {
             result = currTest();
         } catch (err) {
-            failed(fatalError(err.stack));
+            failed(fatalError(testNum, err.stack));
             return;
         }
 
-        if (result['type'] != 'string') {
+        if (typeof result['type'] != 'string') {
             failed(fatalError(
+                testNum,
                 'Invalid result type. ' + 
                 'Typeof result["type"] == "' + (typeof result['type']) + 
                 '", but should be "string".' 
@@ -73,6 +75,7 @@ function test(...tests) {
 
         if (result['type'] != 'wrong' && result['type'] != 'accept') {
             failed(fatalError(
+                testNum,
                 'Invalid result. ' + 
                 'result["type"] == "' + result['type'] + 
                 '", but should be "wrong" or "accept".' 
@@ -81,7 +84,7 @@ function test(...tests) {
         }
 
         if (result['type'] == 'wrong') {
-            failed(wrongAnswer(result['message']));
+            failed(wrongAnswer(testNum, result['message']));
             return;
         }
     }
