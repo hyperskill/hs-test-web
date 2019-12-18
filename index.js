@@ -1,15 +1,4 @@
-
-function failed(message) {
-    let lines = message.split('\n');
-    console.log('\n#educational_plugin FAILED + ' + lines[0]);
-    for (let i = 1; i < lines.length; i++) {
-        console.log('#educational_plugin ' + lines[i]);
-    }
-}
-
-function passed() {
-    console.log('\n#educational_plugin test OK');
-}
+let logger = require('./logger');
 
 function fatalError(testNumber, message) {
     let whenErrorHappened;
@@ -46,7 +35,7 @@ function test(...tests) {
         let currTest = tests[testNum - 1];
 
         if (typeof currTest != 'function') {
-            failed(fatalError(
+            logger.failed(fatalError(
                 testNum,
                 'Invalid test. ' + 
                 'Typeof testCase == "' + (typeof currTest) + 
@@ -59,12 +48,12 @@ function test(...tests) {
         try {
             result = currTest();
         } catch (err) {
-            failed(fatalError(testNum, err.stack));
+            logger.failed(fatalError(testNum, err.stack));
             return;
         }
 
         if (typeof result['type'] != 'string') {
-            failed(fatalError(
+            logger.failed(fatalError(
                 testNum,
                 'Invalid result type. ' + 
                 'Typeof result["type"] == "' + (typeof result['type']) + 
@@ -74,7 +63,7 @@ function test(...tests) {
         }
 
         if (result['type'] != 'wrong' && result['type'] != 'accept') {
-            failed(fatalError(
+            logger.failed(fatalError(
                 testNum,
                 'Invalid result. ' + 
                 'result["type"] == "' + result['type'] + 
@@ -84,11 +73,11 @@ function test(...tests) {
         }
 
         if (result['type'] == 'wrong') {
-            failed(wrongAnswer(testNum, result['message']));
+            logger.failed(wrongAnswer(testNum, result['message']));
             return;
         }
     }
-    passed();
+    logger.passed();
 }
 
 
