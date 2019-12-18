@@ -1,9 +1,16 @@
 
-let called = 0;
-
-function printMsg() {
-    called++;
-    console.log('Demo tests created. Called: ' + called + ' times');
+function failed(message) {
+    let lines = message.split('\n');
+    console.log('\n#educational_plugin FAILED + ' + lines[0]);
+    for (let i = 1; i < lines.length; i++) {
+        console.log(lines[i]);
+    }
 }
 
-exports.printMsg = printMsg;
+function passed() {
+    console.log('\n#educational_plugin test OK');
+}
+
+
+exports.failed = failed;
+exports.passed = passed;
