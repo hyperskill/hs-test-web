@@ -7,7 +7,7 @@ function fatalError(testNumber, message) {
     } else {
         whenErrorHappened = 'in test #' + testNumber
     }
-    return ('Wrong answer ' + whenErrorHappened + '\n\n' + message).trim();
+    return ('Fatal error ' + whenErrorHappened + '\n\n' + message).trim();
 }
 
 function wrongAnswer(testNumber, message) {
@@ -31,6 +31,14 @@ function accept() {
 }
 
 function test(...tests) {
+
+    if (tests.length == 0) {
+        logger.failed(fatalError(
+            0, 'Cannot find tests.' 
+        ));
+        return;
+    }
+
     for (let testNum = 1; testNum <= tests.length; testNum++) {
         let currTest = tests[testNum - 1];
 
@@ -49,6 +57,16 @@ function test(...tests) {
             result = currTest();
         } catch (err) {
             logger.failed(fatalError(testNum, err.stack));
+            return;
+        }
+
+        if (typeof result != 'object') {
+            logger.failed(fatalError(
+                testNum,
+                'Invalid result type. ' + 
+                'Typeof result == "' + (typeof result) + 
+                '", but should be "object".' 
+            ));
             return;
         }
 
