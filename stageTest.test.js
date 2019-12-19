@@ -8,7 +8,7 @@ beforeEach(() => {
     logged = '';
     savedConsole = console.log;
     console.log = msg => {
-        logged += logger.filter(msg);
+        logged += logger.filter(msg) + '\n';
     }
 });
 

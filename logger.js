@@ -3,14 +3,14 @@ const eduMessage = '#educational_plugin ';
 
 function failed(message) {
     let lines = message.split('\n');
-    console.log('\n' + failedMessage + lines[0] + '\n');
+    console.log('\n' + failedMessage + lines[0]);
     for (let i = 1; i < lines.length; i++) {
-        console.log(eduMessage + lines[i] + '\n');
+        console.log(eduMessage + lines[i]);
     }
 }
 
 function passed() {
-    console.log('\n' + eduMessage + 'test OK' + '\n');
+    console.log('\n' + eduMessage + 'test OK');
 }
 
 function filterLine(line) {
