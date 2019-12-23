@@ -1,12 +1,7 @@
 let logger = require('./logger');
 
 function fatalError(testNumber, message) {
-    let whenErrorHappened;
-    if (testNumber == 0) {
-        whenErrorHappened = 'during testing';
-    } else {
-        whenErrorHappened = 'in test #' + testNumber
-    }
+    let whenErrorHappened = testNumber === 0 ? 'during testing' : 'in test #' + testNumber;
     return ('Fatal error ' + whenErrorHappened + '\n\n' + message).trim();
 }
 
@@ -30,9 +25,9 @@ function accept() {
     };
 }
 
-function test(...tests) {
+function test(tests) {
 
-    if (tests.length == 0) {
+    if (tests.length === 0) {
         logger.failed(fatalError(
             0, 'Cannot find tests.' 
         ));
@@ -80,7 +75,7 @@ function test(...tests) {
             return;
         }
 
-        if (result['type'] != 'wrong' && result['type'] != 'accept') {
+        if (result['type'] !== 'wrong' && result['type'] !== 'accept') {
             logger.failed(fatalError(
                 testNum,
                 'Invalid result. ' + 
@@ -90,7 +85,7 @@ function test(...tests) {
             return;
         }
 
-        if (result['type'] == 'wrong') {
+        if (result['type'] === 'wrong') {
             logger.failed(wrongAnswer(testNum, result['message']));
             return;
         }

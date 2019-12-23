@@ -34,6 +34,6 @@ function filter(message) {
     return message;
 }
 
-exports.failed = failed
-exports.passed = passed
-exports.filter = filter
+exports.failed = failed;
+exports.passed = passed;
+exports.filter = filter;
