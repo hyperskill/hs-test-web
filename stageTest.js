@@ -1,5 +1,3 @@
-let logger = require('./logger');
-
 function fatalError(testNumber, message) {
     let whenErrorHappened = testNumber === 0 ? 'during testing' : 'in test #' + testNumber;
     return ('Fatal error ' + whenErrorHappened + '\n\n' + message).trim();
@@ -15,7 +13,7 @@ function wrong(message) {
     }
     return {
         'type': 'wrong',
-        'message': message
+        'message': message.trim()
     }
 }
 
@@ -25,72 +23,65 @@ function accept() {
     };
 }
 
-function test(tests) {
+function test(...tests) {
 
     if (tests.length === 0) {
-        logger.failed(fatalError(
+        return wrong(fatalError(
             0, 'Cannot find tests.' 
         ));
-        return;
     }
 
     for (let testNum = 1; testNum <= tests.length; testNum++) {
         let currTest = tests[testNum - 1];
 
         if (typeof currTest != 'function') {
-            logger.failed(fatalError(
+            return wrong(fatalError(
                 testNum,
                 'Invalid test. ' + 
                 'Typeof testCase == "' + (typeof currTest) + 
                 '", but should be "function".' 
             ));
-            return;
         }
         
         let result;
         try {
             result = currTest();
         } catch (err) {
-            logger.failed(fatalError(testNum, err.stack));
-            return;
+            return wrong(fatalError(testNum, err.stack));
         }
 
         if (typeof result != 'object') {
-            logger.failed(fatalError(
+            return wrong(fatalError(
                 testNum,
                 'Invalid result type. ' + 
                 'Typeof result == "' + (typeof result) + 
                 '", but should be "object".' 
             ));
-            return;
         }
 
         if (typeof result['type'] != 'string') {
-            logger.failed(fatalError(
+            return wrong(fatalError(
                 testNum,
                 'Invalid result type. ' + 
                 'Typeof result["type"] == "' + (typeof result['type']) + 
                 '", but should be "string".' 
             ));
-            return;
         }
 
         if (result['type'] !== 'wrong' && result['type'] !== 'accept') {
-            logger.failed(fatalError(
+            return wrong(fatalError(
                 testNum,
                 'Invalid result. ' + 
                 'result["type"] == "' + result['type'] + 
                 '", but should be "wrong" or "accept".' 
             ));
-            return;
         }
 
         if (result['type'] === 'wrong') {
-            logger.failed(wrongAnswer(testNum, result['message']));
-            return;
+            return wrong(wrongAnswer(testNum, result['message']));
         }
     }
-    logger.passed();
+    return accept();
 }
 
 

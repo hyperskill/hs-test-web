@@ -1,174 +1,173 @@
-const logger = require('./logger');
 const hs = require('./stageTest');
-
-let logged = '';
-let savedConsole;
-
-beforeEach(() => {
-    logged = '';
-    savedConsole = console.log;
-    console.log = msg => {
-        logged += logger.filter(msg) + '\n';
-    }
-});
-
-afterEach(() => {
-    console.log = savedConsole;
-});
 
 
 test('Accepted single test', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept()
     );
-    expect(logged).toBe('test OK\n');
+    expect(res['type']).toBe('accept');
 });
 
 test('Accepted two tests', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => hs.accept(),
     );
-    expect(logged).toBe('test OK\n');
+    expect(res['type']).toBe('accept');
 });
 
 test('Wrong answer test 1', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.wrong(),
         () => hs.accept(),
     );
-    expect(logged).toBe('Wrong answer in test #1\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #1');
 });
 
 test('Wrong answer test 2', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => hs.wrong(),
     );
-    expect(logged).toBe('Wrong answer in test #2\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #2');
 });
 
 test('Wrong answer with feedback test 1', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.wrong('Write better code'),
         () => hs.wrong(),
     );
-    expect(logged).toBe('Wrong answer in test #1\n\nWrite better code\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #1\n\nWrite better code');
 });
 
 test('Wrong answer with feedback test 2', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => hs.wrong('Please write better code'),
     );
-    expect(logged).toBe('Wrong answer in test #2\n\nPlease write better code\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #2\n\nPlease write better code');
 });
 
 test('Custom wrong answer test 1', () => {
-    hs.test(
+    let res = hs.test(
         () => {return {'type' : 'wrong', 'message' : ''}},
         () => hs.accept(),
     );
-    expect(logged).toBe('Wrong answer in test #1\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #1');
 });
 
 test('Custom wrong answer test 2', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => {return {'type' : 'wrong', 'message' : ''}},
     );
-    expect(logged).toBe('Wrong answer in test #2\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #2');
 });
 
 test('Custom wrong answer with feedback test 1', () => {
-    hs.test(
+    let res = hs.test(
         () => {return {'type' : 'wrong', 'message': 'Write better code'}},
         () => hs.wrong(),
     );
-    expect(logged).toBe('Wrong answer in test #1\n\nWrite better code\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #1\n\nWrite better code');
 });
 
 test('Custom wrong answer with feedback test 2', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => {return {'type' : 'wrong', 'message': 'Please write better code'}},
     );
-    expect(logged).toBe('Wrong answer in test #2\n\nPlease write better code\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Wrong answer in test #2\n\nPlease write better code');
 });
 
 test('Fatal error wrong result type test 1', () => {
-    hs.test(
+    let res = hs.test(
         () => 'Wrong result',
         () => hs.wrong('Please write better code'),
     );
-    expect(logged).toBe('Fatal error in test #1\n\n' + 
-        'Invalid result type. Typeof result == "string", but should be "object".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+        'Invalid result type. Typeof result == "string", but should be "object".');
 });
 
 test('Fatal error wrong result type test > 1', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => hs.accept(),
         () => hs.accept(),
         () => 'Wrong result test 4',
     );
-    expect(logged).toBe('Fatal error in test #4\n\n' + 
-        'Invalid result type. Typeof result == "string", but should be "object".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #4\n\n' + 
+        'Invalid result type. Typeof result == "string", but should be "object".');
 });
 
 test('Fatal error wrong result type test 1', () => {
-    hs.test(
+    let res = hs.test(
         () => undefined,
         () => hs.wrong('Please write better code'),
     );
-    expect(logged).toBe('Fatal error in test #1\n\n' + 
-        'Invalid result type. Typeof result == "undefined", but should be "object".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+        'Invalid result type. Typeof result == "undefined", but should be "object".');
 });
 
 test('Fatal error wrong result type test > 1', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => hs.accept(),
         () => hs.accept(),
         () => undefined,
     );
-    expect(logged).toBe('Fatal error in test #4\n\n' + 
-        'Invalid result type. Typeof result == "undefined", but should be "object".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #4\n\n' + 
+        'Invalid result type. Typeof result == "undefined", but should be "object".');
 });
 
 test('Fatal error wrong function test 1', () => {
-    hs.test(
+    let res = hs.test(
         'Wrong function',
         () => hs.wrong('Please write better code'),
     );
-    expect(logged).toBe('Fatal error in test #1\n\n' + 
-        'Invalid test. Typeof testCase == "string", but should be "function".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+        'Invalid test. Typeof testCase == "string", but should be "function".');
 });
 
 test('Fatal error wrong function test > 1', () => {
-    hs.test(
+    let res = hs.test(
         () => hs.accept(),
         () => hs.accept(),
         'Wrong function test 3',
         () => hs.accept(),
         () => hs.accept(),
     );
-    expect(logged).toBe('Fatal error in test #3\n\n' + 
-        'Invalid test. Typeof testCase == "string", but should be "function".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #3\n\n' + 
+        'Invalid test. Typeof testCase == "string", but should be "function".');
 });
 
 test('Fatal error wrong result type test 1', () => {
-    hs.test(
+    let res = hs.test(
         () => {return {type: "wrong type"}},
         () => hs.accept(),
         () => hs.accept(),
     );
-    expect(logged).toBe('Fatal error in test #1\n\n' + 
-        'Invalid result. result["type"] == "wrong type", but should be "wrong" or "accept".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+        'Invalid result. result["type"] == "wrong type", but should be "wrong" or "accept".');
 });
 
 test('Fatal error wrong result type test > 1', () => {
-    hs.test(
+    let res = hs.test(
         () => {return {type: "accept"}},
         () => hs.accept(),
         () => hs.accept(),
@@ -177,12 +176,14 @@ test('Fatal error wrong result type test > 1', () => {
         () => {return {type: "accept"}},
         () => hs.accept(),
     );
-    expect(logged).toBe('Fatal error in test #5\n\n' + 
-        'Invalid result. result["type"] == "wrong type test 5", but should be "wrong" or "accept".\n');
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error in test #5\n\n' + 
+        'Invalid result. result["type"] == "wrong type test 5", but should be "wrong" or "accept".');
 });
 
 test('Fatal error no tests', () => {
-    hs.test();
-    expect(logged).toBe('Fatal error during testing\n\n' + 
-        'Cannot find tests.\n');
+    let res = hs.test();
+    expect(res['type']).toBe('wrong');
+    expect(res['message']).toBe('Fatal error during testing\n\n' + 
+        'Cannot find tests.');
 });
