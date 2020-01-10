@@ -94,7 +94,7 @@ test('Fatal error wrong result type test 1', () => {
         () => hs.wrong('Please write better code'),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
         'Invalid result type. Typeof result == "string", but should be "object".');
 });
 
@@ -106,7 +106,7 @@ test('Fatal error wrong result type test > 1', () => {
         () => 'Wrong result test 4',
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #4\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #4, please send the report to support@hyperskill.org\n\n' + 
         'Invalid result type. Typeof result == "string", but should be "object".');
 });
 
@@ -116,7 +116,7 @@ test('Fatal error wrong result type test 1', () => {
         () => hs.wrong('Please write better code'),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
         'Invalid result type. Typeof result == "undefined", but should be "object".');
 });
 
@@ -128,7 +128,7 @@ test('Fatal error wrong result type test > 1', () => {
         () => undefined,
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #4\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #4, please send the report to support@hyperskill.org\n\n' + 
         'Invalid result type. Typeof result == "undefined", but should be "object".');
 });
 
@@ -138,7 +138,7 @@ test('Fatal error wrong function test 1', () => {
         () => hs.wrong('Please write better code'),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
         'Invalid test. Typeof testCase == "string", but should be "function".');
 });
 
@@ -151,7 +151,7 @@ test('Fatal error wrong function test > 1', () => {
         () => hs.accept(),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #3\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #3, please send the report to support@hyperskill.org\n\n' + 
         'Invalid test. Typeof testCase == "string", but should be "function".');
 });
 
@@ -162,7 +162,7 @@ test('Fatal error wrong result type test 1', () => {
         () => hs.accept(),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
         'Invalid result. result["type"] == "wrong type", but should be "wrong" or "accept".');
 });
 
@@ -177,13 +177,13 @@ test('Fatal error wrong result type test > 1', () => {
         () => hs.accept(),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #5\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #5, please send the report to support@hyperskill.org\n\n' + 
         'Invalid result. result["type"] == "wrong type test 5", but should be "wrong" or "accept".');
 });
 
 test('Fatal error no tests', () => {
     let res = hs.test();
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error during testing\n\n' + 
+    expect(res['message']).toBe('Fatal error during testing, please send the report to support@hyperskill.org\n\n' + 
         'Cannot find tests.');
 });
