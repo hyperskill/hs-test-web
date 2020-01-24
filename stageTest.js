@@ -24,7 +24,7 @@ function accept() {
     };
 }
 
-function test(...tests) {
+async function test(...tests) {
 
     if (tests.length === 0) {
         return wrong(fatalError(
@@ -46,7 +46,7 @@ function test(...tests) {
         
         let result;
         try {
-            result = currTest();
+            result = await currTest();
         } catch (err) {
             return wrong(fatalError(testNum, err.stack));
         }
