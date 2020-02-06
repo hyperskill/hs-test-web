@@ -85,7 +85,28 @@ async function test(...tests) {
     return accept();
 }
 
+async function testPage(page, ...tests) {
+    try {
+        await page.evaluate(() => {
+            this.hs = {
+                'accept': () => ({'type': 'accept'}),
+                'wrong': (msg) => ({
+                    'type': 'wrong',
+                    'message': msg == 'string' ? msg.trim() : ''
+                })
+            }
+        });
+        for (let i = 0; i < tests.length; i++) {
+            tests[i] = async () => await page.evaluate(tests[i]);
+        }
+        return await test(tests);
+    } catch (err) {
+        return wrong(fatalError(0, err.stack));
+    }
+}
+
 
 exports.test = test;
+exports.testPage = testPage;
 exports.wrong = wrong;
 exports.accept = accept;
