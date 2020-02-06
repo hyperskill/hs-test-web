@@ -97,7 +97,7 @@ async function testPage(page, ...tests) {
             }
         });
         for (let i = 0; i < tests.length; i++) {
-            tests[i] = async () => await page.evaluate(tests[i]);
+            tests[i] = (async () => await page.evaluate(tests[i]));
         }
         return await test(tests);
     } catch (err) {
