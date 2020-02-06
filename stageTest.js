@@ -24,6 +24,16 @@ function accept() {
     };
 }
 
+function getPage() {
+    return pageToTest;
+}
+
+function setPage(page) {
+    pageToTest = page;
+}
+
+var pageToTest = null;
+
 async function test(...tests) {
 
     if (tests.length === 0) {
@@ -87,7 +97,8 @@ async function test(...tests) {
 
 async function testPage(page, ...tests) {
     try {
-        await page.evaluate(() => {
+        pageToTest = page;
+        await pageToTest.evaluate(() => {
             this.hs = {
                 'accept': () => ({'type': 'accept'}),
                 'wrong': (msg) => ({
@@ -97,7 +108,7 @@ async function testPage(page, ...tests) {
             }
         });
         for (let i = 0; i < tests.length; i++) {
-            tests[i] = async () => await page.evaluate(tests[i]);
+            tests[i] = async () => await pageToTest.evaluate(tests[i]);
         }
         return await test(...tests);
     } catch (err) {
