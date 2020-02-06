@@ -24,16 +24,6 @@ function accept() {
     };
 }
 
-function getPage() {
-    return pageToTest;
-}
-
-function setPage(page) {
-    pageToTest = page;
-}
-
-var pageToTest = null;
-
 async function test(...tests) {
 
     if (tests.length === 0) {
@@ -97,8 +87,7 @@ async function test(...tests) {
 
 async function testPage(page, ...tests) {
     try {
-        pageToTest = page;
-        await pageToTest.evaluate(() => {
+        await page.evaluate(() => {
             this.hs = {
                 'accept': () => ({'type': 'accept'}),
                 'wrong': (msg) => ({
@@ -107,13 +96,70 @@ async function testPage(page, ...tests) {
                 })
             }
         });
-        for (let i = 0; i < tests.length; i++) {
-            tests[i] = async () => await pageToTest.evaluate(tests[i]);
-        }
-        return await test(...tests);
     } catch (err) {
         return wrong(fatalError(0, err.stack));
     }
+
+    // TODO remove copy-paste
+    // the only difference is
+    // await page.evaluate(currTest); vs await currTest();
+    if (tests.length === 0) {
+        return wrong(fatalError(
+            0, 'Cannot find tests.'
+        ));
+    }
+
+    for (let testNum = 1; testNum <= tests.length; testNum++) {
+        let currTest = tests[testNum - 1];
+
+        if (typeof currTest != 'function') {
+            return wrong(fatalError(
+                testNum,
+                'Invalid test. ' +
+                'Typeof testCase == "' + (typeof currTest) +
+                '", but should be "function".'
+            ));
+        }
+
+        let result;
+        try {
+            result = await page.evaluate(currTest);
+        } catch (err) {
+            return wrong(fatalError(testNum, err.stack));
+        }
+
+        if (typeof result != 'object') {
+            return wrong(fatalError(
+                testNum,
+                'Invalid result type. ' +
+                'Typeof result == "' + (typeof result) +
+                '", but should be "object".'
+            ));
+        }
+
+        if (typeof result['type'] != 'string') {
+            return wrong(fatalError(
+                testNum,
+                'Invalid result type. ' +
+                'Typeof result["type"] == "' + (typeof result['type']) +
+                '", but should be "string".'
+            ));
+        }
+
+        if (result['type'] !== 'wrong' && result['type'] !== 'accept') {
+            return wrong(fatalError(
+                testNum,
+                'Invalid result. ' +
+                'result["type"] == "' + result['type'] +
+                '", but should be "wrong" or "accept".'
+            ));
+        }
+
+        if (result['type'] === 'wrong') {
+            return wrong(wrongAnswer(testNum, result['message']));
+        }
+    }
+    return accept();
 }
 
 
