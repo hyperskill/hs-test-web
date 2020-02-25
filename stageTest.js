@@ -184,7 +184,7 @@ async function testPage(page, ...tests) {
             }
 
             function charToScanCode(c) {
-                if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
+                if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == ' ') {
                     return c.toUpperCase().charCodeAt(0);
 
                 } else if (shiftNumbers[c]) {
