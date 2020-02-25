@@ -92,7 +92,7 @@ async function testPage(page, ...tests) {
                 'accept': () => ({'type': 'accept'}),
                 'wrong': (msg) => ({
                     'type': 'wrong',
-                    'message': msg == 'string' ? msg.trim() : ''
+                    'message': typeof msg == 'string' ? msg.trim() : ''
                 })
             }
         });
