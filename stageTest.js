@@ -223,7 +223,7 @@ async function testPage(page, ...tests) {
                 }));
             }
 
-            this.hs.press = function(destination, key) {
+            this.hs.press = function(key, destination=document) {
                 dispatchKeyboardEvent(destination, 'keydown', key);
                 dispatchKeyboardEvent(destination, 'keypress', key);
                 dispatchKeyboardEvent(destination, 'keyup', key);
