@@ -18,9 +18,9 @@ function wrong(message) {
     }
 }
 
-function accept() {
+function correct() {
     return {
-        'type': 'accept'
+        'type': 'correct'
     };
 }
 
@@ -69,12 +69,12 @@ async function test(...tests) {
             ));
         }
 
-        if (result['type'] !== 'wrong' && result['type'] !== 'accept') {
+        if (result['type'] !== 'wrong' && result['type'] !== 'correct') {
             return wrong(fatalError(
                 testNum,
                 'Invalid result. ' + 
                 'result["type"] == "' + result['type'] + 
-                '", but should be "wrong" or "accept".' 
+                '", but should be "wrong" or "correct".' 
             ));
         }
 
@@ -82,14 +82,14 @@ async function test(...tests) {
             return wrong(wrongAnswer(testNum, result['message']));
         }
     }
-    return accept();
+    return correct();
 }
 
 async function testPage(page, ...tests) {
     try {
         await page.evaluate(() => {
             this.hs = {
-                'accept': () => ({'type': 'accept'}),
+                'correct': () => ({'type': 'correct'}),
                 'wrong': (msg) => ({
                     'type': 'wrong',
                     'message': typeof msg == 'string' ? msg.trim() : ''
@@ -279,12 +279,12 @@ async function testPage(page, ...tests) {
             ));
         }
 
-        if (result['type'] !== 'wrong' && result['type'] !== 'accept') {
+        if (result['type'] !== 'wrong' && result['type'] !== 'correct') {
             return wrong(fatalError(
                 testNum,
                 'Invalid result. ' +
                 'result["type"] == "' + result['type'] +
-                '", but should be "wrong" or "accept".'
+                '", but should be "wrong" or "correct".'
             ));
         }
 
@@ -292,11 +292,11 @@ async function testPage(page, ...tests) {
             return wrong(wrongAnswer(testNum, result['message']));
         }
     }
-    return accept();
+    return correct();
 }
 
 
 exports.test = test;
 exports.testPage = testPage;
 exports.wrong = wrong;
-exports.accept = accept;
+exports.correct = correct;

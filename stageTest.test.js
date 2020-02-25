@@ -1,25 +1,25 @@
 const hs = require('./stageTest');
 
 
-test('Accepted single test', async () => {
+test('corrected single test', async () => {
     let res = await hs.test(
-        () => hs.accept()
+        () => hs.correct()
     );
-    expect(res['type']).toBe('accept');
+    expect(res['type']).toBe('correct');
 });
 
-test('Accepted two tests', async () => {
+test('corrected two tests', async () => {
     let res = await hs.test(
-        () => hs.accept(),
-        () => hs.accept(),
+        () => hs.correct(),
+        () => hs.correct(),
     );
-    expect(res['type']).toBe('accept');
+    expect(res['type']).toBe('correct');
 });
 
 test('Wrong answer test 1', async () => {
     let res = await hs.test(
         () => hs.wrong(),
-        () => hs.accept(),
+        () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
     expect(res['message']).toBe('Wrong answer in test #1');
@@ -27,7 +27,7 @@ test('Wrong answer test 1', async () => {
 
 test('Wrong answer test 2', async () => {
     let res = await hs.test(
-        () => hs.accept(),
+        () => hs.correct(),
         () => hs.wrong(),
     );
     expect(res['type']).toBe('wrong');
@@ -45,7 +45,7 @@ test('Wrong answer with feedback test 1', async () => {
 
 test('Wrong answer with feedback test 2', async () => {
     let res = await hs.test(
-        () => hs.accept(),
+        () => hs.correct(),
         () => hs.wrong('Please write better code'),
     );
     expect(res['type']).toBe('wrong');
@@ -55,7 +55,7 @@ test('Wrong answer with feedback test 2', async () => {
 test('Custom wrong answer test 1', async () => {
     let res = await hs.test(
         () => {return {'type' : 'wrong', 'message' : ''}},
-        () => hs.accept(),
+        () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
     expect(res['message']).toBe('Wrong answer in test #1');
@@ -63,7 +63,7 @@ test('Custom wrong answer test 1', async () => {
 
 test('Custom wrong answer test 2', async () => {
     let res = await hs.test(
-        () => hs.accept(),
+        () => hs.correct(),
         () => {return {'type' : 'wrong', 'message' : ''}},
     );
     expect(res['type']).toBe('wrong');
@@ -81,7 +81,7 @@ test('Custom wrong answer with feedback test 1', async () => {
 
 test('Custom wrong answer with feedback test 2', async () => {
     let res = await hs.test(
-        () => hs.accept(),
+        () => hs.correct(),
         () => {return {'type' : 'wrong', 'message': 'Please write better code'}},
     );
     expect(res['type']).toBe('wrong');
@@ -100,9 +100,9 @@ test('Fatal error wrong result type test 1', async () => {
 
 test('Fatal error wrong result type test > 1', async () => {
     let res = await hs.test(
-        () => hs.accept(),
-        () => hs.accept(),
-        () => hs.accept(),
+        () => hs.correct(),
+        () => hs.correct(),
+        () => hs.correct(),
         () => 'Wrong result test 4',
     );
     expect(res['type']).toBe('wrong');
@@ -122,9 +122,9 @@ test('Fatal error wrong result type test 1', async () => {
 
 test('Fatal error wrong result type test > 1', async () => {
     let res = await hs.test(
-        () => hs.accept(),
-        () => hs.accept(),
-        () => hs.accept(),
+        () => hs.correct(),
+        () => hs.correct(),
+        () => hs.correct(),
         () => undefined,
     );
     expect(res['type']).toBe('wrong');
@@ -144,11 +144,11 @@ test('Fatal error wrong function test 1', async () => {
 
 test('Fatal error wrong function test > 1', async () => {
     let res = await hs.test(
-        () => hs.accept(),
-        () => hs.accept(),
+        () => hs.correct(),
+        () => hs.correct(),
         'Wrong function test 3',
-        () => hs.accept(),
-        () => hs.accept(),
+        () => hs.correct(),
+        () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
     expect(res['message']).toBe('Fatal error in test #3, please send the report to support@hyperskill.org\n\n' + 
@@ -158,27 +158,27 @@ test('Fatal error wrong function test > 1', async () => {
 test('Fatal error wrong result type test 1', async () => {
     let res = await hs.test(
         () => {return {type: "wrong type"}},
-        () => hs.accept(),
-        () => hs.accept(),
+        () => hs.correct(),
+        () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
     expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
-        'Invalid result. result["type"] == "wrong type", but should be "wrong" or "accept".');
+        'Invalid result. result["type"] == "wrong type", but should be "wrong" or "correct".');
 });
 
 test('Fatal error wrong result type test > 1', async () => {
     let res = await hs.test(
-        () => {return {type: "accept"}},
-        () => hs.accept(),
-        () => hs.accept(),
-        () => hs.accept(),
+        () => {return {type: "correct"}},
+        () => hs.correct(),
+        () => hs.correct(),
+        () => hs.correct(),
         () => {return {type: "wrong type test 5"}},
-        () => {return {type: "accept"}},
-        () => hs.accept(),
+        () => {return {type: "correct"}},
+        () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
     expect(res['message']).toBe('Fatal error in test #5, please send the report to support@hyperskill.org\n\n' + 
-        'Invalid result. result["type"] == "wrong type test 5", but should be "wrong" or "accept".');
+        'Invalid result. result["type"] == "wrong type test 5", but should be "wrong" or "correct".');
 });
 
 test('Fatal error no tests', async () => {
@@ -191,15 +191,15 @@ test('Fatal error no tests', async () => {
 test('Async test no errors', async () => {
     let res = await hs.test(
         async () => {
-            return hs.accept();
+            return hs.correct();
         }
     );
-    expect(res['type']).toBe('accept');
+    expect(res['type']).toBe('correct');
 });
 
 test('Async test wrong answer', async () => {
     let res = await hs.test(
-        () => hs.accept(),
+        () => hs.correct(),
         async () => hs.wrong('Wrong async test')
     );
     expect(res['type']).toBe('wrong');
