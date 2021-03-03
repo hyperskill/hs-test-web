@@ -1,7 +1,6 @@
 function fatalError(testNumber, message) {
     let whenErrorHappened = testNumber === 0 ? 'during testing' : 'in test #' + testNumber;
-    return ('Fatal error ' + whenErrorHappened + 
-            ', please send the report to support@hyperskill.org\n\n' + message).trim();
+    return ('Unexpected error ' + whenErrorHappened + '\n\n' + message).trim();
 }
 
 function wrongAnswer(testNumber, message) {
