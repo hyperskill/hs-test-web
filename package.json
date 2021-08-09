@@ -4,8 +4,9 @@
   "description": "A small framework that simplifies testing educational projects for Hyperskill.",
   "author": "Vladimir Turov",
   "main": "stageTest.js",
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
     "stageTest.js"
   ],
   "devDependencies": {
-    "jest": "^24.9.0"
+    "mocha": "^9.0.3",
+    "puppeteer": "^2.0.0"
   }
 }
