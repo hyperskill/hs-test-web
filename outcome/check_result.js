@@ -1,7 +1,7 @@
 class CheckResult {
 
     constructor(isCorrect, feedback) {
-        this.isCorrect = true;
+        this.isCorrect = isCorrect;
         this.feedback = feedback;
     }
 
