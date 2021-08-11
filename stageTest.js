@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer")
+const {CheckResult} = require("./outcome/check_result.js")
 
 class StageTest {
 
@@ -11,6 +12,7 @@ class StageTest {
             defaultViewport: null,
             args: ['--start-maximized', '--disable-infobar'],
             ignoreDefaultArgs: ['--enable-automation'],
+            debug: true,
             devtools: true
         });
         return new this(browser)
@@ -23,6 +25,11 @@ class StageTest {
     async newPage(path) {
         const page = await this.browser.newPage();
         await page.goto(path);
+        await page.evaluate((CheckResultString) => {
+            eval("window.CheckResult = " + CheckResultString);
+            this.wrong = CheckResult.wrong;
+            this.correct = CheckResult.correct;
+        }, CheckResult.toString())
         return page;
     }
 
@@ -64,7 +71,11 @@ class StageTest {
                 throw new Error("UE: Found wrong test case that is not a function");
             }
 
-            await currentTest()
+            const result = await currentTest()
+
+            if (!CheckResult.isInstance(result)) {
+                throw new Error("UE: Expected result of testing is an instance of CheckResult class");
+            }
         }
     }
 
@@ -83,4 +94,8 @@ class StageTest {
     }
 }
 
-exports.StageTest = StageTest;
+module.exports = {
+    StageTest: StageTest,
+    wrong: CheckResult.wrong,
+    correct: CheckResult.correct
+}
