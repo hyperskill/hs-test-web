@@ -26,7 +26,7 @@ class StageTest {
         const page = await this.browser.newPage();
         await page.goto(path);
         await page.evaluate((CheckResultString) => {
-            eval("window.CheckResult = " + CheckResultString);
+            eval(`window.CheckResult = ${CheckResultString}`);
             this.wrong = CheckResult.wrong;
             this.correct = CheckResult.correct;
         }, CheckResult.toString())
