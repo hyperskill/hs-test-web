@@ -6,12 +6,10 @@ class CheckResult {
     }
 
     static correct() {
-        console.log('correct is called')
         return new CheckResult(true, '')
     }
 
     static wrong(message) {
-        console.log('wrong is called')
         return new CheckResult(false, message)
     }
 
