@@ -6,7 +6,7 @@
   "main": "stageTest.js",
   "type": "module",
   "scripts": {
-    "test": "mocha"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "stageTest.js"
   ],
   "devDependencies": {
-    "mocha": "^9.0.3",
+    "jest": "^24.9.0",
     "puppeteer": "^2.0.0"
   }
 }
