@@ -1,4 +1,4 @@
-const {Outcome} = import("./outcome.js")
+const {Outcome} = require("./outcome.js")
 
 class UnexpectedErrorOutcome extends Outcome {
 
