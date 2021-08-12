@@ -60,10 +60,6 @@ class StageTest {
             throw new Error("UE: No tests found")
         }
 
-        const result = await this.tests.filter(async (currentTest) => {
-            return await typeof currentTest !== 'function'
-        })
-
         for (let i = 0; i < this.tests.length; i++) {
             const currentTest = await this.tests[i];
 
