@@ -1,5 +1,7 @@
 const puppeteer = require("puppeteer")
 const {CheckResult} = require("./outcome/check_result.js")
+const {UnexpectedErrorOutcome} = require("./outcome/unexpected_error.js")
+const {WrongAnswerOutcome} = require("./outcome/wrong_answer.js")
 
 class StageTest {
 
@@ -57,20 +59,33 @@ class StageTest {
 
     async executeTestCases() {
         if (this.tests.length === 0) {
-            throw new Error("UE: No tests found")
+            throw new UnexpectedErrorOutcome(0, "No tests found")
         }
 
         for (let i = 0; i < this.tests.length; i++) {
+            const testNumber = i + 1;
             const currentTest = await this.tests[i];
 
             if (typeof currentTest !== 'function') {
-                throw new Error("UE: Found wrong test case that is not a function");
+                throw new UnexpectedErrorOutcome(testNumber, "Found wrong test case that is not a function")
             }
 
-            const result = await currentTest()
+            let result;
+            try {
+                result = await currentTest()
+            } catch (err) {
+                if (err.toString().toLowerCase().includes("protocol error")) {
+                    throw new WrongAnswerOutcome(testNumber, err.stack)
+                }
+                throw new UnexpectedErrorOutcome(testNumber, err.stack)
+            }
 
             if (!CheckResult.isInstance(result)) {
-                throw new Error("UE: Expected result of testing is an instance of CheckResult class");
+                throw new UnexpectedErrorOutcome(testNumber, "Expected result of testing is an instance of CheckResult class")
+            }
+
+            if (!result.isCorrect) {
+                throw new WrongAnswerOutcome(testNumber, result.feedback)
             }
         }
     }
@@ -79,7 +94,7 @@ class StageTest {
         try {
             await this.executeTestCases()
         } catch (err) {
-            throw err;
+            fail(err.toString())
         } finally {
             await this._closeBrowser()
         }
