@@ -1,102 +1,88 @@
 const puppeteer = require("puppeteer")
 const {CheckResult} = require("./outcome/check_result.js")
-const {UnexpectedErrorOutcome} = require("./outcome/unexpected_error.js")
-const {WrongAnswerOutcome} = require("./outcome/wrong_answer.js")
+const {PureJsApplicationRunner} = require("./testing/runner/pure_js_application_runner.js")
+const {TestRun} = require("./testing/test_run.js")
+const {Page} = require("./environemnt/page.js")
+const {NodeEnvironment} = require("./environemnt/node.js")
+const {Browser} = require("./chrome/browser.js")
+const {UnexpectedError} = require("./exception/unexpected_error.js")
+const {WrongAnswer} = require("./exception/wrong_answer.js")
+const {Outcome} = require("./outcome/outcome.js")
 
 class StageTest {
 
-    browser = null;
+    runner = new PureJsApplicationRunner();
+
+    node = new NodeEnvironment();
     tests = [];
 
-    static async new() {
-        const browser = await puppeteer.launch({
-            headless: false,
-            defaultViewport: null,
-            args: ['--start-maximized', '--disable-infobar'],
-            ignoreDefaultArgs: ['--enable-automation'],
-            debug: true,
-            devtools: true
-        });
-        return new this(browser)
+    printTestNum(testNum) {
+        console.log("Start test " + testNum);
     }
 
-    constructor(browser) {
-        this.browser = browser
+    getPage(url) {
+        return new Page(url, this.runner.browser)
     }
 
-    async newPage(path) {
-        const page = await this.browser.newPage();
-        await page.goto(path);
-        await page.evaluate((CheckResultString) => {
-            eval(`window.CheckResult = ${CheckResultString}`);
-            this.wrong = CheckResult.wrong;
-            this.correct = CheckResult.correct;
-        }, CheckResult.toString())
-        return page;
-    }
+    async initTests() {
+        const testCount = this.tests.length;
 
-    async _closeBrowser() {
-        await this.browser.close();
-    }
-
-    async onPage(page, test) {
-        const _page = await page
-        _page.on('console', msg => console.log(msg.text()));
-        return async () => {
-            return await _page.evaluate(test)
+        if (testCount === 0) {
+            throw new UnexpectedError("No tests found");
         }
-    }
 
-    async onNewPage(path, test) {
-        const page = await this.newPage(path)
-        page.on('console', msg => console.log(msg.text()));
-        return async () => {
-            const result = await page.evaluate(test)
-            await page.close();
-            return result
-        }
-    }
-
-    async executeTestCases() {
-        if (this.tests.length === 0) {
-            throw new UnexpectedErrorOutcome(0, "No tests found")
-        }
+        const testRuns = []
 
         for (let i = 0; i < this.tests.length; i++) {
-            const testNumber = i + 1;
-            const currentTest = await this.tests[i];
+            const currTest = i + 1;
+            const testCase = await this.tests[i];
 
-            if (typeof currentTest !== 'function') {
-                throw new UnexpectedErrorOutcome(testNumber, "Found wrong test case that is not a function")
+            if (typeof testCase !== 'function') {
+                throw new UnexpectedError("Found wrong test case that is not a function");
             }
 
-            let result;
-            try {
-                result = await currentTest()
-            } catch (err) {
-                if (err.toString().toLowerCase().includes("protocol error")) {
-                    throw new WrongAnswerOutcome(testNumber, err.stack)
-                }
-                throw new UnexpectedErrorOutcome(testNumber, err.stack)
-            }
-
-            if (!CheckResult.isInstance(result)) {
-                throw new UnexpectedErrorOutcome(testNumber, "Expected result of testing is an instance of CheckResult class")
-            }
-
-            if (!result.isCorrect) {
-                throw new WrongAnswerOutcome(testNumber, result.feedback)
-            }
+            testRuns.push(new TestRun(currTest, testCount, testCase, this.runner))
         }
+
+        return testRuns
     }
 
     async _runTests() {
+        let currTest = 0;
+        let needTearDown = false;
+        let currentTestRun = null;
+
         try {
-            await this.executeTestCases()
+            const testRuns = await this.initTests();
+
+            for (let i = 0; i < testRuns.length; i++) {
+                const testRun = testRuns[i];
+
+                currTest++;
+                this.printTestNum(currTest)
+
+                if (testRun.isFirstTest()) {
+                    await testRun.setUp()
+                    needTearDown = true
+                }
+
+                currentTestRun = testRun
+                const result = await testRun.test()
+
+                if (!result.correct) {
+                    throw new WrongAnswer(result.feedback)
+                }
+
+                if (testRun.isLastTest()) {
+                    needTearDown = false
+                    await testRun.tearDown()
+                }
+            }
         } catch (err) {
-            fail(err.toString())
+            const outcome = Outcome.getOutcome(err, currTest);
+            fail(outcome.toString())
         } finally {
-            await this._closeBrowser()
+            this.runner.tearDown()
         }
     }
 

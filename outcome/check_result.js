@@ -1,7 +1,7 @@
 class CheckResult {
 
-    constructor(isCorrect, feedback) {
-        this.isCorrect = isCorrect;
+    constructor(correct, feedback) {
+        this.correct = correct;
         this.feedback = feedback;
     }
 
@@ -17,10 +17,14 @@ class CheckResult {
         if (!object) {
             return false
         }
-        return object.hasOwnProperty("isCorrect") && object.hasOwnProperty("feedback")
+        return object.hasOwnProperty("correct") && object.hasOwnProperty("feedback")
+    }
+
+    isCorrect() {
+        return this.correct;
     }
 }
 
 module.exports = {
-    CheckResult
+    CheckResult: CheckResult
 }
