@@ -1,4 +1,4 @@
-const hs = require('./stageTest');
+const hs = require('./stage/stageTest');
 
 
 test('corrected single test', async () => {
@@ -94,7 +94,7 @@ test('Fatal error wrong result type test 1', async () => {
         () => hs.wrong('Please write better code'),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' +
         'Invalid result type. Typeof result == "string", but should be "object".');
 });
 
@@ -106,7 +106,7 @@ test('Fatal error wrong result type test > 1', async () => {
         () => 'Wrong result test 4',
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #4, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #4, please send the report to support@hyperskill.org\n\n' +
         'Invalid result type. Typeof result == "string", but should be "object".');
 });
 
@@ -116,7 +116,7 @@ test('Fatal error wrong result type test 1', async () => {
         () => hs.wrong('Please write better code'),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' +
         'Invalid result type. Typeof result == "undefined", but should be "object".');
 });
 
@@ -128,7 +128,7 @@ test('Fatal error wrong result type test > 1', async () => {
         () => undefined,
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #4, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #4, please send the report to support@hyperskill.org\n\n' +
         'Invalid result type. Typeof result == "undefined", but should be "object".');
 });
 
@@ -138,7 +138,7 @@ test('Fatal error wrong function test 1', async () => {
         () => hs.wrong('Please write better code'),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' +
         'Invalid test. Typeof testCase == "string", but should be "function".');
 });
 
@@ -151,7 +151,7 @@ test('Fatal error wrong function test > 1', async () => {
         () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #3, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #3, please send the report to support@hyperskill.org\n\n' +
         'Invalid test. Typeof testCase == "string", but should be "function".');
 });
 
@@ -162,7 +162,7 @@ test('Fatal error wrong result type test 1', async () => {
         () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #1, please send the report to support@hyperskill.org\n\n' +
         'Invalid result. result["type"] == "wrong type", but should be "wrong" or "correct".');
 });
 
@@ -177,14 +177,14 @@ test('Fatal error wrong result type test > 1', async () => {
         () => hs.correct(),
     );
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error in test #5, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error in test #5, please send the report to support@hyperskill.org\n\n' +
         'Invalid result. result["type"] == "wrong type test 5", but should be "wrong" or "correct".');
 });
 
 test('Fatal error no tests', async () => {
     let res = await hs.test();
     expect(res['type']).toBe('wrong');
-    expect(res['message']).toBe('Fatal error during testing, please send the report to support@hyperskill.org\n\n' + 
+    expect(res['message']).toBe('Fatal error during testing, please send the report to support@hyperskill.org\n\n' +
         'Cannot find tests.');
 });
 
