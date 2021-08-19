@@ -21,7 +21,9 @@ class Browser {
     }
 
     async newPage() {
-        return await this.browser.newPage();
+        const page = await this.browser.newPage();
+        page.on('console', msg => console.log(msg.text()));
+        return page;
     }
 
     isLaunched() {
