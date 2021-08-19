@@ -18,8 +18,11 @@
   "files": [
     "index.js"
   ],
-  "devDependencies": {
+  "dependencies": {
     "jest": "^24.9.0",
-    "@types/jest": "^23.3.12"
+    "@types/jest": "^23.3.12",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }
