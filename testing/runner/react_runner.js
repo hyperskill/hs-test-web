@@ -114,7 +114,7 @@ class ReactRunner extends TestRunner {
                 ]
             },
             devServer: {
-                contentBase: path.join(process.cwd(), publicPath),
+                contentBase: path.resolve(this.dirPath, '..', '..', publicPath),
                 stats: 'errors-only',
             }
         };
