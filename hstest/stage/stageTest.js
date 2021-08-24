@@ -78,9 +78,9 @@ class StageTest {
             }
         } catch (err) {
             const outcome = Outcome.getOutcome(err, currTest);
-            fail(outcome.toString())
+            throw outcome.toString()
         } finally {
-            this.runner.tearDown()
+            await this.runner.tearDown()
         }
     }
 
