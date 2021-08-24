@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A small framework that simplifies testing educational projects for Hyperskill.",
   "author": "Vladimir Turov",
-  "main": "index.js",
+  "main": "hstest/index.js",
   "type": "module",
   "scripts": {
     "test": "jest"
@@ -16,7 +16,7 @@
     "url": "https://github.com/hyperskill/hs-test-web/issues"
   },
   "files": [
-    "index.js"
+    "hstest/index.js"
   ],
   "dependencies": {
     "jest": "^24.9.0",

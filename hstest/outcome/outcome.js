@@ -32,11 +32,11 @@ class Outcome {
     }
 
     static getOutcome(ex, currTest) {
-        const {WrongAnswerOutcome} = require("../outcome/wrong_answer_outcome.js")
-        const {UnexpectedErrorOutcome} = require("../outcome/unexpected_error_outcome.js")
-        const {ExceptionOutcome} = require("../outcome/exception_outcome.js")
-        const {ErrorOutcome} = require("../outcome/error_outcome.js")
-        const {CompiliationErrorOutcome} = require("../outcome/compiliation_error_outcome.js")
+        const {WrongAnswerOutcome} = require("./wrong_answer_outcome.js")
+        const {UnexpectedErrorOutcome} = require("./unexpected_error_outcome.js")
+        const {ExceptionOutcome} = require("./exception_outcome.js")
+        const {ErrorOutcome} = require("./error_outcome.js")
+        const {CompiliationErrorOutcome} = require("./compiliation_error_outcome.js")
 
 
         if (ex instanceof WrongAnswer) {

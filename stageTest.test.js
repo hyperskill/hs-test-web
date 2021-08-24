@@ -1,4 +1,4 @@
-const hs = require('./stage/stageTest');
+const hs = require('./hstest/stage/stageTest');
 
 
 test('corrected single test', async () => {
