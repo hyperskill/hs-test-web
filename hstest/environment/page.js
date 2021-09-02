@@ -11,10 +11,10 @@ class Page {
     }
 
     async evaluate(func) {
-        return await this.execute(func)
+        return await this.execute(func)()
     }
 
-    async execute(func) {
+    execute(func) {
         return async () => {
             await this.open();
             return await this.pageInstance.evaluate(func)
