@@ -18,15 +18,13 @@
   "files": [
     "hstest/index.js"
   ],
-  "devDependencies": {
-    "puppeteer": ">=2.0.0"
-  },
   "dependencies": {
     "jest": "^24.9.0",
     "@types/jest": "^23.3.12",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
-    "callsite": "^1.0.0"
+    "callsite": "^1.0.0",
+    "puppeteer": ">=2.0.0"
   }
 }
