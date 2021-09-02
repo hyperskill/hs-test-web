@@ -1,15 +1,32 @@
 class CheckResult {
 
     constructor(correct, feedback) {
-        this.correct = correct;
+        this.isCorrect = correct;
         this.feedback = feedback;
     }
 
     static correct() {
+        console.log(global.isNewTests)
+        if (!global.isNewTests) {
+            return {
+                'type': 'correct'
+            }
+        }
         return new CheckResult(true, '')
     }
 
     static wrong(message) {
+        if (typeof message != 'string') {
+            message = '';
+        }
+
+        if (!global.isNewTests) {
+            return {
+                'type': 'wrong',
+                'message': message.trim()
+            }
+        }
+
         return new CheckResult(false, message)
     }
 
@@ -17,11 +34,11 @@ class CheckResult {
         if (!object) {
             return false
         }
-        return object.hasOwnProperty("correct") && object.hasOwnProperty("feedback")
+        return object.hasOwnProperty("isCorrect") && object.hasOwnProperty("feedback")
     }
 
     isCorrect() {
-        return this.correct;
+        return this.isCorrect;
     }
 }
 

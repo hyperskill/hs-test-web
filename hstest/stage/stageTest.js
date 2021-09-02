@@ -67,13 +67,12 @@ class StageTest {
                 currentTestRun = testRun
                 const result = await testRun.test()
 
-                if (!result.correct) {
+                if (!result.isCorrect) {
                     throw new WrongAnswer(result.feedback)
                 }
 
                 if (testRun.isLastTest()) {
                     needTearDown = false
-                    await testRun.tearDown()
                 }
             }
         } catch (err) {

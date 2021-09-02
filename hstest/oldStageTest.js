@@ -188,6 +188,9 @@ async function testPage(page, ...tests) {
 }
 
 async function baseTest(page = null, ...tests) {
+
+    global.isNewTests = false
+
     if (page !== null) {
         try {
             await initHsObjectInBrowser(page)
@@ -261,6 +264,4 @@ async function baseTest(page = null, ...tests) {
 
 exports.test = test;
 exports.testPage = testPage;
-exports.wrong = wrong;
-exports.correct = correct;
 exports.onPage = onPage;
