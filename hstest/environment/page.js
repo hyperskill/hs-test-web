@@ -25,7 +25,7 @@ class Page {
         if (!this.isOppened) {
             this.pageInstance = await this.browser.newPage();
             await this.pageInstance.goto(this.url)
-            await this.pageInstance.evaluate((CheckResultString) => {
+            await this.pageInstance.evaluate((CheckResultString, isNewTests) => {
                 eval(`window.CheckResult = ${CheckResultString}`);
 
                 let unusualCharToCode = {
@@ -161,10 +161,13 @@ class Page {
                     dispatchKeyboardEvent(destination, 'keyup', key);
                 }
 
+                this.global = {
+                    isNewTests: isNewTests
+                }
                 this.wrong = CheckResult.wrong;
                 this.correct = CheckResult.correct;
 
-            }, CheckResult.toString())
+            }, CheckResult.toString(), global.isNewTests)
             this.isOppened = true
         }
     }
