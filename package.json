@@ -6,7 +6,7 @@
   "main": "hstest/index.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "set NODE_ENV=testlib && jest"
   },
   "repository": {
     "type": "git",
