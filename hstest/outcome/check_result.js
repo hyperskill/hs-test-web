@@ -6,7 +6,6 @@ class CheckResult {
     }
 
     static correct() {
-        console.log(global.isNewTests)
         if (!global.isNewTests) {
             return {
                 'type': 'correct'
