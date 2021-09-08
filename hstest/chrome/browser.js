@@ -11,7 +11,7 @@ class Browser {
 
         let additionalBrowserLaunchArgs = {}
 
-        if (process.env.NODE_ENV === 'testlib') {
+        if (process.env.NODE_ENV.trim() === 'testlib') {
             additionalBrowserLaunchArgs['headless'] = true
         }
 
