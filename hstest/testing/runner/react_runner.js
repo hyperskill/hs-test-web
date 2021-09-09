@@ -132,6 +132,9 @@ class ReactRunner extends TestRunner {
         this.server.compiler.hooks.afterCompile.tap('afterCompile', (params) => {
             complied = true;
             errors = params.errors;
+            if (errors.length !== 0) {
+                this.server.close()
+            }
         });
 
         while (!complied) {
