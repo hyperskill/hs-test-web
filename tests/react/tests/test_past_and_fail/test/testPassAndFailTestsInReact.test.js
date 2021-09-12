@@ -9,6 +9,16 @@ class TestCorrect extends ReactTest {
 
     tests = [
         this.page.execute(() => {
+            const app = document.getElementsByClassName("App")
+
+            if (app[0] === null) {
+                return wrong("can't find element with #app")
+            }
+
+            if (app[0].textContent !== 'Edit src/App.js and save to reload.Learn React') {
+                return wrong("Wrong text content!")
+            }
+
             return correct()
         })
     ];
@@ -19,6 +29,7 @@ test('corrected single test', async () => {
     try {
         await new TestCorrect().runTests()
     } catch (err) {
+        console.log(err)
         fail("The test should pass all test cases!")
     }
 });

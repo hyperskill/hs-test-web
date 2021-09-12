@@ -3,7 +3,7 @@ const pagePath = 'file://' + path.resolve(__dirname, './index.html');
 
 const {StageTest, correct, wrong} = require('hs-test-web');
 
-class Test extends StageTest {
+class TestTest extends StageTest {
 
     page = this.getPage(pagePath)
 
@@ -26,7 +26,7 @@ class Test extends StageTest {
 
             return correct()
         }),
-        // Test #1 - audio object creation check
+        // TestTest #1 - audio object creation check
         this.page.execute(() => {
             let keys = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'w', 'e', 't', 'y', 'u'];
             keys.forEach(function (key) {
@@ -45,7 +45,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #2 - check div element with class 'container' + 2 elements inside
+        // TestTest #2 - check div element with class 'container' + 2 elements inside
         this.page.execute(() => {
             let containerElements = document.getElementsByClassName('container');
             if (containerElements.length === 0) {
@@ -73,7 +73,7 @@ class Test extends StageTest {
                 correct() :
                 wrong(`Div with class 'container' should contain 2 elements, found: ${len}`)
         }),
-        // Test #3 - check if all keys are presented
+        // TestTest #3 - check if all keys are presented
         this.page.execute(() => {
             let expectedKeySet = new Set();
 
@@ -108,7 +108,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #4 - check if all 2 elements are <div> elements
+        // TestTest #4 - check if all 2 elements are <div> elements
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -121,7 +121,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #5 - check div element with class 'white-keys' + 7 elements inside
+        // TestTest #5 - check div element with class 'white-keys' + 7 elements inside
         this.page.execute(() => {
             let whiteKeysElement = document.getElementsByClassName('white-keys');
             if (whiteKeysElement.length === 0) {
@@ -150,7 +150,7 @@ class Test extends StageTest {
                 wrong(`Div with class 'white-keys' should contain 7 elements, found: ${len}`)
         }),
 
-        // Test #6 - check if all 7 elements are <kbd> elements
+        // TestTest #6 - check if all 7 elements are <kbd> elements
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -163,7 +163,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #7 - check if all 7 elements contain a single letter
+        // TestTest #7 - check if all 7 elements contain a single letter
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -179,7 +179,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #8 - Test that only one instance of each button
+        // TestTest #8 - TestTest that only one instance of each button
         this.page.execute(() => {
             let buttons = document.querySelectorAll('kbd');
 
@@ -205,7 +205,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #9 - Test if all elements have the same top y-coordinate
+        // TestTest #9 - TestTest if all elements have the same top y-coordinate
         // (located on a single horizontal line)
         this.page.execute(() => {
             let referenceTop = this.innerDivElements[0].getBoundingClientRect().top;
@@ -222,7 +222,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #10 - Test if all elements are located in the middle
+        // TestTest #10 - TestTest if all elements are located in the middle
         this.page.execute(() => {
             let width = window.innerWidth;
             let height = window.innerHeight;
@@ -257,7 +257,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #11 - Test if all elements have border
+        // TestTest #11 - TestTest if all elements have border
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -271,7 +271,7 @@ class Test extends StageTest {
             return correct()
         }),
 
-        // Test #12 - Test if 7 element's background color is white and
+        // TestTest #12 - TestTest if 7 element's background color is white and
         // body's background in not white
         this.page.execute(() => {
             this.getRealColor = function (elem) {
@@ -314,7 +314,7 @@ class Test extends StageTest {
             return correct()
         }),
 
-        // Test #13 - Test width, height
+        // TestTest #13 - TestTest width, height
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -335,7 +335,7 @@ class Test extends StageTest {
             }
             return correct()
         }),
-        // Test 14 - Checking key distances between keys
+        // TestTest 14 - Checking key distances between keys
         this.page.execute(() => {
             let buttons = document.querySelectorAll('kbd');
 
@@ -366,7 +366,7 @@ class Test extends StageTest {
             return correct()
         }),
 
-        // Test #15 - check div element with class 'black-keys' + 5 elements inside
+        // TestTest #15 - check div element with class 'black-keys' + 5 elements inside
         this.page.execute(() => {
             let blackKeysElement = document.getElementsByClassName('black-keys');
             if (blackKeysElement.length === 0) {
@@ -396,7 +396,7 @@ class Test extends StageTest {
                 wrong(`Div with class 'black-keys' should contain 5 elements, found: ${len}`)
         }),
 
-        // Test #16 - check if all 5 elements are <kbd> elements
+        // TestTest #16 - check if all 5 elements are <kbd> elements
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -409,7 +409,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #17 - check if all 5 elements contain a single letter
+        // TestTest #17 - check if all 5 elements contain a single letter
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -425,7 +425,7 @@ class Test extends StageTest {
             return correct();
         }),
 
-        // Test #18 - Test if the background color of 5 elements is black
+        // TestTest #18 - TestTest if the background color of 5 elements is black
         this.page.execute(() => {
             let i = 0;
             for (let elem of this.innerDivElements) {
@@ -439,7 +439,7 @@ class Test extends StageTest {
             return correct()
         }),
 
-        // Test #19 - Test if there is enough space between E and T keyboards
+        // TestTest #19 - TestTest if there is enough space between E and T keyboards
         this.page.execute(() => {
             let buttons = document.querySelectorAll('kbd');
 
@@ -482,7 +482,7 @@ class Test extends StageTest {
 
 
 jest.setTimeout(30000);
-test("Test stage", async () => {
-        await new Test().runTests()
+test("TestTest stage", async () => {
+        await new TestTest().runTests()
     }
 );

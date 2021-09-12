@@ -9,7 +9,7 @@ const sleep = (ms) => new Promise(res => setTimeout(res, ms));
 
 async function stageTest() {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
         args: ['--start-maximized']
     });
