@@ -67,6 +67,10 @@ class StageTest {
                 currentTestRun = testRun
                 const result = await testRun.test()
 
+                if (!result.hasOwnProperty('isCorrect') || !result.hasOwnProperty('feedback')) {
+                    throw new UnexpectedError('Expected CheckResult instance as a result of the test case')
+                }
+
                 if (!result.isCorrect) {
                     throw new WrongAnswer(result.feedback)
                 }
