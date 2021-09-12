@@ -6,7 +6,7 @@
   "main": "hstest/index.js",
   "type": "module",
   "scripts": {
-    "test": "set NODE_ENV=testlib && jest"
+    "test": "set NODE_ENV=testlib && jest --maxWorkers 1"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,20 @@
     "webpack-dev-server": "^3.10.3",
     "callsite": "^1.0.0",
     "puppeteer": ">=2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": ">=7.9.6",
+    "@babel/preset-env": ">=7.9.6",
+    "@babel/preset-react": ">=7.9.4",
+    "babel-loader": ">=8.1.0",
+    "css-loader": ">=3.5.3",
+    "file-loader": ">=6.0.0",
+    "hs-test-web": "https://github.com/hyperskill/hs-test-web/archive/release.tar.gz",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }
