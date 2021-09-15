@@ -9,7 +9,7 @@ const sleep = (ms) => new Promise(res => setTimeout(res, ms));
 
 async function stageTest() {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
         args:['--start-maximized']
     });
@@ -227,20 +227,6 @@ async function stageTest() {
             }
 
             return hs.correct()
-        },
-
-        // Test #13
-        () => {
-            let burger = document.getElementsByClassName('hamburger')[0];
-
-            let display = window.getComputedStyle(burger).display;
-            let visibility = window.getComputedStyle(burger).visibility;
-
-            if (window.innerWidth >= 900 && (display === 'none' || visibility === 'hidden')) {
-                return hs.correct()
-            }
-
-            return hs.wrong('The menu must not be hamburger when the screen width >= 900 px');
         }
     );
 
