@@ -1,4 +1,4 @@
-const {CheckResult} = require("../outcome/check_result.js")
+const {CheckResult} = require("../outcome/checkResult.js")
 
 
 class Page {

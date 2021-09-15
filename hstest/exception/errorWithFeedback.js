@@ -1,6 +1,6 @@
-const {OutcomeError} = require("./outcome_error.js")
+const {OutcomeError} = require("./outcomeError.js")
 
-class ExceptionWithFeedback extends OutcomeError {
+class ErrorWithFeedback extends OutcomeError {
     constructor(errorText, cause) {
         super(errorText);
         this.errorText = errorText;
@@ -9,5 +9,5 @@ class ExceptionWithFeedback extends OutcomeError {
 }
 
 module.exports = {
-    ExceptionWithFeedback
+    ErrorWithFeedback
 }

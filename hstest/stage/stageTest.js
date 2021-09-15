@@ -1,10 +1,10 @@
-const {CheckResult} = require("../outcome/check_result.js")
+const {CheckResult} = require("../outcome/checkResult.js")
 const {PureJsApplicationRunner} = require("../testing/runner/pure_js_application_runner.js")
 const {TestRun} = require("../testing/test_run.js")
 const {Page} = require("../environment/page.js")
 const {NodeEnvironment} = require("../environment/node.js")
-const {UnexpectedError} = require("../exception/unexpected_error.js")
-const {WrongAnswer} = require("../exception/wrong_answer.js")
+const {UnexpectedError} = require("../exception/unexpectedError.js")
+const {WrongAnswer} = require("../exception/wrongAnswer.js")
 const {Outcome} = require("../outcome/outcome.js")
 
 class StageTest {

@@ -1,6 +1,6 @@
 const {StageTest} = require("./stage/stageTest.js")
 const {ReactTest} = require("./stage/reactTest.js")
-const {CheckResult} = require("./outcome/check_result.js")
+const {CheckResult} = require("./outcome/checkResult.js")
 
 global.isNewTests = true
 

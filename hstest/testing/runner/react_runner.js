@@ -1,4 +1,4 @@
-const {CompilationError} = require("../../exception/compilation_error.js")
+const {CompilationError} = require("../../exception/compilationError.js")
 
 const {TestRunner} = require("./runner.js")
 

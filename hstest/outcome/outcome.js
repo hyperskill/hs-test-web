@@ -1,8 +1,8 @@
-const {WrongAnswer} = require("../exception/wrong_answer.js")
-const {ExceptionWithFeedback} = require("../exception/exception_with_feedback.js")
-const {ErrorWithFeedback} = require("../exception/error_with_feedback.js")
-const {UnexpectedError} = require("../exception/unexpected_error.js")
-const {CompilationError} = require("../exception/compilation_error.js")
+const {WrongAnswer} = require("../exception/wrongAnswer.js")
+const {ExceptionWithFeedback} = require("../exception/exceptionWithFeedback.js")
+const {ErrorWithFeedback} = require("../exception/errorWithFeedback.js")
+const {UnexpectedError} = require("../exception/unexpectedError.js")
+const {CompilationError} = require("../exception/compilationError.js")
 
 class Outcome {
     constructor(testNumber, errorText) {
@@ -32,11 +32,11 @@ class Outcome {
     }
 
     static getOutcome(ex, currTest) {
-        const {WrongAnswerOutcome} = require("./wrong_answer_outcome.js")
-        const {UnexpectedErrorOutcome} = require("./unexpected_error_outcome.js")
-        const {ExceptionOutcome} = require("./exception_outcome.js")
-        const {ErrorOutcome} = require("./error_outcome.js")
-        const {CompiliationErrorOutcome} = require("./compiliation_error_outcome.js")
+        const {WrongAnswerOutcome} = require("./wrongAnswerOutcome.js")
+        const {UnexpectedErrorOutcome} = require("./unexpectedErrorOutcome.js")
+        const {ExceptionOutcome} = require("./exceptionOutcome.js")
+        const {ErrorOutcome} = require("./errorOutcome.js")
+        const {CompiliationErrorOutcome} = require("./compiliationErrorOutcome.js")
 
 
         if (ex instanceof WrongAnswer) {

@@ -1,4 +1,4 @@
-const {OutcomeError} = require("./outcome_error.js")
+const {OutcomeError} = require("./outcomeError.js")
 
 class WrongAnswer extends OutcomeError {
 
