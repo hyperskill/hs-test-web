@@ -2,8 +2,20 @@ const {WrongAnswer} = require("../exception/wrongAnswer.js")
 
 
 class Element {
-    constructor(elementHandle) {
+    constructor(elementHandle, selector, parent) {
         this.elementHandle = elementHandle
+        this.selector = selector
+        this.parent = parent
+    }
+
+    static getElementPath(element) {
+        const elements = []
+        let currentElement = element
+        while (currentElement) {
+            elements.push(currentElement.selector)
+            currentElement = currentElement.parent
+        }
+        return elements.reverse().join(' > ')
     }
 
     async select(selector) {
@@ -11,27 +23,35 @@ class Element {
     }
 
     async findById(id) {
-        const element = await this.select(`#${id}`)
+        const idSelector = `#${id}`
+        const element = await this.select(idSelector)
+        const elementWrapper = new Element(element, idSelector, this)
         if (element === null) {
-            throw new WrongAnswer(`Can't find element with id '${id}'`)
+            const elementPath = Element.getElementPath(elementWrapper)
+            throw new WrongAnswer(`Can't find element '${elementPath}'`)
         }
-        return new Element(element)
+        return elementWrapper
     }
 
     async findByClassName(className) {
-        const element = await this.select(`.${className}`)
+        const classSelector = `.${className}`
+        const element = await this.select(classSelector)
+        const elementWrapper = new Element(element, classSelector, this)
         if (element === null) {
-            throw new WrongAnswer(`Can't find element with class '${className}'`)
+            const elementPath = Element.getElementPath(elementWrapper)
+            throw new WrongAnswer(`Can't find element '${elementPath}'`)
         }
-        return new Element(element)
+        return elementWrapper
     }
 
     async findBySelector(selector) {
         const element = await this.select(`${selector}`)
+        const elementWrapper = new Element(element, selector, this)
         if (element === null) {
-            throw new WrongAnswer(`Can't find element with selector '${selector}'`)
+            const elementPath = Element.getElementPath(elementWrapper)
+            throw new WrongAnswer(`Can't find element '${elementPath}'`)
         }
-        return new Element(element)
+        return elementWrapper
     }
 }
 

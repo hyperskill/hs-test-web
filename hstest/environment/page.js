@@ -174,15 +174,18 @@ class Page {
         }
     }
 
-    async _getHtmlTag() {
+    async _getBodyTag() {
         await this.open()
+        const bodySelector = 'body'
         return new Element(
-            await this.pageInstance.$('html')
+            await this.pageInstance.$(bodySelector),
+            bodySelector,
+            null
         );
     }
 
     async findById(id) {
-        const element = await (await this._getHtmlTag()).findById(id)
+        const element = await (await this._getBodyTag()).findById(id)
         if (element === null) {
             throw new WrongAnswer(`Can't find element with class '${id}'`)
         }
@@ -190,7 +193,7 @@ class Page {
     }
 
     async findByClassName(className) {
-        const element = await (await this._getHtmlTag()).findByClassName(className)
+        const element = await (await this._getBodyTag()).findByClassName(className)
         if (element === null) {
             throw new WrongAnswer(`Can't find element with class '${className}'`)
         }
@@ -198,7 +201,7 @@ class Page {
     }
 
     async findBySelector(selector) {
-        const element = await (await this._getHtmlTag()).findBySelector(selector)
+        const element = await (await this._getBodyTag()).findBySelector(selector)
         if (element === null) {
             throw new WrongAnswer(`Can't find element with selector '${selector}'`)
         }

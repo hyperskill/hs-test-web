@@ -20,7 +20,7 @@ test('test elements', async () => {
         await new TestFindNonExistingElementTest1().runTests()
     } catch (err) {
         expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element with class 'non_existing'")
+            "Can't find element 'body > .non_existing'")
         return
     }
     fail("The test should fail with wrong answer message!")
@@ -43,7 +43,7 @@ test('test elements', async () => {
         await new TestFindNonExistingElementTest2().runTests()
     } catch (err) {
         expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element with id 'non_existing'")
+            "Can't find element 'body > #non_existing'")
         return
     }
     fail("The test should fail with wrong answer message!")
@@ -66,7 +66,7 @@ test('test elements', async () => {
         await new TestFindNonExistingElementTest3().runTests()
     } catch (err) {
         expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element with selector 'input[type='password']'")
+            "Can't find element 'body > input[type='password']'")
         return
     }
     fail("The test should fail with wrong answer message!")
@@ -90,7 +90,7 @@ test('test elements', async () => {
         await new TestFindNonExistingElementTest4().runTests()
     } catch (err) {
         expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element with class 'non_existing'")
+            "Can't find element 'body > .test > .non_existing'")
         return
     }
     fail("The test should fail with wrong answer message!")
@@ -114,7 +114,7 @@ test('test elements', async () => {
         await new TestFindNonExistingElementTest5().runTests()
     } catch (err) {
         expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element with id 'wrapper'")
+            "Can't find element 'body > .test > #wrapper'")
         return
     }
     fail("The test should fail with wrong answer message!")
@@ -138,7 +138,7 @@ test('test elements', async () => {
         await new TestFindNonExistingElementTest6().runTests()
     } catch (err) {
         expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element with selector 'input[type='text']'")
+            "Can't find element 'body > .test > input[type='text']'")
         return
     }
     fail("The test should fail with wrong answer message!")
