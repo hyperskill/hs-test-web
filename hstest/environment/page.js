@@ -1,4 +1,6 @@
 const {CheckResult} = require("../outcome/checkResult.js")
+const {WrongAnswer} = require("../exception/wrongAnswer.js")
+const {Element} = require("./element.js")
 
 
 class Page {
@@ -170,6 +172,37 @@ class Page {
             }, CheckResult.toString(), global.isNewTests)
             this.isOppened = true
         }
+    }
+
+    async _getHtmlTag() {
+        await this.open()
+        return new Element(
+            await this.pageInstance.$('html')
+        );
+    }
+
+    async findById(id) {
+        const element = await (await this._getHtmlTag()).findById(id)
+        if (element === null) {
+            throw new WrongAnswer(`Can't find element with class '${id}'`)
+        }
+        return element
+    }
+
+    async findByClassName(className) {
+        const element = await (await this._getHtmlTag()).findByClassName(className)
+        if (element === null) {
+            throw new WrongAnswer(`Can't find element with class '${className}'`)
+        }
+        return element
+    }
+
+    async findBySelector(selector) {
+        const element = await (await this._getHtmlTag()).findBySelector(selector)
+        if (element === null) {
+            throw new WrongAnswer(`Can't find element with selector '${selector}'`)
+        }
+        return element
     }
 }
 
