@@ -1,5 +1,3 @@
-const {CheckResult} = require("../outcome/checkResult.js")
-
 class TestRun {
     constructor(testNum, testCount, testCase, runner) {
         this.testNum = testNum;

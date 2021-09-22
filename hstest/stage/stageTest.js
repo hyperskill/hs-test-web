@@ -1,6 +1,6 @@
 const {CheckResult} = require("../outcome/checkResult.js")
 const {PureJsApplicationRunner} = require("../testing/runner/pureJsApplicationRunner.js")
-const {TestRun} = require("../testing/test_run.js")
+const {TestRun} = require("../testing/testRun.js")
 const {Page} = require("../environment/page.js")
 const {NodeEnvironment} = require("../environment/node.js")
 const {UnexpectedError} = require("../exception/unexpectedError.js")
