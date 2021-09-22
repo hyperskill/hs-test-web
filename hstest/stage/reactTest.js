@@ -11,7 +11,7 @@ class ReactTest extends StageTest {
     constructor() {
         super();
         try {
-            const {ReactRunner} = require("../testing/runner/react_runner.js")
+            const {ReactRunner} = require("../testing/runner/reactRunner.js")
             const stack = callsite(),
                 requester = stack[1].getFileName();
             const path_folders = requester.split(path.sep)

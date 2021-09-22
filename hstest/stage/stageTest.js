@@ -1,5 +1,5 @@
 const {CheckResult} = require("../outcome/checkResult.js")
-const {PureJsApplicationRunner} = require("../testing/runner/pure_js_application_runner.js")
+const {PureJsApplicationRunner} = require("../testing/runner/pureJsApplicationRunner.js")
 const {TestRun} = require("../testing/test_run.js")
 const {Page} = require("../environment/page.js")
 const {NodeEnvironment} = require("../environment/node.js")
