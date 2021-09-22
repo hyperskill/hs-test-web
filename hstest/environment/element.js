@@ -22,26 +22,18 @@ class Element {
         return await this.elementHandle.$(selector)
     }
 
+    async selectAll(selector) {
+        return await this.elementHandle.$$(selector)
+    }
+
     async findById(id) {
         const idSelector = `#${id}`
-        const element = await this.select(idSelector)
-        const elementWrapper = new Element(element, idSelector, this)
-        if (element === null) {
-            const elementPath = Element.getElementPath(elementWrapper)
-            throw new WrongAnswer(`Can't find element '${elementPath}'`)
-        }
-        return elementWrapper
+        return await this.findBySelector(idSelector)
     }
 
     async findByClassName(className) {
         const classSelector = `.${className}`
-        const element = await this.select(classSelector)
-        const elementWrapper = new Element(element, classSelector, this)
-        if (element === null) {
-            const elementPath = Element.getElementPath(elementWrapper)
-            throw new WrongAnswer(`Can't find element '${elementPath}'`)
-        }
-        return elementWrapper
+        return await this.findBySelector(classSelector)
     }
 
     async findBySelector(selector) {
@@ -52,6 +44,21 @@ class Element {
             throw new WrongAnswer(`Can't find element '${elementPath}'`)
         }
         return elementWrapper
+    }
+
+    async findAllByClassName(className) {
+        const classSelector = `.${className}`
+        return this.findAllBySelector(classSelector)
+    }
+
+    async findAllBySelector(selector) {
+        const elements = await this.selectAll(`${selector}`)
+        const elementWrapper = new Element(elements, selector, this)
+        if (elements.length === 0) {
+            const elementPath = Element.getElementPath(elementWrapper)
+            throw new WrongAnswer(`Can't find any element '${elementPath}'`)
+        }
+        return elements.map(element => new Element(element, selector, this))
     }
 }
 

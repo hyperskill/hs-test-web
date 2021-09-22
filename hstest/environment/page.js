@@ -1,5 +1,4 @@
 const {CheckResult} = require("../outcome/checkResult.js")
-const {WrongAnswer} = require("../exception/wrongAnswer.js")
 const {Element} = require("./element.js")
 
 
@@ -185,27 +184,23 @@ class Page {
     }
 
     async findById(id) {
-        const element = await (await this._getBodyTag()).findById(id)
-        if (element === null) {
-            throw new WrongAnswer(`Can't find element with class '${id}'`)
-        }
-        return element
+        return  await (await this._getBodyTag()).findById(id)
     }
 
     async findByClassName(className) {
-        const element = await (await this._getBodyTag()).findByClassName(className)
-        if (element === null) {
-            throw new WrongAnswer(`Can't find element with class '${className}'`)
-        }
-        return element
+        return  await (await this._getBodyTag()).findByClassName(className)
     }
 
     async findBySelector(selector) {
-        const element = await (await this._getBodyTag()).findBySelector(selector)
-        if (element === null) {
-            throw new WrongAnswer(`Can't find element with selector '${selector}'`)
-        }
-        return element
+        return  await (await this._getBodyTag()).findBySelector(selector)
+    }
+
+    async findAllByClassName(className) {
+        return  await (await this._getBodyTag()).findAllByClassName(className)
+    }
+
+    async findAllBySelector(selector) {
+        return  await (await this._getBodyTag()).findAllBySelector(selector)
     }
 }
 
