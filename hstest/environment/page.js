@@ -184,23 +184,23 @@ class Page {
     }
 
     async findById(id) {
-        return  await (await this._getBodyTag()).findById(id)
+        return await (await this._getBodyTag()).findById(id)
     }
 
     async findByClassName(className) {
-        return  await (await this._getBodyTag()).findByClassName(className)
+        return await (await this._getBodyTag()).findByClassName(className)
     }
 
     async findBySelector(selector) {
-        return  await (await this._getBodyTag()).findBySelector(selector)
+        return await (await this._getBodyTag()).findBySelector(selector)
     }
 
     async findAllByClassName(className) {
-        return  await (await this._getBodyTag()).findAllByClassName(className)
+        return await (await this._getBodyTag()).findAllByClassName(className)
     }
 
     async findAllBySelector(selector) {
-        return  await (await this._getBodyTag()).findAllBySelector(selector)
+        return await (await this._getBodyTag()).findAllBySelector(selector)
     }
 }
 

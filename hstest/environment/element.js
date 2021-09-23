@@ -1,7 +1,7 @@
 const {WrongAnswer} = require("../exception/wrongAnswer.js")
 
-
 class Element {
+
     constructor(elementHandle, selector, parent) {
         this.elementHandle = elementHandle
         this.selector = selector
@@ -18,6 +18,34 @@ class Element {
         return elements.reverse().join(' > ')
     }
 
+    // Element properties
+
+    async getProperty(property) {
+        return (await this.elementHandle.getProperty(property).then(result => result.jsonValue())).toString().trim()
+    }
+
+    async textContent() {
+        return await this.getProperty('textContent')
+    }
+
+    async innerHtml() {
+        return await this.getProperty('innerHTML')
+    }
+
+    async className() {
+        return await this.getProperty('className')
+    }
+
+    async getStyle(style) {
+        return (await this.elementHandle.evaluate(
+            (element, style) => element.style.getPropertyValue(style).toString().trim(), style))
+    }
+
+    async getComputedStyle(style) {
+        return await this.elementHandle.evaluate(
+            (element, style) => getComputedStyle(element).getPropertyValue(style).toString().trim(), style)
+    }
+
     async select(selector) {
         return await this.elementHandle.$(selector)
     }
@@ -25,6 +53,8 @@ class Element {
     async selectAll(selector) {
         return await this.elementHandle.$$(selector)
     }
+
+    // Find functions
 
     async findById(id) {
         const idSelector = `#${id}`

@@ -1,4 +1,4 @@
-const {StageTest, correct, wrong} = require("../../../hstest/index.js")
+const {StageTest, correct, wrong} = require("../../../../hstest")
 const path = require("path")
 
 const pagePath = path.join(__dirname, './index.html')
