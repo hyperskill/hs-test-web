@@ -181,7 +181,8 @@ class Page {
         return new Element(
             await this.pageInstance.$(bodySelector),
             bodySelector,
-            null
+            null,
+            this.pageInstance
         );
     }
 

@@ -10,20 +10,16 @@ class TestFindNonExistingElementTest1 extends StageTest {
     tests = [
         this.node.execute(async () => {
             const test = await this.page.findByClassName('non_existing')
+            if (test !== null) {
+                return wrong('should be null')
+            }
             return correct()
         })
     ]
 }
 
 test('test elements', async () => {
-    try {
-        await new TestFindNonExistingElementTest1().runTests()
-    } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element 'body > .non_existing'")
-        return
-    }
-    fail("The test should fail with wrong answer message!")
+    await new TestFindNonExistingElementTest1().runTests()
 });
 
 class TestFindNonExistingElementTest2 extends StageTest {
@@ -33,20 +29,16 @@ class TestFindNonExistingElementTest2 extends StageTest {
     tests = [
         this.node.execute(async () => {
             const test = await this.page.findById('non_existing')
+            if (test !== null) {
+                return wrong('should be null')
+            }
             return correct()
         })
     ]
 }
 
 test('test elements', async () => {
-    try {
-        await new TestFindNonExistingElementTest2().runTests()
-    } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element 'body > #non_existing'")
-        return
-    }
-    fail("The test should fail with wrong answer message!")
+    await new TestFindNonExistingElementTest2().runTests()
 });
 
 class TestFindNonExistingElementTest3 extends StageTest {
@@ -56,20 +48,16 @@ class TestFindNonExistingElementTest3 extends StageTest {
     tests = [
         this.node.execute(async () => {
             const test = await this.page.findBySelector("input[type='password']")
+            if (test !== null) {
+                return wrong('should be null')
+            }
             return correct()
         })
     ]
 }
 
 test('test elements', async () => {
-    try {
-        await new TestFindNonExistingElementTest3().runTests()
-    } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element 'body > input[type='password']'")
-        return
-    }
-    fail("The test should fail with wrong answer message!")
+    await new TestFindNonExistingElementTest3().runTests()
 });
 
 class TestFindNonExistingElementTest4 extends StageTest {
@@ -79,21 +67,17 @@ class TestFindNonExistingElementTest4 extends StageTest {
     tests = [
         this.node.execute(async () => {
             const test = await this.page.findByClassName("test")
-            await test.findByClassName('non_existing')
+            const result = await test.findByClassName('non_existing')
+            if (result !== null) {
+                return wrong('should be null')
+            }
             return correct()
         })
     ]
 }
 
 test('test elements', async () => {
-    try {
-        await new TestFindNonExistingElementTest4().runTests()
-    } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element 'body > .test > .non_existing'")
-        return
-    }
-    fail("The test should fail with wrong answer message!")
+    await new TestFindNonExistingElementTest4().runTests()
 });
 
 class TestFindNonExistingElementTest5 extends StageTest {
@@ -103,21 +87,17 @@ class TestFindNonExistingElementTest5 extends StageTest {
     tests = [
         this.node.execute(async () => {
             const test = await this.page.findByClassName("test")
-            await test.findById('wrapper')
+            const result = await test.findById('wrapper')
+            if (result !== null) {
+                return wrong('should be null')
+            }
             return correct()
         })
     ]
 }
 
 test('test elements', async () => {
-    try {
-        await new TestFindNonExistingElementTest5().runTests()
-    } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element 'body > .test > #wrapper'")
-        return
-    }
-    fail("The test should fail with wrong answer message!")
+    await new TestFindNonExistingElementTest5().runTests()
 });
 
 class TestFindNonExistingElementTest6 extends StageTest {
@@ -127,20 +107,16 @@ class TestFindNonExistingElementTest6 extends StageTest {
     tests = [
         this.node.execute(async () => {
             const test = await this.page.findByClassName("test")
-            await test.findBySelector("input[type='text']")
+            const result = await test.findBySelector("input[type='text']")
+            if (result !== null) {
+                return wrong('should be null')
+            }
             return correct()
         })
     ]
 }
 
 test('test elements', async () => {
-    try {
-        await new TestFindNonExistingElementTest6().runTests()
-    } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\n" +
-            "Can't find element 'body > .test > input[type='text']'")
-        return
-    }
-    fail("The test should fail with wrong answer message!")
+    await new TestFindNonExistingElementTest6().runTests()
 });
 

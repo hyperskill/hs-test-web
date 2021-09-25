@@ -1,11 +1,10 @@
-const {WrongAnswer} = require("../exception/wrongAnswer.js")
-
 class Element {
 
-    constructor(elementHandle, selector, parent) {
+    constructor(elementHandle, selector, parent, page) {
         this.elementHandle = elementHandle
         this.selector = selector
         this.parent = parent
+        this.page = page
     }
 
     static getElementPath(element) {
@@ -68,10 +67,11 @@ class Element {
 
     async findBySelector(selector) {
         const element = await this.select(`${selector}`)
-        const elementWrapper = new Element(element, selector, this)
+        const elementWrapper = new Element(element, selector, this, this.page)
         if (element === null) {
-            const elementPath = Element.getElementPath(elementWrapper)
-            throw new WrongAnswer(`Can't find element '${elementPath}'`)
+            return element
+            // const elementPath = Element.getElementPath(elementWrapper)
+            // throw new WrongAnswer(`Can't find element '${elementPath}'`)
         }
         return elementWrapper
     }
@@ -83,12 +83,22 @@ class Element {
 
     async findAllBySelector(selector) {
         const elements = await this.selectAll(`${selector}`)
-        const elementWrapper = new Element(elements, selector, this)
+        const elementWrapper = new Element(elements, selector, this, this.page)
         if (elements.length === 0) {
-            const elementPath = Element.getElementPath(elementWrapper)
-            throw new WrongAnswer(`Can't find any element '${elementPath}'`)
+            return elements
+            // const elementPath = Element.getElementPath(elementWrapper)
+            // throw new WrongAnswer(`Can't find any element '${elementPath}'`)
         }
-        return elements.map(element => new Element(element, selector, this))
+        return elements.map(element => new Element(element, selector, this, this.page))
+    }
+
+    async click() {
+        await this.elementHandle.click()
+    }
+
+    async inputText(text) {
+        await this.elementHandle.focus()
+        await this.page.keyboard.type(text)
     }
 }
 
