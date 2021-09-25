@@ -205,6 +205,20 @@ class Page {
     async findAllBySelector(selector) {
         return await (await this._getBodyTag()).findAllBySelector(selector)
     }
+
+    async navigate(url) {
+        await this.pageInstance.navigate(url)
+    }
+
+    async refresh() {
+        await this.pageInstance.reload({
+            waitUntil: 'domcontentloaded'
+        })
+    }
+
+    url() {
+        return this.pageInstance.url()
+    }
 }
 
 module.exports = {

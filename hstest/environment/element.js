@@ -70,8 +70,6 @@ class Element {
         const elementWrapper = new Element(element, selector, this, this.page)
         if (element === null) {
             return element
-            // const elementPath = Element.getElementPath(elementWrapper)
-            // throw new WrongAnswer(`Can't find element '${elementPath}'`)
         }
         return elementWrapper
     }
@@ -83,11 +81,8 @@ class Element {
 
     async findAllBySelector(selector) {
         const elements = await this.selectAll(`${selector}`)
-        const elementWrapper = new Element(elements, selector, this, this.page)
         if (elements.length === 0) {
             return elements
-            // const elementPath = Element.getElementPath(elementWrapper)
-            // throw new WrongAnswer(`Can't find any element '${elementPath}'`)
         }
         return elements.map(element => new Element(element, selector, this, this.page))
     }
