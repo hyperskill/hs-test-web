@@ -1,6 +1,7 @@
 const {CheckResult} = require("../outcome/checkResult.js")
 const {Element} = require("./element.js")
 const {WrongAnswer} = require("../exception/wrongAnswer.js")
+const {TestPassed} = require("../exception/testPassed.js")
 
 
 class Page {
@@ -20,6 +21,8 @@ class Page {
             evaluationResult.hasOwnProperty('feedback')) {
             if (!evaluationResult.isCorrect) {
                 throw new WrongAnswer(evaluationResult.feedback)
+            } else {
+                throw new TestPassed()
             }
         }
         return evaluationResult

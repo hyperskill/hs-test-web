@@ -110,3 +110,24 @@ test('fail test in eval method', async () => {
     fail("The test should fail second test case with wrong answer message!")
 });
 
+class TestPassTestInEvalMethod extends StageTest {
+
+    page = this.getPage(pagePath)
+
+    tests = [
+        this.node.execute(async () => {
+
+            await this.page.evaluate(async () => {
+                return correct()
+            })
+
+            return wrong('wrong result!')
+        })
+    ];
+}
+
+test('pass test in eval method', async () => {
+    await new TestPassTestInEvalMethod().runTests()
+});
+
+

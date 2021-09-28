@@ -1,4 +1,6 @@
 const {CompilationError} = require("../../exception/compilationError.js")
+const {TestPassed} = require('../../exception/testPassed.js')
+const {CheckResult} = require('../../outcome/checkResult.js')
 
 const {TestRunner} = require("./runner.js")
 
@@ -27,8 +29,7 @@ class ReactRunner extends TestRunner {
     }
 
     async test(testCase) {
-        const result = await testCase();
-        return result;
+        return await testCase();
     }
 
     async setUp() {

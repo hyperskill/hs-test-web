@@ -1,3 +1,6 @@
+const {CheckResult} = require('../outcome/checkResult.js')
+const {TestPassed} = require('../exception/testPassed.js')
+
 class TestRun {
     constructor(testNum, testCount, testCase, runner) {
         this.testNum = testNum;
@@ -23,7 +26,14 @@ class TestRun {
     }
 
     async test() {
-        return await this.runner.test(this.testCase);
+        try {
+            return await this.runner.test(this.testCase);
+        } catch (err) {
+            if (err instanceof TestPassed) {
+                return CheckResult.correct()
+            }
+            throw err
+        }
     }
 }
 
