@@ -19,6 +19,13 @@ class Element {
 
     // Element properties
 
+    async getAttribute(attribute) {
+        return await this.elementHandle.evaluate(
+            (element, attribute) => element.getAttribute(attribute),
+            attribute
+        )
+    }
+
     async getProperty(property) {
         return (await this.elementHandle.getProperty(property).then(result => result.jsonValue())).toString().trim()
     }
@@ -35,14 +42,18 @@ class Element {
         return await this.getProperty('className')
     }
 
-    async getStyle(style) {
-        return (await this.elementHandle.evaluate(
-            (element, style) => element.style.getPropertyValue(style).toString().trim(), style))
+    async getStyles() {
+        const stylesStr = await this.elementHandle.evaluate(
+            (element) => JSON.stringify(element.style)
+        )
+        return JSON.parse(stylesStr)
     }
 
-    async getComputedStyle(style) {
-        return await this.elementHandle.evaluate(
-            (element, style) => getComputedStyle(element).getPropertyValue(style).toString().trim(), style)
+    async getComputedStyles() {
+        const stylesStr = await this.elementHandle.evaluate(
+            (element) => JSON.stringify(getComputedStyle(element))
+        )
+        return JSON.parse(stylesStr)
     }
 
     async select(selector) {

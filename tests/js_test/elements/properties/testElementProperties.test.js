@@ -26,9 +26,23 @@ class TestFindExistingElementsTest extends StageTest {
                 return wrong('wrong className')
             }
 
-            const backgroundColor = await container.getStyle('background-color')
-            if (backgroundColor !== 'red') {
+            const containerStyles = await container.getStyles()
+
+            if (containerStyles.backgroundColor !== 'red') {
                 return wrong('wrong backgroundColor')
+            }
+
+            const containerComputedStyles = await container.getComputedStyles()
+
+            if (containerComputedStyles.backgroundColor !== 'rgb(255, 0, 0)') {
+                return wrong('wrong backgroundColor')
+            }
+
+            const link = await this.page.findById('aLink')
+            const hrefAttribute = await link.getAttribute('href')
+
+            if (hrefAttribute !== 'testLink') {
+                return wrong('wrong href attribute value!')
             }
 
             return correct()
