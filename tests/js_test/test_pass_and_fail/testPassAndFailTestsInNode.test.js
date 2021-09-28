@@ -1,4 +1,4 @@
-const {StageTest, correct, wrong} = require("../../../hstest/index.js")
+const {StageTest, correct, wrong, TestPassed, WrongAnswer} = require("../../../hstest/index.js")
 const path = require("path")
 
 const pagePath = path.join(__dirname, './index.html')
@@ -128,6 +128,51 @@ class TestPassTestInEvalMethod extends StageTest {
 
 test('pass test in eval method', async () => {
     await new TestPassTestInEvalMethod().runTests()
+});
+
+class TestThrowTestPassedException extends StageTest {
+
+    page = this.getPage(pagePath)
+
+    tests = [
+        this.node.execute(async () => {
+
+            if (true) {
+                throw new TestPassed()
+            }
+
+            return wrong('should not fail')
+        })
+    ];
+}
+
+test('test TestPassed exception', async () => {
+    await new TestThrowTestPassedException().runTests()
+});
+
+class TestThrowWrongAnswerException extends StageTest {
+
+    page = this.getPage(pagePath)
+
+    tests = [
+        this.node.execute(async () => {
+
+            if (true) {
+                throw new WrongAnswer('error feedback')
+            }
+
+            return correct()
+        })
+    ];
+}
+
+test('test WrongAnswer exception', async () => {
+    try {
+        await new TestThrowWrongAnswerException().runTests()
+    } catch (err) {
+        expect(err.toString()).toContain('Wrong answer in test #1')
+        expect(err.toString()).toContain('error feedback')
+    }
 });
 
 
