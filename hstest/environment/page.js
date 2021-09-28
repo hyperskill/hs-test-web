@@ -1,5 +1,6 @@
 const {CheckResult} = require("../outcome/checkResult.js")
 const {Element} = require("./element.js")
+const {WrongAnswer} = require("../exception/wrongAnswer.js")
 
 
 class Page {
@@ -12,7 +13,15 @@ class Page {
     }
 
     async evaluate(func) {
-        return await this.execute(func)()
+        const evaluationResult = await this.execute(func)()
+        if (evaluationResult !== undefined &&
+            evaluationResult !== null &&
+            evaluationResult.hasOwnProperty('isCorrect') &&
+            evaluationResult.hasOwnProperty('feedback')) {
+            if (!evaluationResult.isCorrect) {
+                throw new WrongAnswer(evaluationResult.feedback)
+            }
+        }
     }
 
     execute(func) {

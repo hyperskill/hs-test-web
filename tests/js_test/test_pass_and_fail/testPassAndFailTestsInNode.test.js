@@ -1,6 +1,8 @@
 const {StageTest, correct, wrong} = require("../../../hstest/index.js")
 const path = require("path")
 
+const pagePath = path.join(__dirname, './index.html')
+
 class TestCorrect extends StageTest {
     tests = [
         this.node.execute(() => {
@@ -77,6 +79,32 @@ test('fail second test when there are 3 test cases', async () => {
         await new TestFailSecondTestWithMoreTests().runTests()
     } catch (err) {
         expect(err.toString()).not.toContain("Wrong answer in test #3")
+        return
+    }
+    fail("The test should fail second test case with wrong answer message!")
+});
+
+class TestFailTestInEvalMethod extends StageTest {
+
+    page = this.getPage(pagePath)
+
+    tests = [
+        this.node.execute(async () => {
+
+            await this.page.evaluate(async () => {
+                return wrong('wrong result!')
+            })
+
+            return correct()
+        })
+    ];
+}
+
+test('fail test in eval method', async () => {
+    try {
+        await new TestFailTestInEvalMethod().runTests()
+    } catch (err) {
+        expect(err.toString()).toContain("Wrong answer in test #1")
         return
     }
     fail("The test should fail second test case with wrong answer message!")
