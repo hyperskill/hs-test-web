@@ -22,6 +22,7 @@ class Page {
                 throw new WrongAnswer(evaluationResult.feedback)
             }
         }
+        return evaluationResult
     }
 
     execute(func) {
