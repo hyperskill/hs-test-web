@@ -67,7 +67,10 @@ class StageTest {
                 currentTestRun = testRun
                 const result = await testRun.test()
 
-                if (!result.hasOwnProperty('isCorrect') || !result.hasOwnProperty('feedback')) {
+                if (result === undefined ||
+                    result === null ||
+                    !result.hasOwnProperty('isCorrect') ||
+                    !result.hasOwnProperty('feedback')) {
                     throw new UnexpectedError('Expected CheckResult instance as a result of the test case')
                 }
 
@@ -85,7 +88,8 @@ class StageTest {
         } finally {
             try {
                 await this.runner.tearDown()
-            } catch (err) {}
+            } catch (err) {
+            }
         }
     }
 
