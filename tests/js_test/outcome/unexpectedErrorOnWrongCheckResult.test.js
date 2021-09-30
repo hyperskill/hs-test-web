@@ -13,9 +13,16 @@ test('Test unexpected error message', async () => {
     try {
         await new UnexpectedErrorOnWrongCheckResultTest().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Unexpected error in test #1\n\n" +
-            "We have recorded this bug and will fix it soon.\n\n" +
-            "Error: Expected CheckResult instance as a result of the test case")
+        const pattern = "Unexpected error in test #1\n\nWe have recorded this bug and will fix it soon.\n\n" +
+            "Testing library version \.+\n" +
+            "Node.js version \.+\n" +
+            "Puppeteer version \.+\n" +
+            "Jest version \.+\n\n" +
+            "Error: Expected CheckResult instance as a result of the test case"
+
+        const regex = new RegExp(pattern)
+
+        expect(regex.exec(err.toString())).not.toBe(null)
         return
     }
     fail("The test should fail with wrong answer message!")
@@ -33,9 +40,16 @@ test('Test unexpected error message', async () => {
     try {
         await new UnexpectedErrorOnNullCheckResultTest().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Unexpected error in test #1\n\n" +
-            "We have recorded this bug and will fix it soon.\n\n" +
-            "Error: Expected CheckResult instance as a result of the test case")
+        const pattern = "Unexpected error in test #1\n\nWe have recorded this bug and will fix it soon.\n\n" +
+            "Testing library version \.+\n" +
+            "Node.js version \.+\n" +
+            "Puppeteer version \.+\n" +
+            "Jest version \.+\n\n" +
+            "Error: Expected CheckResult instance as a result of the test case"
+
+        const regex = new RegExp(pattern)
+
+        expect(regex.exec(err.toString())).not.toBe(null)
         return
     }
     fail("The test should fail with wrong answer message!")
@@ -52,9 +66,16 @@ test('Test unexpected error message', async () => {
     try {
         await new UnexpectedErrorOnUndefinedCheckResultTest().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Unexpected error in test #1\n\n" +
-            "We have recorded this bug and will fix it soon.\n\n" +
-            "Error: Expected CheckResult instance as a result of the test case")
+        const pattern = "Unexpected error in test #1\n\nWe have recorded this bug and will fix it soon.\n\n" +
+            "Testing library version \.+\n" +
+            "Node.js version \.+\n" +
+            "Puppeteer version \.+\n" +
+            "Jest version \.+\n\n" +
+            "Error: Expected CheckResult instance as a result of the test case"
+
+        const regex = new RegExp(pattern)
+
+        expect(regex.exec(err.toString())).not.toBe(null)
         return
     }
     fail("The test should fail with wrong answer message!")
