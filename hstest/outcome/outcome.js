@@ -1,7 +1,6 @@
 const {WrongAnswer} = require("../exception/wrongAnswer.js")
 const {ExceptionWithFeedback} = require("../exception/exceptionWithFeedback.js")
 const {ErrorWithFeedback} = require("../exception/errorWithFeedback.js")
-const {UnexpectedError} = require("../exception/unexpectedError.js")
 const {CompilationError} = require("../exception/compilationError.js")
 
 class Outcome {
@@ -18,7 +17,7 @@ class Outcome {
         let whenErrorHappened = "";
         if (this.testNumber === 0) {
             whenErrorHappened = " during testing";
-        } else {
+        } else if (this.testNumber > 0) {
             whenErrorHappened = " in test #" + this.testNumber;
         }
 
@@ -36,7 +35,7 @@ class Outcome {
         const {UnexpectedErrorOutcome} = require("./unexpectedErrorOutcome.js")
         const {ExceptionOutcome} = require("./exceptionOutcome.js")
         const {ErrorOutcome} = require("./errorOutcome.js")
-        const {CompiliationErrorOutcome} = require("./compiliationErrorOutcome.js")
+        const {CompilationErrorOutcome} = require("./compilationErrorOutcome.js")
 
 
         if (ex instanceof WrongAnswer) {
@@ -48,7 +47,7 @@ class Outcome {
         } else if (ex.toString().includes("Protocol error")) {
             return new ErrorOutcome(currTest, ex)
         } else if (ex instanceof CompilationError) {
-            return new CompiliationErrorOutcome(currTest, ex.errors)
+            return new CompilationErrorOutcome(currTest, ex.errors)
         } else {
             return new UnexpectedErrorOutcome(currTest, ex)
         }

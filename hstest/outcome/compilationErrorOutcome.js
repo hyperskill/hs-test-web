@@ -1,8 +1,9 @@
 const {Outcome} = require("./outcome.js")
 
-class CompiliationErrorOutcome extends Outcome {
+class CompilationErrorOutcome extends Outcome {
     constructor(testNum, errors) {
         super(testNum, errors.join("\n\n"));
+        this.testNumber = -1
     }
 
     getType() {
@@ -12,5 +13,5 @@ class CompiliationErrorOutcome extends Outcome {
 }
 
 module.exports = {
-    CompiliationErrorOutcome
+    CompilationErrorOutcome
 }
