@@ -8,8 +8,13 @@ class ReactTest extends StageTest {
     host = 'localhost'
     port = 31328
 
-    constructor() {
+    constructor(port) {
         super();
+
+        if (port != null) {
+            this.port = port
+        }
+
         try {
             const {ReactRunner} = require("../testing/runner/reactRunner.js")
             const stack = callsite(),
