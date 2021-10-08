@@ -8,13 +8,8 @@ class ReactTest extends StageTest {
     host = 'localhost'
     port = 31328
 
-    constructor(port) {
+    constructor() {
         super();
-
-        if (port != null) {
-            this.port = port
-        }
-
         try {
             const {ReactRunner} = require("../testing/runner/reactRunner.js")
             const stack = callsite(),
@@ -25,6 +20,11 @@ class ReactTest extends StageTest {
         } catch (err) {
             throw new UnexpectedError("Required dependencies are not installed to test React applications", err)
         }
+    }
+
+    async runTests() {
+        this.runner.port = this.port
+        await super.runTests();
     }
 }
 
