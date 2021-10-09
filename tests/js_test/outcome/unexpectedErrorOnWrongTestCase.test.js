@@ -20,6 +20,7 @@ test('Test unexpected error message', async () => {
     } catch (err) {
 
         const pattern = "Unexpected error during testing\n\nWe have recorded this bug and will fix it soon.\n\n" +
+            "System \.+\n" +
             "Testing library version \.+\n" +
             "Node.js version \.+\n" +
             "Puppeteer version \.+\n" +

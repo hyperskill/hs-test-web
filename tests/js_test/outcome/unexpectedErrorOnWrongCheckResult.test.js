@@ -14,6 +14,7 @@ test('Test unexpected error message', async () => {
         await new UnexpectedErrorOnWrongCheckResultTest().runTests()
     } catch (err) {
         const pattern = "Unexpected error in test #1\n\nWe have recorded this bug and will fix it soon.\n\n" +
+            "System \.+\n" +
             "Testing library version \.+\n" +
             "Node.js version \.+\n" +
             "Puppeteer version \.+\n" +
@@ -41,6 +42,7 @@ test('Test unexpected error message', async () => {
         await new UnexpectedErrorOnNullCheckResultTest().runTests()
     } catch (err) {
         const pattern = "Unexpected error in test #1\n\nWe have recorded this bug and will fix it soon.\n\n" +
+            "System \.+\n" +
             "Testing library version \.+\n" +
             "Node.js version \.+\n" +
             "Puppeteer version \.+\n" +
@@ -67,6 +69,7 @@ test('Test unexpected error message', async () => {
         await new UnexpectedErrorOnUndefinedCheckResultTest().runTests()
     } catch (err) {
         const pattern = "Unexpected error in test #1\n\nWe have recorded this bug and will fix it soon.\n\n" +
+            "System \.+\n" +
             "Testing library version \.+\n" +
             "Node.js version \.+\n" +
             "Puppeteer version \.+\n" +
