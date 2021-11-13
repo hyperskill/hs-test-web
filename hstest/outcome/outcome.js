@@ -45,7 +45,8 @@ class Outcome {
         } else if (ex instanceof ErrorWithFeedback) {
             return new ErrorOutcome(currTest, ex)
         } else if (ex.toString().toLowerCase().includes("protocol error")
-            || ex.toString().toLowerCase().includes("context was destroyed")) {
+            || ex.toString().toLowerCase().includes("context was destroyed")
+            || ex.toString().toLowerCase().includes("chromium revision is not downloaded")) {
             return new ErrorOutcome(currTest, ex)
         } else if (ex instanceof CompilationError) {
             return new CompilationErrorOutcome(currTest, ex.errors)
