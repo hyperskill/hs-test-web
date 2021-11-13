@@ -44,7 +44,8 @@ class Outcome {
             return new ExceptionOutcome(currTest, ex)
         } else if (ex instanceof ErrorWithFeedback) {
             return new ErrorOutcome(currTest, ex)
-        } else if (ex.toString().includes("Protocol error")) {
+        } else if (ex.toString().toLowerCase().includes("protocol error")
+            || ex.toString().toLowerCase().includes("context was destroyed")) {
             return new ErrorOutcome(currTest, ex)
         } else if (ex instanceof CompilationError) {
             return new CompilationErrorOutcome(currTest, ex.errors)

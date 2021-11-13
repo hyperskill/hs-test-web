@@ -20,7 +20,9 @@ class UnexpectedErrorOutcome extends Outcome {
         this.errorText += versions + "\n\n"
 
         if (cause.stack) {
-            this.errorText += cause.stack.trim();
+            this.errorText += cause.stack.toString();
+        } else {
+            this.errorText += cause.toString()
         }
     }
 
