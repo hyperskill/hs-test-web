@@ -4,7 +4,6 @@
   "description": "A small framework that simplifies testing educational projects for Hyperskill.",
   "author": "Vladimir Turov",
   "main": "hstest/index.js",
-  "type": "module",
   "scripts": {
     "test": "set NODE_ENV=testlib && jest --maxWorkers 1"
   },
