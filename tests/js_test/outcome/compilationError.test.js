@@ -1,5 +1,6 @@
 const {ReactTest, correct, wrong} = require("../../../hstest/index.js")
 const path = require("path")
+const chai = require('chai')
 
 const pagePath = path.join(__dirname, './index.html')
 
@@ -12,14 +13,14 @@ class CompilationErrorTest extends ReactTest {
     ]
 }
 
-test('Test error outcome message', async () => {
+it('Test error outcome message', async () => {
     try {
         await new CompilationErrorTest().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Compilation error\n\n")
+        chai.expect(err.toString()).contain("Compilation error\n\n")
         return
     }
-    fail("The test should fail with wrong answer message!")
+    throw new Error("The test should fail with wrong answer message!")
 });
 
 

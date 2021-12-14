@@ -18,7 +18,7 @@ class TestFindNonExistingElementTest1 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest1().runTests()
 });
 
@@ -37,6 +37,6 @@ class TestFindNonExistingElementTest2 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest2().runTests()
 });

@@ -1,11 +1,12 @@
 const {StageTest, correct, wrong} = require("../../../hstest/index.js")
 const path = require("path")
+const chai = require('chai')
 
 class UnexpectedErrorOnEmptyTestsListTest extends StageTest {
 
 }
 
-test('Test unexpected error message', async () => {
+it('Test unexpected error message', async () => {
     try {
         await new UnexpectedErrorOnEmptyTestsListTest().runTests()
     } catch (err) {
@@ -14,17 +15,17 @@ test('Test unexpected error message', async () => {
             "Testing library version \.+\n" +
             "Node.js version \.+\n" +
             "Puppeteer version \.+\n" +
-            "Jest version \.+\n\n" +
+            "Mocha version \.+\n\n" +
             "Error: No tests found"
 
         const regex = new RegExp(pattern)
 
         console.log(err)
 
-        expect(regex.exec(err.toString())).not.toBe(null)
+        chai.expect(regex.exec(err.toString())).to.not.equal(null)
         return
     }
-    fail("The test should fail with wrong answer message!")
+    throw new Error("The test should fail with wrong answer message!")
 });
 
 

@@ -23,12 +23,13 @@ class TestCorrect extends ReactTest {
     ];
 }
 
-jest.setTimeout(30000)
-test('test react run on another port', async () => {
+
+it('test react run on another port', async (done) =>
+{
     try {
         await new TestCorrect().runTests()
     } catch (err) {
         console.log(err)
-        fail("The test should pass all test cases!")
+        throw Error('The test should pass all test cases!')
     }
-});
+}).timeout(10000);

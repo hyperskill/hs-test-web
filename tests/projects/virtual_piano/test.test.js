@@ -481,8 +481,8 @@ class TestTest extends StageTest {
 }
 
 
-jest.setTimeout(30000);
-test("TestTest stage", async () => {
+
+it("TestTest stage", async () => {
         await new TestTest().runTests()
     }
 );

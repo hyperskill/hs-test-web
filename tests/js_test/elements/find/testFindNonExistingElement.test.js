@@ -18,7 +18,7 @@ class TestFindNonExistingElementTest1 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest1().runTests()
 });
 
@@ -37,7 +37,7 @@ class TestFindNonExistingElementTest2 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest2().runTests()
 });
 
@@ -56,7 +56,7 @@ class TestFindNonExistingElementTest3 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest3().runTests()
 });
 
@@ -76,7 +76,7 @@ class TestFindNonExistingElementTest4 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest4().runTests()
 });
 
@@ -96,7 +96,7 @@ class TestFindNonExistingElementTest5 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest5().runTests()
 });
 
@@ -116,7 +116,7 @@ class TestFindNonExistingElementTest6 extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindNonExistingElementTest6().runTests()
 });
 

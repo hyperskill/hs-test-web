@@ -25,6 +25,6 @@ class TestFindExistingElementsTest extends StageTest {
     ]
 }
 
-test('test elements', async () => {
+it('test elements', async () => {
     await new TestFindExistingElementsTest().runTests()
 });

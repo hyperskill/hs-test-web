@@ -225,11 +225,11 @@ async function stageTest() {
     return result;
 }
 
-jest.setTimeout(30000);
-test("Test stage", async () => {
+
+it("Test stage", async () => {
         let result = await stageTest();
         if (result['type'] === 'wrong') {
-            fail(result['message']);
+            throw new Error(result['message']);
         }
     }
 );

@@ -1,5 +1,6 @@
 const {StageTest, correct, wrong} = require("../../../hstest/index.js")
 const path = require("path")
+const chai = require('chai')
 
 const pagePath = path.join(__dirname, './index.html')
 
@@ -14,15 +15,15 @@ class ErrorOutcomeTestInBrowser extends StageTest {
     ]
 }
 
-test('Test error outcome message', async () => {
+it('Test error outcome message', async () => {
     try {
         await new ErrorOutcomeTestInBrowser().runTests()
     } catch (err) {
         console.log(err)
-        expect(err.toString()).toContain("Error in test #1\n\nError: Evaluation failed: Error: Protocol error")
+        chai.expect(err.toString()).contain("Error in test #1\n\nError: Evaluation failed: Error: Protocol error")
         return
     }
-    fail("The test should fail with wrong answer message!")
+    throw new Error("The test should fail with wrong answer message!")
 });
 
 class ErrorOutcomeTestInNode extends StageTest {
@@ -34,15 +35,15 @@ class ErrorOutcomeTestInNode extends StageTest {
     ]
 }
 
-test('Test error outcome message', async () => {
+it('Test error outcome message', async () => {
     try {
         await new ErrorOutcomeTestInNode().runTests()
     } catch (err) {
         console.log(err)
-        expect(err.toString()).toContain("Error in test #1\n\nError: Protocol error")
+        chai.expect(err.toString()).contain("Error in test #1\n\nError: Protocol error")
         return
     }
-    fail("The test should fail with wrong answer message!")
+    throw new Error("The test should fail with wrong answer message!")
 });
 
 class ErrorOutcomeOnContextDestroyedTest extends StageTest {
@@ -54,14 +55,14 @@ class ErrorOutcomeOnContextDestroyedTest extends StageTest {
     ]
 }
 
-test('Test error outcome on context destroyed', async () => {
+it('Test error outcome on context destroyed', async () => {
     try {
         await new ErrorOutcomeOnContextDestroyedTest().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Error in test #1\n\nError: Execution context was destroyed, most likely because of a navigation.")
+        chai.expect(err.toString()).contain("Error in test #1\n\nError: Execution context was destroyed, most likely because of a navigation.")
         return
     }
-    fail("The test should fail with error message!")
+    throw new Error("The test should fail with error message!")
 });
 
 class ErrorOutcomeOnChromiumRevisionIsNotDownloaded extends StageTest {
@@ -73,14 +74,14 @@ class ErrorOutcomeOnChromiumRevisionIsNotDownloaded extends StageTest {
     ]
 }
 
-test('Test error outcome on chromium revision is not downloaded error', async () => {
+it('Test error outcome on chromium revision is not downloaded error', async () => {
     try {
         await new ErrorOutcomeOnChromiumRevisionIsNotDownloaded().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Error in test #1\n\nError: Chromium revision is not downloaded")
+        chai.expect(err.toString()).contain("Error in test #1\n\nError: Chromium revision is not downloaded")
         return
     }
-    fail("The test should fail with error message!")
+    throw new Error("The test should fail with error message!")
 });
 
 

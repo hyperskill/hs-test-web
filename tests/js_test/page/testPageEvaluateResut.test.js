@@ -23,10 +23,10 @@ class TestPageEvaluateResult extends StageTest {
     ];
 }
 
-test('test evaluate result', async () => {
+it('test evaluate result', async () => {
     try {
         await new TestPageEvaluateResult().runTests()
     } catch (err) {
-        fail("The test should pass all test cases!")
+        throw new Error("The test should pass all test cases!")
     }
 });

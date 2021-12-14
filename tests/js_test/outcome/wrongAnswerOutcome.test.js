@@ -1,5 +1,6 @@
 const {StageTest, correct, wrong} = require("../../../hstest/index.js")
 const path = require("path")
+const chai = require('chai')
 
 const pagePath = path.join(__dirname, './index.html')
 
@@ -14,14 +15,14 @@ class TestWrongInBrowser extends StageTest {
     ];
 }
 
-test('test browser context', async () => {
+it('test browser context', async () => {
     try {
         await new TestWrongInBrowser().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\nThis is error message!")
+        chai.expect(err.toString()).contain("Wrong answer in test #1\n\nThis is error message!")
         return
     }
-    fail("The test should fail with wrong answer message!")
+    throw new Error("The test should fail with wrong answer message!")
 });
 
 class TestWrongInNode extends StageTest {
@@ -33,13 +34,13 @@ class TestWrongInNode extends StageTest {
     ];
 }
 
-test('test browser context', async () => {
+it('test browser context', async () => {
     try {
         await new TestWrongInNode().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1\n\nThis is error message!")
+        chai.expect(err.toString()).contain("Wrong answer in test #1\n\nThis is error message!")
         return
     }
-    fail("The test should fail with wrong answer message!")
+    throw new Error("The test should fail with wrong answer message!")
 });
 

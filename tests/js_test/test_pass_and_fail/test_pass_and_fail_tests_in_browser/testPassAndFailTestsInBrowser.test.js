@@ -1,5 +1,6 @@
 const {StageTest, correct, wrong} = require("../../../../hstest/index.js")
 const path = require("path")
+const chai = require('chai')
 
 const pagePath = path.join(__dirname, './index.html')
 
@@ -14,11 +15,11 @@ class TestCorrect extends StageTest {
     ];
 }
 
-test('corrected single test', async () => {
+it('corrected single test', async () => {
     try {
         await new TestCorrect().runTests()
     } catch (err) {
-        fail("The test should pass all test cases!")
+        throw new Error("The test should pass all test cases!")
     }
 });
 
@@ -33,15 +34,15 @@ class TestWrong extends StageTest {
     ];
 }
 
-test('wrong single test', async () => {
+it('wrong single test', async () => {
     try {
         await new TestWrong().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #1")
-        expect(err.toString()).toContain("something went wrong!")
+        chai.expect(err.toString()).contain("Wrong answer in test #1")
+        chai.expect(err.toString()).contain("something went wrong!")
         return
     }
-    fail("The test should fail with wrong answer message!")
+    throw new Error("The test should fail with wrong answer message!")
 });
 
 class TestFailSecondTest extends StageTest {
@@ -58,15 +59,15 @@ class TestFailSecondTest extends StageTest {
     ];
 }
 
-test('fail second test', async () => {
+it('fail second test', async () => {
     try {
         await new TestFailSecondTest().runTests()
     } catch (err) {
-        expect(err.toString()).toContain("Wrong answer in test #2")
-        expect(err.toString()).toContain("the second test fail!")
+        chai.expect(err.toString()).contain("Wrong answer in test #2")
+        chai.expect(err.toString()).contain("the second test fail!")
         return
     }
-    fail("The test should fail second test case with wrong answer message!")
+    throw new Error("The test should fail second test case with wrong answer message!")
 });
 
 class TestFailSecondTestWithMoreTests extends StageTest {
@@ -86,13 +87,13 @@ class TestFailSecondTestWithMoreTests extends StageTest {
     ];
 }
 
-test('fail second test when there are 3 test cases', async () => {
+it('fail second test when there are 3 test cases', async () => {
     try {
         await new TestFailSecondTestWithMoreTests().runTests()
     } catch (err) {
-        expect(err.toString()).not.toContain("Wrong answer in test #3")
+        chai.expect(err.toString()).not.contain("Wrong answer in test #3")
         return
     }
-    fail("The test should fail second test case with wrong answer message!")
+    throw new Error("The test should fail second test case with wrong answer message!")
 });
 
