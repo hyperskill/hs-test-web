@@ -6,6 +6,7 @@ const {NodeEnvironment} = require("../environment/node.js")
 const {UnexpectedError} = require("../exception/unexpectedError.js")
 const {WrongAnswer} = require("../exception/wrongAnswer.js")
 const {Outcome} = require("../outcome/outcome.js")
+const {OutcomeError} = require('../exception/outcomeError')
 
 class StageTest {
 
@@ -84,7 +85,7 @@ class StageTest {
             }
         } catch (err) {
             const outcome = Outcome.getOutcome(err, currTest);
-            throw outcome.toString()
+            throw new OutcomeError(outcome.toString())
         } finally {
             try {
                 await this.runner.tearDown()
