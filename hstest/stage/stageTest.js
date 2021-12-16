@@ -95,6 +95,7 @@ class StageTest {
     }
 
     async runTests() {
+        global.isNewTests = true
         await this._runTests()
     }
 }

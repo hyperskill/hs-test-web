@@ -24,8 +24,7 @@ class TestCorrect extends ReactTest {
 }
 
 
-it('test react run on another port', async (done) =>
-{
+it('test react run on another port', async () => {
     try {
         await new TestCorrect().runTests()
     } catch (err) {
