@@ -1,7 +1,13 @@
 import TestRun from '../testRun.js'
-import Browser from "../../chromium/browser";
+import Browser from "../../chromium/browser.js";
 
 class TestRunner {
+
+    browser: Browser;
+
+    constructor() {
+        this.browser = new Browser();
+    }
 
     setUp(): void {
     }

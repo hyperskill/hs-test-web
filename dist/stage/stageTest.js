@@ -11,11 +11,18 @@ import NodeEnvironment from "../environment/node.js";
 import TestRun from "../testing/testRun.js";
 import JsRunner from "../testing/runner/jsRunner.js";
 import CheckResult from "../outcome/checkResult.js";
+import Page from "../environment/page.js";
 class StageTest {
     constructor() {
+        this.node = new NodeEnvironment();
         this.runner = new JsRunner();
         this.tests = [];
-        this.node = new NodeEnvironment();
+    }
+    getPage(url) {
+        return new Page(url, this.runner.browser);
+    }
+    printTestNum(testNum) {
+        console.log("Start test " + testNum);
     }
     runTests() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -75,9 +82,6 @@ class StageTest {
                 }
             }
         });
-    }
-    printTestNum(testNum) {
-        console.log("Start test " + testNum);
     }
 }
 export default StageTest;

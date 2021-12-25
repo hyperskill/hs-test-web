@@ -7,30 +7,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import BrowserPageHandler from "../handler/browserPageHandler.js";
+import CheckResult from "../outcome/checkResult.js";
 class Page {
     constructor(url, browser) {
         this.url = url;
         this.browser = browser;
         this.isOpened = false;
-        this.pageInstance = browser.newPage();
-        this.initPageInstance();
     }
     open() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.pageInstance;
-        });
-    }
-    initPageInstance() {
-        this.pageInstance.then(page => {
-            page.goto(this.url).then(() => {
-                this.isOpened = true;
-            });
+            if (this.isOpened) {
+                return;
+            }
+            this.pageInstance = yield this.browser.newPage();
+            yield this.pageInstance.goto(this.url);
+            yield BrowserPageHandler.initHyperskillContext(this.pageInstance);
+            this.isOpened = true;
         });
     }
     execute(func) {
         return () => __awaiter(this, void 0, void 0, function* () {
             yield this.open();
-            return (yield this.pageInstance).evaluate(func);
+            const result = yield this.pageInstance.evaluate(func);
+            return CheckResult.fromJson(result);
         });
     }
 }

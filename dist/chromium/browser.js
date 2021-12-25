@@ -16,23 +16,23 @@ class Browser {
             defaultViewport: null,
             args: ['--start-maximized', '--disable-infobar'],
             ignoreDefaultArgs: ['--enable-automation'],
-            debug: false,
+            debug: true,
+            devtools: true,
         };
     }
     launch() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.browser = puppeteer.launch(this.puppeteerLaunchArgs);
-            this.browser = (yield this.browser);
+            this.browser = yield puppeteer.launch(this.puppeteerLaunchArgs);
             this.launched = true;
         });
     }
     newPage() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!this.launched) {
-                throw new Error("The browser is not opened! Call launch() method before!");
-            }
             const page = yield this.browser.newPage();
-            page.on('console', msg => console.log(msg.text()));
+            page.on('console', msg => {
+                console.log(`Log from ${page.url()}:`);
+                console.log(msg.text());
+            });
             return page;
         });
     }

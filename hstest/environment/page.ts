@@ -1,35 +1,35 @@
+import Browser from "../chromium/browser.js";
+import BrowserPageHandler from "../handler/browserPageHandler.js";
+import CheckResult from "../outcome/checkResult.js";
 import puppeteer, {EvaluateFn} from 'puppeteer'
 
 class Page {
     url: string;
-    browser: puppeteer.Browser;
+    browser: Browser;
     isOpened: boolean;
-    pageInstance: Promise<puppeteer.Page>
+    pageInstance!: puppeteer.Page
 
-    constructor(url: string, browser: puppeteer.Browser) {
+    constructor(url: string, browser: Browser) {
         this.url = url;
         this.browser = browser;
         this.isOpened = false;
-        this.pageInstance = browser.newPage();
-        this.initPageInstance();
     }
 
     async open(): Promise<void> {
-        await this.pageInstance;
-    }
-
-    initPageInstance(): void {
-        this.pageInstance.then(page => {
-            page.goto(this.url).then(() => {
-                this.isOpened = true;
-            })
-        })
+        if (this.isOpened) {
+            return;
+        }
+        this.pageInstance = await this.browser.newPage();
+        await this.pageInstance.goto(this.url);
+        await BrowserPageHandler.initHyperskillContext(this.pageInstance);
+        this.isOpened = true;
     }
 
     execute(func: Function): Function {
         return async () => {
             await this.open();
-            return (await this.pageInstance).evaluate(func as EvaluateFn)
+            const result = await this.pageInstance.evaluate(func as EvaluateFn);
+            return CheckResult.fromJson(result);
         }
     }
 }

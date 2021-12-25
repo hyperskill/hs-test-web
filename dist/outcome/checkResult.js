@@ -9,6 +9,17 @@ class CheckResult {
     static wrong(message) {
         return new CheckResult(false, message);
     }
+    static fromJson(json) {
+        if (json == null || !json.hasOwnProperty('isCorrect') || !json.hasOwnProperty('feedback')) {
+            throw new Error("The result of the evaluate() method should be CheckResult instance!");
+        }
+        if (json.isCorrect) {
+            return CheckResult.correct();
+        }
+        else {
+            return CheckResult.wrong(json.feedback);
+        }
+    }
 }
 export default CheckResult;
 //# sourceMappingURL=checkResult.js.map

@@ -7,7 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import Browser from "../../chromium/browser.js";
 class TestRunner {
+    constructor() {
+        this.browser = new Browser();
+    }
     setUp() {
     }
     tearDown() {

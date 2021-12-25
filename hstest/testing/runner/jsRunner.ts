@@ -1,15 +1,7 @@
 import TestRunner from "./runner.js";
 import TestRun from "../testRun.js";
-import Browser from "../../chromium/browser.js";
 
 class JsRunner extends TestRunner {
-
-    browser: Browser;
-
-    constructor() {
-        super();
-        this.browser = new Browser();
-    }
 
     async test(testRun: TestRun): Promise<any> {
         return testRun.testCase();

@@ -8,12 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import TestRunner from "./runner.js";
-import Browser from "../../chromium/browser.js";
 class JsRunner extends TestRunner {
-    constructor() {
-        super();
-        this.browser = new Browser();
-    }
     test(testRun) {
         return __awaiter(this, void 0, void 0, function* () {
             return testRun.testCase();
