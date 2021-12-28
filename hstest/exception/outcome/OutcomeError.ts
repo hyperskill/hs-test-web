@@ -1,5 +1,5 @@
 class OutcomeError extends Error {
-    constructor(message: string | undefined) {
+    constructor(message: string) {
         super(message);
     }
 }

@@ -6,10 +6,9 @@ class Test extends StageTest {
 
     tests = [
         () => {
-            return correct();
+            return correct("");
         },
         this.page.execute(() => {
-            console.log('1231231')
             return correct()
         })
     ]

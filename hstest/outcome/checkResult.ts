@@ -1,3 +1,5 @@
+import UnexpectedError from "../exception/outcome/UnexpectedError.js";
+
 interface CheckResultJson {
     isCorrect: boolean,
     feedback: string
@@ -18,6 +20,9 @@ class CheckResult {
     }
 
     static wrong(message: string) {
+        if (message == null) {
+            throw new UnexpectedError("The wrong answer feedback shouldn't be null");
+        }
         return new CheckResult(false, message);
     }
 

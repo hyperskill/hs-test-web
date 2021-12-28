@@ -1,7 +1,7 @@
 import OutcomeError from "./OutcomeError.js";
 class WrongAnswer extends OutcomeError {
     constructor(feedbackText) {
-        super(undefined);
+        super('');
         this.feedbackText = feedbackText;
     }
 }

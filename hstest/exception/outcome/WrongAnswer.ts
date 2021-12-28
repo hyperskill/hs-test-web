@@ -5,7 +5,7 @@ class WrongAnswer extends OutcomeError {
     feedbackText: string;
 
     constructor(feedbackText: string) {
-        super(undefined);
+        super('');
         this.feedbackText = feedbackText;
     }
 }
