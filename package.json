@@ -2,7 +2,7 @@
   "name": "hs-test-web-ts",
   "version": "1.0.0",
   "description": "Hyperskill Testing Library on TypeScript",
-  "main": "dist/index.js",
+  "main": "dist/hstest/index.js",
   "scripts": {
     "test": "mocha 'tests/**/*test.js' --recursive --timeout 10000"
   },

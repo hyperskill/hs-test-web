@@ -1,4 +1,4 @@
-import {StageTest, correct, wrong} from "../../../dist/index.js"
+import {StageTest, correct, wrong} from "../../../dist/hstest/index.js"
 import path from 'path'
 
 const pagePath = path.join(import.meta.url, '../index.html')

@@ -1,4 +1,4 @@
-import StageTest from "../../../dist/index.js"
+import StageTest from "../../../dist/hstest/index.js"
 
 import chai from "chai"
 

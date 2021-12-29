@@ -1,0 +1,1 @@
+{"version":3,"file":"wrongAnswerOutcome.js","sourceRoot":"","sources":["../../../hstest/outcome/wrongAnswerOutcome.ts"],"names":[],"mappings":"AAAA,OAAO,OAAO,MAAM,cAAc,CAAC;AAGnC,MAAM,kBAAmB,SAAQ,OAAO;IACpC,YAAY,OAAe,EAAE,EAAe;QACxC,KAAK,CAAC,OAAO,EAAE,EAAE,CAAC,YAAY,CAAC,CAAA;IACnC,CAAC;IAED,OAAO;QACH,OAAO,cAAc,CAAC;IAC1B,CAAC;CACJ;AAED,eAAe,kBAAkB,CAAC"}

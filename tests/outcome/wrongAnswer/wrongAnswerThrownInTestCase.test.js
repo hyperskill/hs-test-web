@@ -1,4 +1,4 @@
-import {StageTest, correct, WrongAnswer} from "../../../dist/index.js"
+import {StageTest, correct, WrongAnswer} from "../../../dist/hstest/index.js"
 import chai from 'chai'
 
 class TestThrowWrongAnswerInTestCase extends StageTest {

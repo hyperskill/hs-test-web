@@ -1,4 +1,4 @@
-import {StageTest, correct} from "../../../dist/index.js"
+import {StageTest, correct} from "../../../dist/hstest/index.js"
 
 class TestPassTestsInNodeContextTest extends StageTest {
     tests = [
