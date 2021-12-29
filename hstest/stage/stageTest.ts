@@ -16,11 +16,11 @@ class StageTest {
     runner: TestRunner = new JsRunner();
     tests: Function[] = [];
 
-    getPage(url: string) {
+    getPage(url: string): Page {
         return new Page(url, this.runner.browser);
     }
 
-    printTestNum(testNum: number) {
+    printTestNum(testNum: number): void {
         console.log("Start test " + testNum);
     }
 
@@ -50,7 +50,7 @@ class StageTest {
         return testRuns;
     }
 
-    async _runTests() {
+    async _runTests(): Promise<void> {
         let currTest: number = 0;
         let needTearDown: boolean = false;
 

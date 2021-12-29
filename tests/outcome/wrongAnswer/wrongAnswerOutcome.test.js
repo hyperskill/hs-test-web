@@ -1,8 +1,8 @@
-import {StageTest, correct, wrong} from "../../dist/index.js"
+import {StageTest, correct, wrong} from "../../../dist/index.js"
 import path from 'path'
 import chai from 'chai'
 
-const pagePath = path.join(import.meta.url, '../index.html')
+const pagePath = path.join(import.meta.url, '../../index.html')
 
 class TestWrongInBrowser extends StageTest {
 
@@ -15,7 +15,7 @@ class TestWrongInBrowser extends StageTest {
     ];
 }
 
-it('test browser context', async () => {
+it('test browser context fail the test', async () => {
     try {
         await new TestWrongInBrowser().runTests()
     } catch (err) {
@@ -34,7 +34,7 @@ class TestWrongInNode extends StageTest {
     ];
 }
 
-it('test browser context', async () => {
+it('test node context to fail the test', async () => {
     try {
         await new TestWrongInNode().runTests()
     } catch (err) {
