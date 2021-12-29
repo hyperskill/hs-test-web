@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="counter">0</div>
+
+<button id="test">
+    Click me
+</button>
+
+
+<input type="text" id="input-text">
+
+<div id="text-from-input">
+
+</div>
+
+<button id="update-text">Update text</button>
+
+</body>
+</html>
+
+<script>
+    const button = document.getElementById('test')
+    button.addEventListener('click', () => {
+        const counter = document.getElementById('counter')
+        counter.innerText = String(parseInt(counter.innerText) + 1)
+    })
+
+    const updateButton = document.getElementById('update-text')
+    updateButton.addEventListener('click', () => {
+        const textFromInput = document.getElementById('text-from-input')
+        const input = document.getElementById('input-text')
+        textFromInput.innerText = input.value
+    })
+</script>

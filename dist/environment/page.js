@@ -11,6 +11,7 @@ import BrowserPageHandler from "../handler/browserPageHandler.js";
 import CheckResult from "../outcome/checkResult.js";
 import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 import TestPassed from "../exception/outcome/TestPassed.js";
+import Element from "./element.js";
 class Page {
     constructor(url, browser) {
         this.url = url;
@@ -49,6 +50,54 @@ class Page {
             }
             return evaluationResult;
         });
+    }
+    _getBodyTag() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.open();
+            const bodySelector = 'body';
+            return new Element(yield this.pageInstance.$(bodySelector), bodySelector, null, this.pageInstance);
+        });
+    }
+    findById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (yield this._getBodyTag()).findById(id);
+        });
+    }
+    findByClassName(className) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (yield this._getBodyTag()).findByClassName(className);
+        });
+    }
+    findBySelector(selector) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (yield this._getBodyTag()).findBySelector(selector);
+        });
+    }
+    findAllByClassName(className) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (yield this._getBodyTag()).findAllByClassName(className);
+        });
+    }
+    findAllBySelector(selector) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (yield this._getBodyTag()).findAllBySelector(selector);
+        });
+    }
+    navigate(url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // @ts-ignore
+            yield this.pageInstance.navigate(url);
+        });
+    }
+    refresh() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.pageInstance.reload({
+                waitUntil: 'domcontentloaded'
+            });
+        });
+    }
+    currentUrl() {
+        return this.pageInstance.url();
     }
 }
 export default Page;

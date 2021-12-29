@@ -4,7 +4,7 @@
     "description": "Hyperskill Testing Library on TypeScript",
     "main": "dist/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "mocha 'tests/**/*test.js' --recursive --timeout 10000"
     },
     "type": "module",
     "keywords": [],
