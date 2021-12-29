@@ -1,4 +1,3 @@
-import UnexpectedError from "../exception/outcome/UnexpectedError.js";
 class CheckResult {
     constructor(correct, feedback) {
         this.isCorrect = correct;
@@ -9,12 +8,12 @@ class CheckResult {
     }
     static wrong(message) {
         if (message == null) {
-            throw new UnexpectedError("The wrong answer feedback shouldn't be null");
+            message = '';
         }
         return new CheckResult(false, message);
     }
     static fromJson(json) {
-        if (json == null || !json.hasOwnProperty('isCorrect') || !json.hasOwnProperty('feedback')) {
+        if (!CheckResult.isCheckResult(json)) {
             throw new Error("The result of the evaluate() method should be CheckResult instance!");
         }
         if (json.isCorrect) {
@@ -23,6 +22,9 @@ class CheckResult {
         else {
             return CheckResult.wrong(json.feedback);
         }
+    }
+    static isCheckResult(json) {
+        return !(json == null || !json.hasOwnProperty('isCorrect') || !json.hasOwnProperty('feedback'));
     }
 }
 export default CheckResult;

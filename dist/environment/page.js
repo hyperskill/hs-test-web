@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import BrowserPageHandler from "../handler/browserPageHandler.js";
 import CheckResult from "../outcome/checkResult.js";
+import WrongAnswer from "../exception/outcome/WrongAnswer.js";
+import TestPassed from "../exception/outcome/TestPassed.js";
 class Page {
     constructor(url, browser) {
         this.url = url;
@@ -31,6 +33,21 @@ class Page {
             yield this.open();
             const result = yield this.pageInstance.evaluate(func);
             return CheckResult.fromJson(result);
+        });
+    }
+    evaluate(func) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.open();
+            const evaluationResult = yield this.pageInstance.evaluate(func);
+            if (CheckResult.isCheckResult(evaluationResult)) {
+                if (!evaluationResult.isCorrect) {
+                    throw new WrongAnswer(evaluationResult.feedback);
+                }
+                else {
+                    throw new TestPassed();
+                }
+            }
+            return evaluationResult;
         });
     }
 }

@@ -1,4 +1,6 @@
 import TestRunner from "./runner/runner.js";
+import TestPassed from "../exception/outcome/TestPassed.js";
+import CheckResult from "../outcome/checkResult.js";
 
 class TestRun {
 
@@ -37,6 +39,9 @@ class TestRun {
         try {
             return await this.runner.test(this);
         } catch (err) {
+            if (err instanceof TestPassed) {
+                return CheckResult.correct()
+            }
             throw err
         }
     }

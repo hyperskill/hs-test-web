@@ -1,0 +1,22 @@
+{
+    "name": "hs-test-web-ts",
+    "version": "1.0.0",
+    "description": "Hyperskill Testing Library on TypeScript",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "type": "module",
+    "keywords": [],
+    "author": "Vladimir Turov",
+    "dependencies": {
+        "puppeteer": "^13.0.0"
+    },
+    "devDependencies": {
+        "@types/puppeteer": "^5.4.4",
+        "chai": "^4.3.4",
+        "mocha": "^9.1.3",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.5.4"
+    }
+}

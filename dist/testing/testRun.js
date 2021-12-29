@@ -7,6 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import TestPassed from "../exception/outcome/TestPassed.js";
+import CheckResult from "../outcome/checkResult.js";
 class TestRun {
     constructor(testNum, testCount, testCase, runner) {
         this.testNum = testNum;
@@ -36,6 +38,9 @@ class TestRun {
                 return yield this.runner.test(this);
             }
             catch (err) {
+                if (err instanceof TestPassed) {
+                    return CheckResult.correct();
+                }
                 throw err;
             }
         });

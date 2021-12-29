@@ -1,6 +1,8 @@
 import Browser from "../chromium/browser.js";
 import BrowserPageHandler from "../handler/browserPageHandler.js";
 import CheckResult from "../outcome/checkResult.js";
+import WrongAnswer from "../exception/outcome/WrongAnswer.js";
+import TestPassed from "../exception/outcome/TestPassed.js";
 import puppeteer, {EvaluateFn} from 'puppeteer'
 
 class Page {
@@ -31,6 +33,19 @@ class Page {
             const result = await this.pageInstance.evaluate(func as EvaluateFn);
             return CheckResult.fromJson(result);
         }
+    }
+
+    async evaluate(func: Function): Promise<object> {
+        await this.open();
+        const evaluationResult = await this.pageInstance.evaluate(func as EvaluateFn);
+        if (CheckResult.isCheckResult(evaluationResult)) {
+            if (!evaluationResult.isCorrect) {
+                throw new WrongAnswer(evaluationResult.feedback);
+            } else {
+                throw new TestPassed();
+            }
+        }
+        return evaluationResult;
     }
 }
 
