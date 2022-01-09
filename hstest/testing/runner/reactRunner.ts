@@ -90,7 +90,8 @@ class ReactRunner extends TestRunner {
         });
 
         server.app.get(`/${this.closeUrl}`, (req, res) => {
-            server.close()
+            res.sendStatus(200);
+            server.close();
         });
 
         const sleep = (ms:number) => new Promise(res => setTimeout(res, ms));
@@ -106,7 +107,6 @@ class ReactRunner extends TestRunner {
 
     private async closeServer() {
         http.get(`http://${this.host}:${this.port}/${this.closeUrl}`, (resp) => {
-            console.log("error!")
         })
     }
 }

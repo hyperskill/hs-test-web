@@ -89,6 +89,7 @@ class ReactRunner extends TestRunner {
                 isCompilationCompleted = true;
             }));
             server.app.get(`/${this.closeUrl}`, (req, res) => {
+                res.sendStatus(200);
                 server.close();
             });
             const sleep = (ms) => new Promise(res => setTimeout(res, ms));
@@ -103,7 +104,6 @@ class ReactRunner extends TestRunner {
     closeServer() {
         return __awaiter(this, void 0, void 0, function* () {
             http.get(`http://${this.host}:${this.port}/${this.closeUrl}`, (resp) => {
-                console.log("error!");
             });
         });
     }
