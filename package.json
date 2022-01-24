@@ -4,7 +4,8 @@
   "description": "Hyperskill Testing Library on TypeScript",
   "main": "dist/hstest/index.js",
   "scripts": {
-    "test": "set NODE_ENV=test_lib && mocha 'tests/**/*test.js' --recursive --timeout 10000"
+    "test": "set NODE_ENV=test_lib && mocha 'tests/**/*test.js' --recursive --timeout 10000",
+    "reacttest": "set NODE_ENV=test_lib && mocha 'tests/**/react/tests/*test.js' --recursive --timeout 10000"
   },
   "type": "module",
   "keywords": [],

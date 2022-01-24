@@ -94,7 +94,7 @@ class ReactRunner extends TestRunner {
             server.close();
         });
 
-        const sleep = (ms:number) => new Promise(res => setTimeout(res, ms));
+        const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
         while (!isCompilationCompleted) {
             await sleep(100);
@@ -106,8 +106,9 @@ class ReactRunner extends TestRunner {
     }
 
     private async closeServer() {
-        http.get(`http://${this.host}:${this.port}/${this.closeUrl}`, (resp) => {
-        })
+        await new Promise(resolve => {
+            http.get(`http://${this.host}:${this.port}/${this.closeUrl}`, resolve);
+        });
     }
 }
 

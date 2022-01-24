@@ -103,7 +103,8 @@ class ReactRunner extends TestRunner {
     }
     closeServer() {
         return __awaiter(this, void 0, void 0, function* () {
-            http.get(`http://${this.host}:${this.port}/${this.closeUrl}`, (resp) => {
+            yield new Promise(resolve => {
+                http.get(`http://${this.host}:${this.port}/${this.closeUrl}`, resolve);
             });
         });
     }
