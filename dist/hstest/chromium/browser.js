@@ -12,7 +12,7 @@ class Browser {
     constructor() {
         this.launched = false;
         this.puppeteerLaunchArgs = {
-            headless: false,
+            headless: (process.env.NODE_ENV || '').trim() === 'test_lib',
             defaultViewport: null,
             args: ['--start-maximized', '--disable-infobar'],
             ignoreDefaultArgs: ['--enable-automation'],
