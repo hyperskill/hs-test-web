@@ -17,10 +17,10 @@
     ],
     "rules": {
         "semi": "error",
-        "@typescript-eslint/ban-ts-comment": 0,
-        "@typescript-eslint/no-empty-function": 0,
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "no-unsafe-finally": 0
+        "no-unsafe-finally": "off"
     },
     "ignorePatterns": ["tests"]
 }
