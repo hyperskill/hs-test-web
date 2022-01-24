@@ -24,7 +24,9 @@ class CheckResult {
         }
     }
     static isCheckResult(json) {
-        return !(json == null || !json.hasOwnProperty('isCorrect') || !json.hasOwnProperty('feedback'));
+        return !(json == null ||
+            !Object.prototype.hasOwnProperty.call(json, "isCorrect") ||
+            !Object.prototype.hasOwnProperty.call(json, "feedback"));
     }
 }
 export default CheckResult;

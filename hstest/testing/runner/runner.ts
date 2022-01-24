@@ -1,4 +1,4 @@
-import TestRun from '../testRun.js'
+import TestRun from '../testRun.js';
 import Browser from "../../chromium/browser.js";
 
 class TestRunner {
@@ -10,13 +10,16 @@ class TestRunner {
     }
 
     setUp(): void {
+
     }
 
     tearDown(): void {
+
     }
 
-    async test(testRun: TestRun): Promise<any> {
-        throw new Error('Test method is not implemented')
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async test(testRun: TestRun): Promise<void> {
+        throw new Error('Test method is not implemented');
     }
 }
 

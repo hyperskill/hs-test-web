@@ -6,12 +6,12 @@ class TestRun {
 
     testNum: number;
     testCount: number;
-    testCase: Function;
+    testCase: NoArgsFunction;
     runner: TestRunner;
 
     constructor(testNum: number,
                 testCount: number,
-                testCase: Function,
+                testCase: NoArgsFunction,
                 runner: TestRunner) {
         this.testNum = testNum;
         this.testCount = testCount;
@@ -27,12 +27,12 @@ class TestRun {
         return this.testNum === this.testCount;
     }
 
-    async setUp(): Promise<any> {
-        return this.runner.setUp()
+    async setUp(): Promise<void> {
+        return this.runner.setUp();
     }
 
-    async tearDown(): Promise<any> {
-        this.runner.tearDown()
+    async tearDown(): Promise<void> {
+        this.runner.tearDown();
     }
 
     async test() {
@@ -40,9 +40,9 @@ class TestRun {
             return await this.runner.test(this);
         } catch (err) {
             if (err instanceof TestPassed) {
-                return CheckResult.correct()
+                return CheckResult.correct();
             }
-            throw err
+            throw err;
         }
     }
 }

@@ -16,6 +16,7 @@ class TestRunner {
     }
     tearDown() {
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     test(testRun) {
         return __awaiter(this, void 0, void 0, function* () {
             throw new Error('Test method is not implemented');

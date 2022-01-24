@@ -1,27 +1,17 @@
-import puppeteer from "puppeteer"
+import puppeteer from "puppeteer";
 
 export default class Element {
 
-    elementHandle: puppeteer.ElementHandle;
-    selector: string;
-    parent: Element | null;
-    page: puppeteer.Page;
+    private elementHandle: puppeteer.ElementHandle;
+    private selector: string;
+    private parent: Element | null;
+    private readonly page: puppeteer.Page;
 
     constructor(elementHandle: puppeteer.ElementHandle, selector: string, parent: Element | null, page: puppeteer.Page) {
-        this.elementHandle = elementHandle
-        this.selector = selector
-        this.parent = parent
-        this.page = page
-    }
-
-    static getElementPath(element: Element) {
-        const elements = []
-        let currentElement: any = element
-        while (currentElement) {
-            elements.push(currentElement.selector)
-            currentElement = currentElement.parent
-        }
-        return elements.reverse().join(' > ')
+        this.elementHandle = elementHandle;
+        this.selector = selector;
+        this.parent = parent;
+        this.page = page;
     }
 
     // Element properties
@@ -30,7 +20,7 @@ export default class Element {
         return await this.elementHandle.evaluate(
             (element, attribute) => element.getAttribute(attribute),
             attribute
-        )
+        );
     }
 
     async getProperty(property: string): Promise<string> {
@@ -39,81 +29,80 @@ export default class Element {
         return elementPropertyString.trim();
     }
 
-    async textContent(): Promise<String> {
-        return await this.getProperty('textContent')
+    async textContent(): Promise<string> {
+        return await this.getProperty('textContent');
     }
 
-    async innerHtml(): Promise<String> {
-        return await this.getProperty('innerHTML')
+    async innerHtml(): Promise<string> {
+        return await this.getProperty('innerHTML');
     }
 
-    async className(): Promise<String> {
-        return await this.getProperty('className')
+    async className(): Promise<string> {
+        return await this.getProperty('className');
     }
 
     async getStyles(): Promise<object> {
         const stylesStr = await this.elementHandle.evaluate(
-            // @ts-ignore
-            (element) => JSON.stringify(element.style)
-        )
-        return JSON.parse(stylesStr)
+            (element ) => JSON.stringify((element as HTMLElement).style)
+        );
+        return JSON.parse(stylesStr);
     }
 
     async getComputedStyles(): Promise<object> {
         const stylesStr = await this.elementHandle.evaluate(
             (element) => JSON.stringify(getComputedStyle(element))
-        )
-        return JSON.parse(stylesStr)
+        );
+        return JSON.parse(stylesStr);
     }
 
     async select(selector: string): Promise<puppeteer.ElementHandle | null> {
-        return await this.elementHandle.$(selector)
+        return await this.elementHandle.$(selector);
     }
 
     async selectAll(selector: string): Promise<puppeteer.ElementHandle[] | null> {
-        return await this.elementHandle.$$(selector)
+        return await this.elementHandle.$$(selector);
     }
 
     // Find functions
 
     async findById(id: string) {
-        const idSelector = `#${id}`
-        return await this.findBySelector(idSelector)
+        const idSelector = `#${id}`;
+        return await this.findBySelector(idSelector);
     }
 
     async findByClassName(className: string) {
-        const classSelector = `.${className}`
-        return await this.findBySelector(classSelector)
+        const classSelector = `.${className}`;
+        return await this.findBySelector(classSelector);
     }
 
     async findBySelector(selector: string) {
-        const element = await this.select(`${selector}`)
-        const elementWrapper = new Element(element as puppeteer.ElementHandle, selector, this, this.page)
+        const element = await this.select(`${selector}`);
+        const elementWrapper = new Element(element as puppeteer.ElementHandle, selector, this, this.page);
         if (element === null) {
-            return element
+            return element;
         }
-        return elementWrapper
+        return elementWrapper;
     }
 
     async findAllByClassName(className: string) {
-        const classSelector = `.${className}`
-        return this.findAllBySelector(classSelector)
+        const classSelector = `.${className}`;
+        return this.findAllBySelector(classSelector);
     }
 
     async findAllBySelector(selector: string) {
-        const elements = await this.selectAll(`${selector}`)
+        const elements = await this.selectAll(`${selector}`);
         if (elements?.length === 0) {
-            return elements
+            return elements;
         }
-        return elements?.map(element => new Element(element, selector, this, this.page))
+        return elements?.map(element => new Element(element, selector, this, this.page));
     }
 
     async click(): Promise<void> {
-        await this.elementHandle.click()
+        await this.elementHandle.click();
     }
 
     async inputText(text: string): Promise<void> {
-        await this.elementHandle.focus()
-        await this.page.keyboard.type(text)
+        await this.elementHandle.focus();
+        await this.page.keyboard.type(text);
     }
 }

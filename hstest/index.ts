@@ -1,4 +1,4 @@
-import StageTest from './stage/stageTest.js'
+import StageTest from './stage/stageTest.js';
 import CheckResult from "./outcome/checkResult.js";
 import WrongAnswer from "./exception/outcome/WrongAnswer.js";
 import ReactTest from './stage/reactTest.js';
@@ -12,7 +12,7 @@ export {
     correct,
     wrong,
     WrongAnswer
-}
+};
 
 export default StageTest;
 

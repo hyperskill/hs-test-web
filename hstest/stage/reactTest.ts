@@ -1,12 +1,12 @@
 import StageTest from "./stageTest.js";
 import ReactRunner from "../testing/runner/reactRunner.js";
-import callsite from "callsite"
-import path from "path"
+import callsite from "callsite";
+import path from "path";
 
 class ReactTest extends StageTest {
 
-    host: string = 'localhost';
-    port: number = 31328;
+    host = 'localhost';
+    port = 31328;
 
     constructor() {
         super();

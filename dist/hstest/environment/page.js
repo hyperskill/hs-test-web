@@ -85,6 +85,7 @@ class Page {
     }
     navigate(url) {
         return __awaiter(this, void 0, void 0, function* () {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             yield this.pageInstance.navigate(url);
         });

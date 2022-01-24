@@ -1,8 +1,7 @@
-// @ts-nocheck
 import TestRunner from "./runner.js";
 import TestRun from "../testRun.js";
-import Webpack from "webpack"
-import WebpackDevServer from "webpack-dev-server"
+import Webpack, {Configuration} from "webpack";
+import WebpackDevServer from "webpack-dev-server";
 
 import path from "path";
 import http from "http";
@@ -12,8 +11,8 @@ class ReactRunner extends TestRunner {
 
     port: number;
     host: string;
-    dirPath: string;
-    closeUrl: string = "closeWebPackDevServer"
+    private readonly dirPath: string;
+    private closeUrl = "closeWebPackDevServer";
 
     constructor(host: string, port: number, dirPath: string) {
         super();
@@ -22,22 +21,22 @@ class ReactRunner extends TestRunner {
         this.dirPath = dirPath;
     }
 
-    async test(testRun: TestRun): Promise<any> {
+    async test(testRun: TestRun): Promise<void> {
         return testRun.testCase();
     }
 
-    async setUp(): Promise<any> {
+    async setUp(): Promise<void> {
         await this.compileReactProject();
         await this.browser.launch();
     }
 
-    async tearDown(): Promise<any> {
+    async tearDown(): Promise<void> {
         await this.closeServer();
         await this.browser.close();
     }
 
     private async compileReactProject(): Promise<void> {
-        const webpackConfig = {
+        const webpackConfig: Configuration = {
             mode: 'development',
             entry: path.join(this.dirPath, "src/index.js"),
             module: {
@@ -70,18 +69,19 @@ class ReactRunner extends TestRunner {
             devServer: {
                 contentBase: path.join(this.dirPath, "public"),
                 stats: 'errors-only',
-                liveReload: false,
             }
         };
 
-        let isCompilationCompleted: boolean = false;
-        let errors: any[] = [];
+        let isCompilationCompleted = false;
+        let errors: Error[] = [];
 
         const compiler = Webpack(webpackConfig);
-        const server = new WebpackDevServer(compiler, webpackConfig.devServer);
+        const server = new WebpackDevServer(compiler, webpackConfig.devServer as Configuration);
 
-        server.listen(this.port, this.host)
+        server.listen(this.port, this.host);
 
+
+        // @ts-ignore
         server.compiler.hooks.afterCompile.tap('afterCompile', async (params) => {
             if (params.errors.length !== 0) {
                 errors = params.errors;
@@ -89,6 +89,7 @@ class ReactRunner extends TestRunner {
             isCompilationCompleted = true;
         });
 
+        // @ts-ignore
         server.app.get(`/${this.closeUrl}`, (req, res) => {
             res.sendStatus(200);
             server.close();
@@ -101,7 +102,7 @@ class ReactRunner extends TestRunner {
         }
 
         if (errors.length !== 0) {
-            throw new UnexpectedError("Compile error!")
+            throw new UnexpectedError("Compile error!");
         }
     }
 

@@ -5,7 +5,8 @@
   "main": "dist/hstest/index.js",
   "scripts": {
     "test": "set NODE_ENV=test_lib && mocha 'tests/**/*test.js' --recursive --timeout 10000",
-    "reacttest": "set NODE_ENV=test_lib && mocha 'tests/**/react/tests/*test.js' --recursive --timeout 10000"
+    "reacttest": "set NODE_ENV=test_lib && mocha 'tests/**/react/tests/*test.js' --recursive --timeout 10000",
+    "lint": "eslint \"**/*.ts\" --ignore-pattern node_modules/"
   },
   "type": "module",
   "keywords": [],
@@ -22,9 +23,12 @@
     "@types/puppeteer": "^5.4.4",
     "@types/webpack": "4.4.17",
     "@types/webpack-dev-server": "3.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
     "babel-loader": "^8.2.3",
     "chai": "^4.3.4",
     "css-loader": "^5.2.1",
+    "eslint": "^8.7.0",
     "file-loader": ">=6.0.0",
     "mocha": "^9.1.3",
     "react": "^16.13.1",

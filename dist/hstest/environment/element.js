@@ -14,15 +14,6 @@ export default class Element {
         this.parent = parent;
         this.page = page;
     }
-    static getElementPath(element) {
-        const elements = [];
-        let currentElement = element;
-        while (currentElement) {
-            elements.push(currentElement.selector);
-            currentElement = currentElement.parent;
-        }
-        return elements.reverse().join(' > ');
-    }
     // Element properties
     getAttribute(attribute) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -53,9 +44,7 @@ export default class Element {
     }
     getStyles() {
         return __awaiter(this, void 0, void 0, function* () {
-            const stylesStr = yield this.elementHandle.evaluate(
-            // @ts-ignore
-            (element) => JSON.stringify(element.style));
+            const stylesStr = yield this.elementHandle.evaluate((element) => JSON.stringify(element.style));
             return JSON.parse(stylesStr);
         });
     }

@@ -3,15 +3,15 @@ import TestRun from "../testRun.js";
 
 class JsRunner extends TestRunner {
 
-    async test(testRun: TestRun): Promise<any> {
+    async test(testRun: TestRun): Promise<void> {
         return testRun.testCase();
     }
 
-    async setUp(): Promise<any> {
+    async setUp(): Promise<void> {
         await this.browser.launch();
     }
 
-    async tearDown(): Promise<any> {
+    async tearDown(): Promise<void> {
         await this.browser.close();
     }
 }

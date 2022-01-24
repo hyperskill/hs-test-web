@@ -1,16 +1,15 @@
-import puppeteer from 'puppeteer'
+import puppeteer, {BrowserConnectOptions, BrowserLaunchArgumentOptions, LaunchOptions} from 'puppeteer';
 
 class Browser {
-    launched: boolean = false;
-    browser!: puppeteer.Browser;
-    puppeteerLaunchArgs: Object = {
+    private launched = false;
+    private browser!: puppeteer.Browser;
+    private puppeteerLaunchArgs: BrowserLaunchArgumentOptions & LaunchOptions & BrowserConnectOptions = {
         headless: (process.env.NODE_ENV || '').trim() === 'test_lib',
         defaultViewport: null,
         args: ['--start-maximized', '--disable-infobar'],
         ignoreDefaultArgs: ['--enable-automation'],
-        debug: true,
         devtools: true,
-    }
+    };
 
     async launch(): Promise<void> {
         this.browser = await puppeteer.launch(this.puppeteerLaunchArgs);

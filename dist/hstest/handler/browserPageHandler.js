@@ -1,3 +1,4 @@
+/* eslint no-use-before-define: 2 */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,18 +14,19 @@ class BrowserPageHandler {
         return __awaiter(this, void 0, void 0, function* () {
             yield page.evaluate((CheckResultString) => {
                 eval(`window.CheckResult = ${CheckResultString}`);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 this.wrong = CheckResult.wrong;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 this.correct = CheckResult.correct;
             }, CheckResult.toString());
         });
     }
-    // @ts-ignore
     static initKeyboardEvents(page) {
         return __awaiter(this, void 0, void 0, function* () {
             yield page.evaluate(() => {
-                let unusualCharToCode = {
+                const unusualCharToCode = {
                     '`': 'Backquote',
                     '-': 'Minus',
                     '=': 'Equal',
@@ -38,7 +40,7 @@ class BrowserPageHandler {
                     '/': 'Slash',
                     ' ': 'Space',
                 };
-                let unusualCharToScanCode = {
+                const unusualCharToScanCode = {
                     '`': 192,
                     '-': 189,
                     '=': 187,
@@ -51,7 +53,7 @@ class BrowserPageHandler {
                     '.': 190,
                     '/': 191,
                 };
-                let shiftPairs = {
+                const shiftPairs = {
                     '~': '`',
                     '_': '-',
                     '+': '=',
@@ -64,7 +66,7 @@ class BrowserPageHandler {
                     '>': '.',
                     '?': '/',
                 };
-                let shiftNumbers = {
+                const shiftNumbers = {
                     '!': '1',
                     '@': '2',
                     '#': '3',
@@ -96,7 +98,6 @@ class BrowserPageHandler {
                         return null;
                     }
                 }
-                // @ts-ignore
                 function charToScanCode(c) {
                     if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == ' ') {
                         return c.toUpperCase().charCodeAt(0);
@@ -114,10 +115,9 @@ class BrowserPageHandler {
                         return null;
                     }
                 }
-                // @ts-ignore
                 function dispatchKeyboardEvent(dest, type, char) {
-                    let key = char; // Source char
-                    let code = charToCode(char); // Code of the key
+                    const key = char; // Source char
+                    const code = charToCode(char); // Code of the key
                     let keyCode; // Numeric key code of the key
                     let charCode; // Char code of the key
                     if (type === 'keypress') {
@@ -135,6 +135,7 @@ class BrowserPageHandler {
                         'charCode': charCode,
                     }));
                 }
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 this.press = function (key, destination = document) {
                     dispatchKeyboardEvent(destination, 'keydown', key);

@@ -54,7 +54,6 @@ class StageTest {
     _runTests() {
         return __awaiter(this, void 0, void 0, function* () {
             let currTest = 0;
-            let needTearDown = false;
             try {
                 const testRuns = yield this.initTests();
                 for (let i = 0; i < testRuns.length; i++) {
@@ -63,7 +62,6 @@ class StageTest {
                     this.printTestNum(currTest);
                     if (testRun.isFirstTest()) {
                         yield testRun.setUp();
-                        needTearDown = true;
                     }
                     const result = yield testRun.test();
                     if (!(result instanceof CheckResult)) {
@@ -71,9 +69,6 @@ class StageTest {
                     }
                     if (!result.isCorrect) {
                         throw new WrongAnswer(result.feedback);
-                    }
-                    if (testRun.isLastTest()) {
-                        needTearDown = false;
                     }
                 }
             }

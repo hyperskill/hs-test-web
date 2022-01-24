@@ -14,7 +14,7 @@ class StageTest {
 
     node: NodeEnvironment = new NodeEnvironment();
     runner: TestRunner = new JsRunner();
-    tests: Function[] = [];
+    tests: NoArgsFunction[] = [];
 
     getPage(url: string): Page {
         return new Page(url, this.runner.browser);
@@ -24,22 +24,22 @@ class StageTest {
         console.log("Start test " + testNum);
     }
 
-    async runTests(): Promise<any> {
+    async runTests(): Promise<void> {
         await this._runTests();
     }
 
-    async initTests(): Promise<any> {
+    async initTests(): Promise<TestRun[]> {
         const testCount: number = this.tests.length;
 
         if (testCount === 0) {
             throw new UnexpectedError("No tests found!");
         }
 
-        const testRuns: TestRun[] = []
+        const testRuns: TestRun[] = [];
 
         for (let i = 0; i < this.tests.length; i++) {
             const currTest: number = i + 1;
-            const testCase: any = await this.tests[i];
+            const testCase: NoArgsFunction = await this.tests[i];
             if (!(testCase instanceof Function)) {
                 throw new UnexpectedError("Found a wrong test case that is not a function");
             }
@@ -51,8 +51,7 @@ class StageTest {
     }
 
     async _runTests(): Promise<void> {
-        let currTest: number = 0;
-        let needTearDown: boolean = false;
+        let currTest = 0;
 
         try {
             const testRuns: TestRun[] = await this.initTests();
@@ -65,7 +64,6 @@ class StageTest {
 
                 if (testRun.isFirstTest()) {
                     await testRun.setUp();
-                    needTearDown = true;
                 }
 
                 const result = await testRun.test();
@@ -77,10 +75,6 @@ class StageTest {
                 if (!result.isCorrect) {
                     throw new WrongAnswer(result.feedback);
                 }
-
-                if (testRun.isLastTest()) {
-                    needTearDown = false;
-                }
             }
         } catch (err: any) {
             let outcome: Outcome;
@@ -89,14 +83,14 @@ class StageTest {
             } catch (err: any) {
                 throw new Error(
                     new UnexpectedErrorOutcome(currTest, err).toString()
-                )
+                );
             }
-            throw new Error(outcome.toString())
+            throw new Error(outcome.toString());
         } finally {
             try {
-                await this.runner.tearDown()
+                await this.runner.tearDown();
             } catch (err: any) {
-                throw new Error(new UnexpectedErrorOutcome(currTest, err).toString())
+                throw new Error(new UnexpectedErrorOutcome(currTest, err).toString());
             }
         }
     }

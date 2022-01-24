@@ -7,7 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// @ts-nocheck
 import TestRunner from "./runner.js";
 import Webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
@@ -74,7 +73,6 @@ class ReactRunner extends TestRunner {
                 devServer: {
                     contentBase: path.join(this.dirPath, "public"),
                     stats: 'errors-only',
-                    liveReload: false,
                 }
             };
             let isCompilationCompleted = false;
@@ -82,12 +80,14 @@ class ReactRunner extends TestRunner {
             const compiler = Webpack(webpackConfig);
             const server = new WebpackDevServer(compiler, webpackConfig.devServer);
             server.listen(this.port, this.host);
+            // @ts-ignore
             server.compiler.hooks.afterCompile.tap('afterCompile', (params) => __awaiter(this, void 0, void 0, function* () {
                 if (params.errors.length !== 0) {
                     errors = params.errors;
                 }
                 isCompilationCompleted = true;
             }));
+            // @ts-ignore
             server.app.get(`/${this.closeUrl}`, (req, res) => {
                 res.sendStatus(200);
                 server.close();

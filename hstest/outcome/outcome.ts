@@ -9,18 +9,18 @@ export default class Outcome {
     }
 
     getType(): string {
-        return ""
+        return "";
     }
 
     toString(): string {
-        let whenErrorHappened: string = "";
+        let whenErrorHappened = "";
         if (this.testNumber === 0) {
             whenErrorHappened = " during testing";
         } else if (this.testNumber > 0) {
             whenErrorHappened = " in test #" + this.testNumber;
         }
 
-        let result: string = this.getType() + whenErrorHappened
+        let result: string = this.getType() + whenErrorHappened;
 
         if (this.errorText.length !== 0) {
             result += "\n\n" + this.errorText.trim();

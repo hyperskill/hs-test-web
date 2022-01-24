@@ -1,8 +1,8 @@
 class NodeEnvironment {
-    execute(testCase: Function): Function {
+    execute(testCase: NoArgsFunction): NoArgsFunction {
         return async () => {
             return testCase();
-        }
+        };
     }
 }
 

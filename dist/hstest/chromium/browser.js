@@ -16,7 +16,6 @@ class Browser {
             defaultViewport: null,
             args: ['--start-maximized', '--disable-infobar'],
             ignoreDefaultArgs: ['--enable-automation'],
-            debug: true,
             devtools: true,
         };
     }

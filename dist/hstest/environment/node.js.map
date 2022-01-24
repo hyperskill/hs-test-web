@@ -1,1 +1,1 @@
-{"version":3,"file":"node.js","sourceRoot":"","sources":["../../../hstest/environment/node.ts"],"names":[],"mappings":";;;;;;;;;AAAA,MAAM,eAAe;IACjB,OAAO,CAAC,QAAkB;QACtB,OAAO,GAAS,EAAE;YACd,OAAO,QAAQ,EAAE,CAAC;QACtB,CAAC,CAAA,CAAA;IACL,CAAC;CACJ;AAED,eAAe,eAAe,CAAC"}
+{"version":3,"file":"node.js","sourceRoot":"","sources":["../../../hstest/environment/node.ts"],"names":[],"mappings":";;;;;;;;;AAAA,MAAM,eAAe;IACjB,OAAO,CAAC,QAAwB;QAC5B,OAAO,GAAS,EAAE;YACd,OAAO,QAAQ,EAAE,CAAC;QACtB,CAAC,CAAA,CAAC;IACN,CAAC;CACJ;AAED,eAAe,eAAe,CAAC"}

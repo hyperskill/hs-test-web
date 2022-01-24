@@ -1,5 +1,3 @@
-import UnexpectedError from "../exception/outcome/UnexpectedError.js";
-
 interface CheckResultJson {
     isCorrect: boolean,
     feedback: string
@@ -38,7 +36,9 @@ class CheckResult {
     }
 
     static isCheckResult(json: object) {
-        return !(json == null || !json.hasOwnProperty('isCorrect') || !json.hasOwnProperty('feedback'));
+        return !(json == null ||
+            !Object.prototype.hasOwnProperty.call(json, "isCorrect") ||
+            !Object.prototype.hasOwnProperty.call(json, "feedback"));
     }
 }
 
