@@ -26,6 +26,7 @@ it('Test run react project', async () => {
     try {
         await new TestRunReactProjectTest().runTests()
     } catch (err) {
+        console.log(err.toString())
         throw new Error("The test should pass all test cases!")
     }
 }).timeout(30000);

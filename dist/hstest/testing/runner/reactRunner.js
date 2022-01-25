@@ -8,8 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import TestRunner from "./runner.js";
-import Webpack from "webpack";
-import WebpackDevServer from "webpack-dev-server";
 import path from "path";
 import http from "http";
 import CompilationError from "../../exception/outcome/CompilationError.js";
@@ -40,6 +38,8 @@ class ReactRunner extends TestRunner {
     }
     compileReactProject() {
         return __awaiter(this, void 0, void 0, function* () {
+            const Webpack = (yield import("webpack")).default;
+            const WebpackDevServer = (yield import("webpack-dev-server")).default;
             const webpackConfig = {
                 mode: 'development',
                 entry: path.join(this.dirPath, "src/index.js"),

@@ -1,7 +1,5 @@
 import TestRunner from "./runner.js";
 import TestRun from "../testRun.js";
-import Webpack, {Configuration} from "webpack";
-import WebpackDevServer from "webpack-dev-server";
 
 import path from "path";
 import http from "http";
@@ -36,7 +34,11 @@ class ReactRunner extends TestRunner {
     }
 
     private async compileReactProject(): Promise<void> {
-        const webpackConfig: Configuration = {
+
+        const Webpack = (await import("webpack")).default;
+        const WebpackDevServer = (await import("webpack-dev-server")).default;
+
+        const webpackConfig: any = {
             mode: 'development',
             entry: path.join(this.dirPath, "src/index.js"),
             module: {
@@ -76,7 +78,7 @@ class ReactRunner extends TestRunner {
         let errors: Error[] = [];
 
         const compiler = Webpack(webpackConfig);
-        const server = new WebpackDevServer(compiler, webpackConfig.devServer as Configuration);
+        const server = new WebpackDevServer(compiler, webpackConfig.devServer);
 
         server.listen(this.port, this.host);
 
