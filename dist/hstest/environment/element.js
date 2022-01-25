@@ -24,7 +24,7 @@ export default class Element {
         return __awaiter(this, void 0, void 0, function* () {
             const elementProperty = yield this.elementHandle.getProperty(property);
             const elementPropertyString = (yield elementProperty.jsonValue());
-            return elementPropertyString.trim();
+            return elementPropertyString.toString().trim();
         });
     }
     textContent() {

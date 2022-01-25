@@ -26,7 +26,7 @@ export default class Element {
     async getProperty(property: string): Promise<string> {
         const elementProperty = await this.elementHandle.getProperty(property);
         const elementPropertyString = (await elementProperty.jsonValue()) as string;
-        return elementPropertyString.trim();
+        return elementPropertyString.toString().trim();
     }
 
     async textContent(): Promise<string> {
