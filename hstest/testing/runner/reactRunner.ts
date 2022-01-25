@@ -4,6 +4,7 @@ import TestRun from "../testRun.js";
 import path from "path";
 import http from "http";
 import CompilationError from "../../exception/outcome/CompilationError.js";
+import UnexpectedError from "../../exception/outcome/UnexpectedError.js";
 
 class ReactRunner extends TestRunner {
 
@@ -35,8 +36,15 @@ class ReactRunner extends TestRunner {
 
     private async compileReactProject(): Promise<void> {
 
-        const Webpack = (await import("webpack")).default;
-        const WebpackDevServer = (await import("webpack-dev-server")).default;
+        let Webpack;
+        let WebpackDevServer;
+
+        try {
+            Webpack = (await import("webpack")).default;
+            WebpackDevServer = (await import("webpack-dev-server")).default;
+        } catch (err) {
+            throw new UnexpectedError("React dependencies are not installed!");
+        }
 
         const webpackConfig: any = {
             mode: 'development',
