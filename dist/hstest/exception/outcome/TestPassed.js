@@ -1,7 +1,7 @@
 import OutcomeError from "./OutcomeError.js";
 class TestPassed extends OutcomeError {
     constructor() {
-        super("");
+        super();
     }
 }
 export default TestPassed;
