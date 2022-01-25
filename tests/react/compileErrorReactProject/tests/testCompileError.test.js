@@ -30,6 +30,6 @@ it('Test react compile error', async () => {
     } catch (err) {
         chai.expect(err.toString()).to.contain("Compilation error during testing")
         chai.expect(err.toString()).to.contain("Module not found: Error: Can't resolve './index.csss'")
-        chai.expect(err.toString()).to.contain("Expected corresponding JSX closing tag for <div>")
+        chai.expect(err.toString()).to.contain("Error: Can't resolve './logo.svgs'")
     }
 }).timeout(30000);
