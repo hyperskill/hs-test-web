@@ -3,6 +3,7 @@ import WrongAnswerOutcome from "./wrongAnswerOutcome.js";
 import UnexpectedErrorOutcome from "./unexpectedErrorOutcome.js";
 import CompilationError from "../exception/outcome/CompilationError.js";
 import CompilationErrorOutcome from "./compilationErrorOutcome.js";
+import ErrorOutcome from "./errorOutcome.js";
 export default class OutcomeFactory {
     static getOutcome(ex, currTest) {
         if (ex instanceof WrongAnswer) {
@@ -10,6 +11,11 @@ export default class OutcomeFactory {
         }
         else if (ex instanceof CompilationError) {
             return new CompilationErrorOutcome(currTest, ex);
+        }
+        else if (ex.toString().toLowerCase().includes("protocol error")
+            || ex.toString().toLowerCase().includes("context was destroyed")
+            || ex.toString().toLowerCase().includes("chromium revision is not downloaded")) {
+            return new ErrorOutcome(currTest, ex);
         }
         else {
             return new UnexpectedErrorOutcome(currTest, ex);
