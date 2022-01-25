@@ -29,7 +29,6 @@ it('Pass the test in evaluate method from node context', async () => {
     try {
         await new TestPassTheTestTest().runTests()
     } catch (err) {
-        console.log(err.toString())
         throw new Error("The test shouldn't fail")
     }
 });

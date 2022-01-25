@@ -5,7 +5,7 @@ import WebpackDevServer from "webpack-dev-server";
 
 import path from "path";
 import http from "http";
-import UnexpectedError from "../../exception/outcome/UnexpectedError.js";
+import CompilationError from "../../exception/outcome/CompilationError.js";
 
 class ReactRunner extends TestRunner {
 
@@ -102,7 +102,7 @@ class ReactRunner extends TestRunner {
         }
 
         if (errors.length !== 0) {
-            throw new UnexpectedError("Compile error!");
+            throw new CompilationError(errors);
         }
     }
 

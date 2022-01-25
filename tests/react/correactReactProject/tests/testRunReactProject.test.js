@@ -1,4 +1,4 @@
-import {ReactTest, correct, wrong} from "../../../dist/hstest/index.js"
+import {ReactTest, correct, wrong} from "../../../../dist/hstest/index.js"
 
 
 class TestRunReactProjectTest extends ReactTest {

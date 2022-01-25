@@ -1,4 +1,4 @@
-import OutcomeError from "./OutcomeError";
+import OutcomeError from "./OutcomeError.js";
 
 class CompilationError extends OutcomeError {
 
