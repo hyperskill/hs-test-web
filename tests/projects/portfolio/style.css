@@ -1,0 +1,128 @@
+:root {
+    --black: #222;
+    --white: #F2F2F2;
+    --darkgreen: #264653;
+    --lightgreen: #2a9d8f;
+    --yellow: #e9c46a;
+    --orange: #f4a261;
+    --redorange: #e76f51;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Courier;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+header,
+section,
+footer {
+    width: 100%;
+}
+
+header input {
+    max-width: 3em;
+    max-height: 3em;
+    float: right;
+    z-index: 2;
+}
+
+header {
+    height: 100vh;
+    background-color: var(--darkgreen);
+}
+
+nav {
+    overflow: hidden;
+    background-color: var(--black);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    height: 3em;
+}
+
+.hamburger {
+    position: static;
+}
+
+#hamburger {
+    visibility: hidden;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: var(--white);
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .normalNav {
+        visibility: hidden;
+    }
+}
+
+nav a:hover {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+h1 {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+    font-size: 3em;
+    color: var(--yellow);
+}
+
+h2 {
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#about {
+    height: 100vh;
+    background-color: var(--yellow);
+}
+
+#contacts {
+    height: 100vh;
+}
+
+footer {
+    overflow: hidden;
+    height: 3em;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+p {
+    text-align: center;
+    width: 100%;
+}
+
+img {
+    max-width: 30%;
+}
+
+.window {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#popup1,
+#popup2 {
+    visibility: hidden;
+}

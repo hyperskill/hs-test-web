@@ -1,5 +1,5 @@
 const {StageTest} = require("./stageTest.js")
-const {UnexpectedError} = require("../exception/unexpected_error.js")
+const {UnexpectedError} = require("../exception/unexpectedError.js")
 const callsite = require('callsite');
 const path = require('path')
 
@@ -11,7 +11,7 @@ class ReactTest extends StageTest {
     constructor() {
         super();
         try {
-            const {ReactRunner} = require("../testing/runner/react_runner.js")
+            const {ReactRunner} = require("../testing/runner/reactRunner.js")
             const stack = callsite(),
                 requester = stack[1].getFileName();
             const path_folders = requester.split(path.sep)
@@ -20,6 +20,11 @@ class ReactTest extends StageTest {
         } catch (err) {
             throw new UnexpectedError("Required dependencies are not installed to test React applications", err)
         }
+    }
+
+    async runTests() {
+        this.runner.port = this.port
+        await super.runTests();
     }
 }
 

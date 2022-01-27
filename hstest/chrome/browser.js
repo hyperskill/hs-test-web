@@ -9,14 +9,22 @@ class Browser {
             return
         }
 
-        this.browser = await puppeteer.launch({
+        let additionalBrowserLaunchArgs = {}
+
+        if (process.env.NODE_ENV != null && process.env.NODE_ENV.trim() === 'testlib') {
+            additionalBrowserLaunchArgs['headless'] = true
+        }
+
+        let puppeteerLaunchArgs = {
             headless: false,
             defaultViewport: null,
             args: ['--start-maximized', '--disable-infobar'],
             ignoreDefaultArgs: ['--enable-automation'],
-            debug: false
-        });
+            debug: false,
+            ...additionalBrowserLaunchArgs
+        }
 
+        this.browser = await puppeteer.launch(puppeteerLaunchArgs);
         this.launched = true;
     }
 

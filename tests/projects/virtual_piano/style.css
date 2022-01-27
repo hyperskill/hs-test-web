@@ -1,0 +1,53 @@
+html{
+    margin: 0;
+    padding: 0;
+    background-color: darkseagreen;
+}
+
+body {
+
+    justify-content: space-between;
+}
+
+.white-keys {
+    margin: 10% auto;
+    width: max-content;
+    margin-top: 25%;
+    z-index: 1;
+}
+
+.black-keys {
+    margin: 10% auto;
+    width: max-content;
+    margin-top: 25%;
+    z-index: 2;
+}
+
+.black-keys kbd {
+    display: inline-block;
+    text-align: center;
+    color: white;
+    margin: auto 0;
+    padding: 0;
+    border: gray solid;
+    background-color: black;
+    height: 150px;
+    width: 50px;
+    z-index: 2;
+}
+
+.white-keys kbd {
+    display: inline-block;
+    text-align: center;
+    color: black;
+    margin: auto 0;
+    padding: 0;
+    border: gray solid;
+    background-color: white;
+    height: 150px;
+    width: 50px;
+
+}
+
+
+

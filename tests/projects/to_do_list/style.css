@@ -1,0 +1,189 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+body {
+    min-height: 100%;
+    background-color: antiquewhite;
+    margin: 0;
+    padding: 0;
+}
+
+body input {
+    border: none;
+    outline: none;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+ul[class] {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.main-title {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    text-transform: uppercase;
+    margin-top: 100px;
+}
+
+form input {
+    max-width: 390px;
+    width: 400px;
+    height: 25px;
+    padding: 4px 10px;
+    margin: 25px 5px 25px 0;
+    /*box-shadow: -2px 5px 3px rgba(0, 0, 0, .2);*/
+}
+.main-btn {
+    width: 100px;
+    height: 33px;
+    border: none;
+    background-color: springgreen;
+    color: #222;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.main-btn:hover {
+    transition: all .3s ease 0s;
+    /*background-color: rgba(0, 128, 128, 0.7);*/
+    background-color: rgba(0, 182, 88, 0.96);
+}
+
+
+.main__task-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main__task-item {
+    position: relative;
+    width: 520px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    /*justify-content: space-between;*/
+}
+
+.task {
+    width: 100%;
+    margin-left: 10px;
+}
+
+.delete-btn {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    background-color: crimson;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    /*padding: 10px;*/
+}
+
+.delete-btn::before,
+.delete-btn::after {
+    position: absolute;
+    content: '';
+    top: 11px;
+    left: 5px;
+    width: 14px;
+    height: 2px;
+    background-color: white;
+}
+
+.delete-btn::before {
+    transform: rotate(45deg);
+}
+.delete-btn::after {
+    transform: rotate(-45deg);
+}
+
+.delete-btn:hover {
+    background-color: rgba(220, 20, 60, 0.71);
+}
+
+.clear-btn {
+    margin-top: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: springgreen;
+    color: slategray;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+
+.clear-btn:active {
+    background-color: mediumspringgreen;
+}
+
+.delete {
+
+}
+
+/*
+variables
+ */
+
+.checked {
+    text-decoration: line-through;
+}
+
+input[type=checkbox]:checked ~ .task {
+    text-decoration: line-through;
+}

@@ -1,8 +1,7 @@
-const {WrongAnswer} = require("../exception/wrong_answer.js")
-const {ExceptionWithFeedback} = require("../exception/exception_with_feedback.js")
-const {ErrorWithFeedback} = require("../exception/error_with_feedback.js")
-const {UnexpectedError} = require("../exception/unexpected_error.js")
-const {CompilationError} = require("../exception/compilation_error.js")
+const {WrongAnswer} = require("../exception/wrongAnswer.js")
+const {ExceptionWithFeedback} = require("../exception/exceptionWithFeedback.js")
+const {ErrorWithFeedback} = require("../exception/errorWithFeedback.js")
+const {CompilationError} = require("../exception/compilationError.js")
 
 class Outcome {
     constructor(testNumber, errorText) {
@@ -18,7 +17,7 @@ class Outcome {
         let whenErrorHappened = "";
         if (this.testNumber === 0) {
             whenErrorHappened = " during testing";
-        } else {
+        } else if (this.testNumber > 0) {
             whenErrorHappened = " in test #" + this.testNumber;
         }
 
@@ -32,11 +31,11 @@ class Outcome {
     }
 
     static getOutcome(ex, currTest) {
-        const {WrongAnswerOutcome} = require("./wrong_answer_outcome.js")
-        const {UnexpectedErrorOutcome} = require("./unexpected_error_outcome.js")
-        const {ExceptionOutcome} = require("./exception_outcome.js")
-        const {ErrorOutcome} = require("./error_outcome.js")
-        const {CompiliationErrorOutcome} = require("./compiliation_error_outcome.js")
+        const {WrongAnswerOutcome} = require("./wrongAnswerOutcome.js")
+        const {UnexpectedErrorOutcome} = require("./unexpectedErrorOutcome.js")
+        const {ExceptionOutcome} = require("./exceptionOutcome.js")
+        const {ErrorOutcome} = require("./errorOutcome.js")
+        const {CompilationErrorOutcome} = require("./compilationErrorOutcome.js")
 
 
         if (ex instanceof WrongAnswer) {
@@ -45,10 +44,12 @@ class Outcome {
             return new ExceptionOutcome(currTest, ex)
         } else if (ex instanceof ErrorWithFeedback) {
             return new ErrorOutcome(currTest, ex)
-        } else if (ex.toString().includes("Protocol error")) {
+        } else if (ex.toString().toLowerCase().includes("protocol error")
+            || ex.toString().toLowerCase().includes("context was destroyed")
+            || ex.toString().toLowerCase().includes("chromium revision is not downloaded")) {
             return new ErrorOutcome(currTest, ex)
         } else if (ex instanceof CompilationError) {
-            return new CompiliationErrorOutcome(currTest, ex.errors)
+            return new CompilationErrorOutcome(currTest, ex.errors)
         } else {
             return new UnexpectedErrorOutcome(currTest, ex)
         }

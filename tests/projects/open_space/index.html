@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Space</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="space">
+        <div class="planet-area">
+            <img alt="rocket" class="rocket" src="https://stepik.org/media/attachments/lesson/452681/rocket.png">
+            <img alt="planet" class="planet" src="https://stepik.org/media/attachments/lesson/452681/mars.png">
+        </div>
+        <div class="control-panel">
+            <div class="control-panel__inner">
+                <input type="password" placeholder="input your password" class="password">
+                <input type="button" value="ok" class="ok-button">
+                <div class="check-buttons">
+                    <input type="checkbox" class="check" disabled onchange="checkAllButtons()">
+                    <input type="checkbox" class="check" disabled onchange="checkAllButtons()">
+                    <input type="checkbox" class="check" disabled onchange="checkAllButtons()">
+                    <input type="checkbox" class="check" disabled onchange="checkAllButtons()">
+                    <input type="checkbox" class="check" disabled onchange="checkAllButtons()">
+                    <input type="checkbox" class="check" disabled onchange="checkAllButtons()">
+                </div>
+                <div class="levers">
+                    <input type="range" class="lever" max="100" disabled onchange="checkAllButtons()">
+                    <input type="range" class="lever" max="100" disabled onchange="checkAllButtons()">
+                    <input type="range" class="lever" max="100" disabled onchange="checkAllButtons()">
+                    <input type="range" class="lever" max="100" disabled onchange="checkAllButtons()">
+                    <input type="range" class="lever" max="100" disabled onchange="checkAllButtons()">
+                </div>
+                <input class="launch" type="button" value="launch" disabled>
+            </div>
+        </div>
+    </div>
+    <script async>
+        let password = document.querySelector(".password");
+        const SECRET = "TrustNo1";
+        let okButton = document.querySelector(".ok-button");
+
+        function checkPassword() {
+            return password.value === SECRET;
+        }
+
+        okButton.addEventListener("click", () => {
+            let check = checkPassword();
+            if (check) {
+                document.querySelectorAll("input").forEach(value => {
+                    if (value.className === "launch") return;
+                    value.removeAttribute("disabled");
+                })
+                password.setAttribute("disabled", "");
+                okButton.setAttribute("disabled", "");
+            }
+        });
+
+        let controlPanelInputs = document.querySelectorAll("input")
+
+        function checkAllButtons() {
+            let counter = 0;
+            controlPanelInputs.forEach(input => {
+                if (input.className === "check" || input.className === "lever") {
+                    if (input.checked) {
+                        counter++;
+                    }
+                    else if (input.value === "100") {
+                        counter++;
+                    }
+                }
+            })
+            if (counter === 11) {
+                document.querySelector(".launch").removeAttribute("disabled");
+            }
+        }
+        document.querySelector(".levers").addEventListener("change", checkAllButtons);
+        function launch() {
+            document.querySelector(".rocket").animate([
+                { // current position of your rocket
+                    left: '240px',
+                    bottom: '-225px'
+                },
+                { //  final position of your rocket
+                    left: '440px',
+                    bottom: '117px'
+                }
+            ], {
+                // timing options
+                duration: 2000,
+                iterations: 1
+            })
+        }
+        document.querySelector(".launch").addEventListener("click", launch);
+
+    </script>
+</body>
+</html>
