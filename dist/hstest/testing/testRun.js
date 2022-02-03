@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import TestPassed from "../exception/outcome/TestPassed.js";
 import CheckResult from "../outcome/checkResult.js";
 class TestRun {
@@ -22,28 +13,22 @@ class TestRun {
     isLastTest() {
         return this.testNum === this.testCount;
     }
-    setUp() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.runner.setUp();
-        });
+    async setUp() {
+        return this.runner.setUp();
     }
-    tearDown() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.runner.tearDown();
-        });
+    async tearDown() {
+        this.runner.tearDown();
     }
-    test() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this.runner.test(this);
+    async test() {
+        try {
+            return await this.runner.test(this);
+        }
+        catch (err) {
+            if (err instanceof TestPassed) {
+                return CheckResult.correct();
             }
-            catch (err) {
-                if (err instanceof TestPassed) {
-                    return CheckResult.correct();
-                }
-                throw err;
-            }
-        });
+            throw err;
+        }
     }
 }
 export default TestRun;

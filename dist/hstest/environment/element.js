@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 export default class Element {
     constructor(elementHandle, selector, parent, page) {
         this.elementHandle = elementHandle;
@@ -15,103 +6,71 @@ export default class Element {
         this.page = page;
     }
     // Element properties
-    getAttribute(attribute) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.elementHandle.evaluate((element, attribute) => element.getAttribute(attribute), attribute);
-        });
+    async getAttribute(attribute) {
+        return await this.elementHandle.evaluate((element, attribute) => element.getAttribute(attribute), attribute);
     }
-    getProperty(property) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const elementProperty = yield this.elementHandle.getProperty(property);
-            const elementPropertyString = (yield elementProperty.jsonValue());
-            return elementPropertyString.toString().trim();
-        });
+    async getProperty(property) {
+        const elementProperty = await this.elementHandle.getProperty(property);
+        const elementPropertyString = (await elementProperty.jsonValue());
+        return elementPropertyString.toString().trim();
     }
-    textContent() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.getProperty('textContent');
-        });
+    async textContent() {
+        return await this.getProperty('textContent');
     }
-    innerHtml() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.getProperty('innerHTML');
-        });
+    async innerHtml() {
+        return await this.getProperty('innerHTML');
     }
-    className() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.getProperty('className');
-        });
+    async className() {
+        return await this.getProperty('className');
     }
-    getStyles() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const stylesStr = yield this.elementHandle.evaluate((element) => JSON.stringify(element.style));
-            return JSON.parse(stylesStr);
-        });
+    async getStyles() {
+        const stylesStr = await this.elementHandle.evaluate((element) => JSON.stringify(element.style));
+        return JSON.parse(stylesStr);
     }
-    getComputedStyles() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const stylesStr = yield this.elementHandle.evaluate((element) => JSON.stringify(getComputedStyle(element)));
-            return JSON.parse(stylesStr);
-        });
+    async getComputedStyles() {
+        const stylesStr = await this.elementHandle.evaluate((element) => JSON.stringify(getComputedStyle(element)));
+        return JSON.parse(stylesStr);
     }
-    select(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.elementHandle.$(selector);
-        });
+    async select(selector) {
+        return await this.elementHandle.$(selector);
     }
-    selectAll(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.elementHandle.$$(selector);
-        });
+    async selectAll(selector) {
+        return await this.elementHandle.$$(selector);
     }
     // Find functions
-    findById(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const idSelector = `#${id}`;
-            return yield this.findBySelector(idSelector);
-        });
+    async findById(id) {
+        const idSelector = `#${id}`;
+        return await this.findBySelector(idSelector);
     }
-    findByClassName(className) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const classSelector = `.${className}`;
-            return yield this.findBySelector(classSelector);
-        });
+    async findByClassName(className) {
+        const classSelector = `.${className}`;
+        return await this.findBySelector(classSelector);
     }
-    findBySelector(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const element = yield this.select(`${selector}`);
-            const elementWrapper = new Element(element, selector, this, this.page);
-            if (element === null) {
-                return element;
-            }
-            return elementWrapper;
-        });
+    async findBySelector(selector) {
+        const element = await this.select(`${selector}`);
+        const elementWrapper = new Element(element, selector, this, this.page);
+        if (element === null) {
+            return element;
+        }
+        return elementWrapper;
     }
-    findAllByClassName(className) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const classSelector = `.${className}`;
-            return this.findAllBySelector(classSelector);
-        });
+    async findAllByClassName(className) {
+        const classSelector = `.${className}`;
+        return this.findAllBySelector(classSelector);
     }
-    findAllBySelector(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const elements = yield this.selectAll(`${selector}`);
-            if ((elements === null || elements === void 0 ? void 0 : elements.length) === 0) {
-                return elements;
-            }
-            return elements === null || elements === void 0 ? void 0 : elements.map(element => new Element(element, selector, this, this.page));
-        });
+    async findAllBySelector(selector) {
+        const elements = await this.selectAll(`${selector}`);
+        if ((elements === null || elements === void 0 ? void 0 : elements.length) === 0) {
+            return elements;
+        }
+        return elements === null || elements === void 0 ? void 0 : elements.map(element => new Element(element, selector, this, this.page));
     }
-    click() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.elementHandle.click();
-        });
+    async click() {
+        await this.elementHandle.click();
     }
-    inputText(text) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.elementHandle.focus();
-            yield this.page.keyboard.type(text);
-        });
+    async inputText(text) {
+        await this.elementHandle.focus();
+        await this.page.keyboard.type(text);
     }
 }
 //# sourceMappingURL=element.js.map
