@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        #test-button:hover {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,7 +26,7 @@
     </div>
 </div>
 
-<button id="test-button"></button>
+<button id="test-button">This is a button</button>
 
 <input type="text">
 
@@ -32,8 +37,12 @@
 <script>
     window.onload = () => {
         const button = document.getElementById("test-button");
-        button.onclick = () => {
-            console.log("button is clicked!")
-        }
+        button.addEventListener('focus', () => {
+            console.log("button is focused!")
+        })
+
+        button.addEventListener('mouseover', () => {
+            console.log("button is hovered!")
+        })
     }
 </script>

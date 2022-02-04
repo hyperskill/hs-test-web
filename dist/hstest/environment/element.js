@@ -1,3 +1,4 @@
+import EventHandler from "../handler/eventHandler.js";
 export default class Element {
     constructor(elementHandle, selector, parent, page) {
         this.elementHandle = elementHandle;
@@ -71,6 +72,15 @@ export default class Element {
     async inputText(text) {
         await this.elementHandle.focus();
         await this.page.keyboard.type(text);
+    }
+    async focus() {
+        return this.elementHandle.focus();
+    }
+    async hover() {
+        return this.elementHandle.hover();
+    }
+    async waitForEvent(eventName, timeout = 10000) {
+        return EventHandler.waitForEvent(eventName, this.page, this.elementHandle, timeout);
     }
 }
 //# sourceMappingURL=element.js.map

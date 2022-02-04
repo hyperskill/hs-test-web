@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import EventHandler from "../handler/eventHandler.js";
 
 export default class Element {
 
@@ -104,5 +105,17 @@ export default class Element {
     async inputText(text: string): Promise<void> {
         await this.elementHandle.focus();
         await this.page.keyboard.type(text);
+    }
+
+    async focus(): Promise<void> {
+        return this.elementHandle.focus();
+    }
+
+    async hover(): Promise<void> {
+        return this.elementHandle.hover();
+    }
+
+    async waitForEvent(eventName: string, timeout = 10000): Promise<boolean> {
+        return EventHandler.waitForEvent(eventName, this.page, this.elementHandle, timeout)
     }
 }

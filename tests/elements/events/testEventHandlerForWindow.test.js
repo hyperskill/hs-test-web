@@ -3,20 +3,20 @@ import path from 'path'
 
 const pagePath = path.join(import.meta.url, '../index.html')
 
-class TestEventHandlerTest extends StageTest {
+class TestEventHandlerForWindowTest extends StageTest {
 
     page = this.getPage(pagePath)
 
     tests = [
         this.node.execute(async () => {
             const button = await this.page.findById("test-button");
-            const waitPromise = this.page.waitForEvent("click", 2000);
+            const isEventHappened = this.page.waitForEvent("click", 2000);
             await button.click();
-            return correct();
+            return (await isEventHappened === true) ? correct() : wrong("Expected click event!");
         })
     ]
 }
 
-it('test event handler', async () => {
-    await new TestEventHandlerTest().runTests()
+it('test event handler for window', async () => {
+    await new TestEventHandlerForWindowTest().runTests()
 }).timeout(30000);
