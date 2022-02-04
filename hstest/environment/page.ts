@@ -95,6 +95,36 @@ class Page {
     currentUrl(): string {
         return this.pageInstance.url();
     }
+
+    async waitForEvent(eventName: string, timeout = 10000) {
+        await this.open();
+
+        return this.pageInstance.evaluate((event, timeout) => {
+            const sleep = (ms: number) => {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            };
+
+            let isEventHappened = false;
+
+            window.addEventListener(event, () => {
+                isEventHappened = true;
+            });
+
+            // eslint-disable-next-line no-async-promise-executor
+            return new Promise(async resolve => {
+                let isWaiting = true;
+                const waiter = setTimeout(() => {
+                    isWaiting = false;
+                    resolve(false);
+                }, timeout);
+                while (!isEventHappened && isWaiting) {
+                    await sleep(200);
+                }
+                clearTimeout(waiter);
+                resolve(true);
+            });
+        }, eventName, timeout);
+    }
 }
 
 export default Page;
