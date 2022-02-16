@@ -17,7 +17,6 @@ class Browser {
     async newPage() {
         const page = await this.browser.newPage();
         page.on('console', msg => {
-            console.log(`Log from ${page.url()}:`);
             console.log(msg.text());
         });
         return page;

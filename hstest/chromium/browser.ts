@@ -19,7 +19,6 @@ class Browser {
     async newPage(): Promise<puppeteer.Page> {
         const page: puppeteer.Page = await this.browser.newPage();
         page.on('console', msg => {
-            console.log(`Log from ${page.url()}:`);
             console.log(msg.text());
         });
         return page;

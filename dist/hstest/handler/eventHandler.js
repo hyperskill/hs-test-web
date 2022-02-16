@@ -4,7 +4,7 @@ class EventHandler {
             const sleep = (ms) => {
                 return new Promise(resolve => setTimeout(resolve, ms));
             };
-            let element = elementHandle || window;
+            const element = elementHandle || window;
             let isEventHappened = false;
             element.addEventListener(event, () => {
                 isEventHappened = true;

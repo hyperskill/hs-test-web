@@ -14,7 +14,8 @@
   "dependencies": {
     "@types/callsite": "^1.0.31",
     "callsite": "^1.0.0",
-    "puppeteer": "^13.0.0"
+    "puppeteer": "^13.0.0",
+    "puppeteer-element2selector": "^0.0.3"
   },
   "devDependencies": {
     "@babel/core": ">=7.9.6",

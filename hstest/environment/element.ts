@@ -1,22 +1,36 @@
 import puppeteer from "puppeteer";
+import puppeteerCore from "puppeteer-core";
 import EventHandler from "../handler/eventHandler.js";
+import {element2selector} from "puppeteer-element2selector";
+import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 
 export default class Element {
 
-    private elementHandle: puppeteer.ElementHandle;
-    private selector: string;
-    private parent: Element | null;
+    private readonly selector: Promise<string> | string;
     private readonly page: puppeteer.Page;
+    private elementHandle: puppeteer.ElementHandle;
+    private parent: Element | null;
 
     constructor(elementHandle: puppeteer.ElementHandle, selector: string, parent: Element | null, page: puppeteer.Page) {
         this.elementHandle = elementHandle;
-        this.selector = selector;
+        this.selector = element2selector(elementHandle as unknown as puppeteerCore.ElementHandle);
         this.parent = parent;
         this.page = page;
     }
 
-    // Element properties
+    async syncElementHandleWithDOM() {
+        const selector = await this.selector;
+        await this.page.waitForSelector(
+            selector, {timeout: 3000}
+        ).then(element => {
+            if (element)
+                this.elementHandle = element;
+        }).catch(() => {
+            throw new WrongAnswer(`The element with selector '${selector}' is detached from the DOM!`);
+        });
+    }
 
+    // Element properties
     async getAttribute(attribute: string): Promise<string | null> {
         return await this.elementHandle.evaluate(
             (element, attribute) => element.getAttribute(attribute),
@@ -44,7 +58,7 @@ export default class Element {
 
     async getStyles(): Promise<object> {
         const stylesStr = await this.elementHandle.evaluate(
-            (element ) => JSON.stringify((element as HTMLElement).style)
+            (element) => JSON.stringify((element as HTMLElement).style)
         );
         return JSON.parse(stylesStr);
     }
@@ -57,10 +71,12 @@ export default class Element {
     }
 
     async select(selector: string): Promise<puppeteer.ElementHandle | null> {
+        await this.syncElementHandleWithDOM();
         return await this.elementHandle.$(selector);
     }
 
-    async selectAll(selector: string): Promise<puppeteer.ElementHandle[] | null> {
+    async selectAll(selector: string): Promise<puppeteer.ElementHandle[]> {
+        await this.syncElementHandleWithDOM();
         return await this.elementHandle.$$(selector);
     }
 
@@ -99,23 +115,28 @@ export default class Element {
     }
 
     async click(): Promise<void> {
+        await this.syncElementHandleWithDOM();
         await this.elementHandle.click();
     }
 
     async inputText(text: string): Promise<void> {
+        await this.syncElementHandleWithDOM();
         await this.elementHandle.focus();
         await this.page.keyboard.type(text);
     }
 
     async focus(): Promise<void> {
+        await this.syncElementHandleWithDOM();
         return this.elementHandle.focus();
     }
 
     async hover(): Promise<void> {
+        await this.syncElementHandleWithDOM();
         return this.elementHandle.hover();
     }
 
     async waitForEvent(eventName: string, timeout = 10000): Promise<boolean> {
-        return EventHandler.waitForEvent(eventName, this.page, this.elementHandle, timeout)
+        await this.syncElementHandleWithDOM();
+        return EventHandler.waitForEvent(eventName, this.page, this.elementHandle, timeout);
     }
 }

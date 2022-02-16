@@ -17,7 +17,7 @@ class StageTest {
         return new Page(url, this.runner.browser);
     }
     printTestNum(testNum) {
-        console.log("Start test " + testNum);
+        console.log("\x1b[1;31m" + "Start test " + testNum + "\x1b[0m");
     }
     async runTests() {
         await this._runTests();

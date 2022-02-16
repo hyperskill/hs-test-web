@@ -99,7 +99,7 @@ class Page {
 
     async waitForEvent(eventName: string, timeout = 10000) {
         await this.open();
-        return EventHandler.waitForEvent(eventName, this.pageInstance, null, timeout)
+        return EventHandler.waitForEvent(eventName, this.pageInstance, null, timeout);
     }
 }
 

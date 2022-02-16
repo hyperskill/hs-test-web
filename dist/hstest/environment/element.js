@@ -1,10 +1,21 @@
 import EventHandler from "../handler/eventHandler.js";
+import { element2selector } from "puppeteer-element2selector";
+import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 export default class Element {
     constructor(elementHandle, selector, parent, page) {
         this.elementHandle = elementHandle;
-        this.selector = selector;
+        this.selector = element2selector(elementHandle);
         this.parent = parent;
         this.page = page;
+    }
+    async syncElementHandleWithDOM() {
+        const selector = await this.selector;
+        await this.page.waitForSelector(selector, { timeout: 3000 }).then(element => {
+            if (element)
+                this.elementHandle = element;
+        }).catch(() => {
+            throw new WrongAnswer(`The element with selector '${selector}' is detached from the DOM!`);
+        });
     }
     // Element properties
     async getAttribute(attribute) {
@@ -33,9 +44,11 @@ export default class Element {
         return JSON.parse(stylesStr);
     }
     async select(selector) {
+        await this.syncElementHandleWithDOM();
         return await this.elementHandle.$(selector);
     }
     async selectAll(selector) {
+        await this.syncElementHandleWithDOM();
         return await this.elementHandle.$$(selector);
     }
     // Find functions
@@ -61,25 +74,30 @@ export default class Element {
     }
     async findAllBySelector(selector) {
         const elements = await this.selectAll(`${selector}`);
-        if ((elements === null || elements === void 0 ? void 0 : elements.length) === 0) {
+        if (elements?.length === 0) {
             return elements;
         }
-        return elements === null || elements === void 0 ? void 0 : elements.map(element => new Element(element, selector, this, this.page));
+        return elements?.map(element => new Element(element, selector, this, this.page));
     }
     async click() {
+        await this.syncElementHandleWithDOM();
         await this.elementHandle.click();
     }
     async inputText(text) {
+        await this.syncElementHandleWithDOM();
         await this.elementHandle.focus();
         await this.page.keyboard.type(text);
     }
     async focus() {
+        await this.syncElementHandleWithDOM();
         return this.elementHandle.focus();
     }
     async hover() {
+        await this.syncElementHandleWithDOM();
         return this.elementHandle.hover();
     }
     async waitForEvent(eventName, timeout = 10000) {
+        await this.syncElementHandleWithDOM();
         return EventHandler.waitForEvent(eventName, this.page, this.elementHandle, timeout);
     }
 }

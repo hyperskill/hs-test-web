@@ -1,30 +1,23 @@
 import {StageTest, correct, wrong} from "../../../dist/hstest/index.js";
 import path from 'path';
-import chai from 'chai';
 
 const pagePath = path.join(import.meta.url, '../index.html');
 
-class TestSyncElementHandleWithDomTest extends StageTest {
+class TestSyncNestedElementTest extends StageTest {
 
     page = this.getPage(pagePath);
 
     tests = [
         this.node.execute(async () => {
-            let el = await this.page.findByClassName("click-button");
-            const submitButton = await this.page.findById("about-button");
-            await submitButton.click();
-            await el.click();
+            const el1 = await this.page.findByClassName("el1");
+            const el2 = await el1.findByClassName("el2");
+            await this.page.refresh();
+            const el3 = await el2.findByClassName("el3");
             return correct();
         })
     ];
 }
 
-it('test elementHandleSyncWithDom on navigation', async () => {
-    try {
-        await new TestSyncElementHandleWithDomTest().runTests();
-    } catch (err) {
-        chai.expect(err.toString()).contain("Wrong answer in test #1\n\nThe element with selector '.click-button' is detached from the DOM!");
-        return;
-    }
-    throw new Error("The test should fail!");
+it('test nested elementHandleSyncWithDom', async () => {
+    await new TestSyncNestedElementTest().runTests();
 }).timeout(30000);
