@@ -37,6 +37,14 @@ class Page {
         };
     }
 
+    viewport() {
+        return this.pageInstance.viewport();
+    }
+
+    async setViewport(viewport: puppeteer.Viewport) {
+        return this.pageInstance.setViewport(viewport);
+    }
+
     async evaluate(func: NoArgsFunction): Promise<object> {
         await this.open();
         const evaluationResult = await this.pageInstance.evaluate(func as EvaluateFn);

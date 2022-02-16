@@ -26,6 +26,12 @@ class Page {
             return CheckResult.fromJson(result);
         };
     }
+    viewport() {
+        return this.pageInstance.viewport();
+    }
+    async setViewport(viewport) {
+        return this.pageInstance.setViewport(viewport);
+    }
     async evaluate(func) {
         await this.open();
         const evaluationResult = await this.pageInstance.evaluate(func);
