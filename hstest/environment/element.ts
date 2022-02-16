@@ -139,4 +139,14 @@ export default class Element {
         await this.syncElementHandleWithDOM();
         return EventHandler.waitForEvent(eventName, this.page, this.elementHandle, timeout);
     }
+
+    async clickForNavigation(option?: object) {
+        await this.syncElementHandleWithDOM();
+        return Promise.all(
+            [
+                this.page.waitForNavigation(option),
+                this.elementHandle.click()
+            ]
+        );
+    }
 }
