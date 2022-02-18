@@ -2,15 +2,8 @@
 import CheckResult from "../outcome/checkResult.js";
 class BrowserPageHandler {
     static async initHyperskillContext(page) {
-        await page.evaluate((CheckResultString) => {
-            eval(`window.CheckResult = ${CheckResultString}`);
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.wrong = CheckResult.wrong;
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.correct = CheckResult.correct;
-        }, CheckResult.toString());
+        await page.exposeFunction('correct', CheckResult.correct);
+        await page.exposeFunction('wrong', CheckResult.wrong);
     }
     static async initKeyboardEvents(page) {
         await page.evaluate(() => {
