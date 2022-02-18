@@ -26,6 +26,7 @@ class Page {
         this.pageInstance = await this.browser.newPage();
         await this.pageInstance.goto(this.url);
         await BrowserPageHandler.initHyperskillContext(this.pageInstance);
+        await BrowserPageHandler.initKeyboardEvents(this.pageInstance);
         this.isOpened = true;
     }
 
