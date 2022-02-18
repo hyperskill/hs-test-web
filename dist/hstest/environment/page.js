@@ -83,6 +83,10 @@ class Page {
         await this.open();
         return EventHandler.waitForEvent(eventName, this.pageInstance, null, timeout);
     }
+    async exposeFunction(functionName, func) {
+        await this.open();
+        return this.pageInstance.exposeFunction(functionName, func);
+    }
 }
 export default Page;
 //# sourceMappingURL=page.js.map

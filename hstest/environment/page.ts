@@ -110,6 +110,11 @@ class Page {
         await this.open();
         return EventHandler.waitForEvent(eventName, this.pageInstance, null, timeout);
     }
+
+    async exposeFunction(functionName: string, func: NoArgsFunction) {
+        await this.open();
+        return this.pageInstance.exposeFunction(functionName, func);
+    }
 }
 
 export default Page;
