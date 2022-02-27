@@ -32,6 +32,7 @@ export default class Element {
 
     // Element properties
     async getAttribute(attribute: string): Promise<string | null> {
+        await this.syncElementHandleWithDOM();
         return await this.elementHandle.evaluate(
             (element, attribute) => element.getAttribute(attribute),
             attribute
@@ -39,6 +40,7 @@ export default class Element {
     }
 
     async getProperty(property: string): Promise<string> {
+        await this.syncElementHandleWithDOM();
         const elementProperty = await this.elementHandle.getProperty(property);
         const elementPropertyString = (await elementProperty.jsonValue()) as string;
         return elementPropertyString.toString().trim();
@@ -57,6 +59,7 @@ export default class Element {
     }
 
     async getStyles(): Promise<object> {
+        await this.syncElementHandleWithDOM();
         const stylesStr = await this.elementHandle.evaluate(
             (element) => JSON.stringify((element as HTMLElement).style)
         );
@@ -64,6 +67,7 @@ export default class Element {
     }
 
     async getComputedStyles(): Promise<object> {
+        await this.syncElementHandleWithDOM();
         const stylesStr = await this.elementHandle.evaluate(
             (element) => JSON.stringify(getComputedStyle(element))
         );

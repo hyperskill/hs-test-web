@@ -19,9 +19,11 @@ export default class Element {
     }
     // Element properties
     async getAttribute(attribute) {
+        await this.syncElementHandleWithDOM();
         return await this.elementHandle.evaluate((element, attribute) => element.getAttribute(attribute), attribute);
     }
     async getProperty(property) {
+        await this.syncElementHandleWithDOM();
         const elementProperty = await this.elementHandle.getProperty(property);
         const elementPropertyString = (await elementProperty.jsonValue());
         return elementPropertyString.toString().trim();
@@ -36,10 +38,12 @@ export default class Element {
         return await this.getProperty('className');
     }
     async getStyles() {
+        await this.syncElementHandleWithDOM();
         const stylesStr = await this.elementHandle.evaluate((element) => JSON.stringify(element.style));
         return JSON.parse(stylesStr);
     }
     async getComputedStyles() {
+        await this.syncElementHandleWithDOM();
         const stylesStr = await this.elementHandle.evaluate((element) => JSON.stringify(getComputedStyle(element)));
         return JSON.parse(stylesStr);
     }
