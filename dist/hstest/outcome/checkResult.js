@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class CheckResult {
     constructor(correct, feedback) {
         this.isCorrect = correct;
@@ -29,5 +31,5 @@ class CheckResult {
             !Object.prototype.hasOwnProperty.call(json, "feedback"));
     }
 }
-export default CheckResult;
+exports.default = CheckResult;
 //# sourceMappingURL=checkResult.js.map

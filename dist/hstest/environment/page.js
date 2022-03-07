@@ -1,9 +1,14 @@
-import BrowserPageHandler from "../handler/browserPageHandler.js";
-import CheckResult from "../outcome/checkResult.js";
-import WrongAnswer from "../exception/outcome/WrongAnswer.js";
-import TestPassed from "../exception/outcome/TestPassed.js";
-import Element from "./element.js";
-import EventHandler from "../handler/eventHandler.js";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const browserPageHandler_js_1 = __importDefault(require("../handler/browserPageHandler.js"));
+const checkResult_js_1 = __importDefault(require("../outcome/checkResult.js"));
+const WrongAnswer_js_1 = __importDefault(require("../exception/outcome/WrongAnswer.js"));
+const TestPassed_js_1 = __importDefault(require("../exception/outcome/TestPassed.js"));
+const element_js_1 = __importDefault(require("./element.js"));
+const eventHandler_js_1 = __importDefault(require("../handler/eventHandler.js"));
 class Page {
     constructor(url, browser) {
         this.url = url;
@@ -16,15 +21,15 @@ class Page {
         }
         this.pageInstance = await this.browser.newPage();
         await this.pageInstance.goto(this.url);
-        await BrowserPageHandler.initHyperskillContext(this.pageInstance);
-        await BrowserPageHandler.initKeyboardEvents(this.pageInstance);
+        await browserPageHandler_js_1.default.initHyperskillContext(this.pageInstance);
+        await browserPageHandler_js_1.default.initKeyboardEvents(this.pageInstance);
         this.isOpened = true;
     }
     execute(func) {
         return async () => {
             await this.open();
             const result = await this.pageInstance.evaluate(func);
-            return CheckResult.fromJson(result);
+            return checkResult_js_1.default.fromJson(result);
         };
     }
     viewport() {
@@ -36,12 +41,12 @@ class Page {
     async evaluate(func) {
         await this.open();
         const evaluationResult = await this.pageInstance.evaluate(func);
-        if (CheckResult.isCheckResult(evaluationResult)) {
+        if (checkResult_js_1.default.isCheckResult(evaluationResult)) {
             if (!evaluationResult.isCorrect) {
-                throw new WrongAnswer(evaluationResult.feedback);
+                throw new WrongAnswer_js_1.default(evaluationResult.feedback);
             }
             else {
-                throw new TestPassed();
+                throw new TestPassed_js_1.default();
             }
         }
         return evaluationResult;
@@ -49,7 +54,7 @@ class Page {
     async _getBodyTag() {
         await this.open();
         const bodySelector = 'body';
-        return new Element(await this.pageInstance.$(bodySelector), bodySelector, null, this.pageInstance);
+        return new element_js_1.default(await this.pageInstance.$(bodySelector), bodySelector, null, this.pageInstance);
     }
     async findById(id) {
         return await (await this._getBodyTag()).findById(id);
@@ -81,12 +86,12 @@ class Page {
     }
     async waitForEvent(eventName, timeout = 10000) {
         await this.open();
-        return EventHandler.waitForEvent(eventName, this.pageInstance, null, timeout);
+        return eventHandler_js_1.default.waitForEvent(eventName, this.pageInstance, null, timeout);
     }
     async exposeFunction(functionName, func) {
         await this.open();
         return this.pageInstance.exposeFunction(functionName, func);
     }
 }
-export default Page;
+exports.default = Page;
 //# sourceMappingURL=page.js.map

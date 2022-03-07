@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class NodeEnvironment {
     execute(testCase) {
         return async () => {
@@ -5,5 +7,5 @@ class NodeEnvironment {
         };
     }
 }
-export default NodeEnvironment;
+exports.default = NodeEnvironment;
 //# sourceMappingURL=node.js.map

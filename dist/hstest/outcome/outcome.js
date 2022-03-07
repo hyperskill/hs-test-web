@@ -1,4 +1,6 @@
-export default class Outcome {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class Outcome {
     constructor(testNumber, errorText) {
         this.testNumber = testNumber;
         this.errorText = errorText;
@@ -21,4 +23,5 @@ export default class Outcome {
         return result.trim();
     }
 }
+exports.default = Outcome;
 //# sourceMappingURL=outcome.js.map

@@ -1,9 +1,9 @@
-import {StageTest, correct, wrong, WrongAnswer} from "../../dist/hstest/index.js"
-import path from 'path'
-import chai from 'chai';
+const {StageTest, correct, wrong, WrongAnswer} = require("../../dist/hstest/index.js")
+const path = require("path")
+const chai = require("chai")
 
 
-const pagePath = path.join(import.meta.url, '../index.html')
+const pagePath = path.join(__dirname, 'index.html')
 
 class TestNavigationErrorOutcomeTest extends StageTest {
 

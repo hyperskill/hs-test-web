@@ -1,9 +1,33 @@
-import TestRunner from "./runner.js";
-import path from "path";
-import http from "http";
-import CompilationError from "../../exception/outcome/CompilationError.js";
-import UnexpectedError from "../../exception/outcome/UnexpectedError.js";
-class ReactRunner extends TestRunner {
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const runner_js_1 = __importDefault(require("./runner.js"));
+const path_1 = __importDefault(require("path"));
+const http_1 = __importDefault(require("http"));
+const CompilationError_js_1 = __importDefault(require("../../exception/outcome/CompilationError.js"));
+const UnexpectedError_js_1 = __importDefault(require("../../exception/outcome/UnexpectedError.js"));
+class ReactRunner extends runner_js_1.default {
     constructor(host, port, dirPath) {
         super();
         this.closeUrl = "closeWebPackDevServer";
@@ -26,15 +50,15 @@ class ReactRunner extends TestRunner {
         let Webpack;
         let WebpackDevServer;
         try {
-            Webpack = (await import("webpack")).default;
-            WebpackDevServer = (await import("webpack-dev-server")).default;
+            Webpack = (await Promise.resolve().then(() => __importStar(require("webpack")))).default;
+            WebpackDevServer = (await Promise.resolve().then(() => __importStar(require("webpack-dev-server")))).default;
         }
         catch (err) {
-            throw new UnexpectedError("React dependencies are not installed!");
+            throw new UnexpectedError_js_1.default("React dependencies are not installed!");
         }
         const webpackConfig = {
             mode: 'development',
-            entry: path.join(this.dirPath, "src/index.js"),
+            entry: path_1.default.join(this.dirPath, "src/index.js"),
             module: {
                 rules: [
                     {
@@ -63,7 +87,7 @@ class ReactRunner extends TestRunner {
                 ]
             },
             devServer: {
-                contentBase: path.join(this.dirPath, "public"),
+                contentBase: path_1.default.join(this.dirPath, "public"),
                 stats: 'errors-only',
             }
         };
@@ -89,14 +113,14 @@ class ReactRunner extends TestRunner {
             await sleep(100);
         }
         if (errors.length !== 0) {
-            throw new CompilationError(errors);
+            throw new CompilationError_js_1.default(errors);
         }
     }
     async closeServer() {
         await new Promise(resolve => {
-            http.get(`http://${this.host}:${this.port}/${this.closeUrl}`, resolve);
+            http_1.default.get(`http://${this.host}:${this.port}/${this.closeUrl}`, resolve);
         });
     }
 }
-export default ReactRunner;
+exports.default = ReactRunner;
 //# sourceMappingURL=reactRunner.js.map

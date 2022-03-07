@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class EventHandler {
     static async waitForEvent(eventName, pageInstance, elementHandle, timeout = 10000) {
         return pageInstance.evaluate((event, elementHandle, timeout) => {
@@ -24,5 +26,5 @@ class EventHandler {
         }, eventName, elementHandle, timeout);
     }
 }
-export default EventHandler;
+exports.default = EventHandler;
 //# sourceMappingURL=eventHandler.js.map

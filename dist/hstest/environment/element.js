@@ -1,10 +1,15 @@
-import EventHandler from "../handler/eventHandler.js";
-import { element2selector } from "puppeteer-element2selector";
-import WrongAnswer from "../exception/outcome/WrongAnswer.js";
-export default class Element {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const eventHandler_js_1 = __importDefault(require("../handler/eventHandler.js"));
+const puppeteer_element2selector_1 = require("puppeteer-element2selector");
+const WrongAnswer_js_1 = __importDefault(require("../exception/outcome/WrongAnswer.js"));
+class Element {
     constructor(elementHandle, selector, parent, page) {
         this.elementHandle = elementHandle;
-        this.selector = element2selector(elementHandle);
+        this.selector = (0, puppeteer_element2selector_1.element2selector)(elementHandle);
         this.parent = parent;
         this.page = page;
     }
@@ -14,7 +19,7 @@ export default class Element {
             if (element)
                 this.elementHandle = element;
         }).catch(() => {
-            throw new WrongAnswer(`The element with selector '${selector}' is detached from the DOM!`);
+            throw new WrongAnswer_js_1.default(`The element with selector '${selector}' is detached from the DOM!`);
         });
     }
     // Element properties
@@ -102,7 +107,7 @@ export default class Element {
     }
     async waitForEvent(eventName, timeout = 10000) {
         await this.syncElementHandleWithDOM();
-        return EventHandler.waitForEvent(eventName, this.page, this.elementHandle, timeout);
+        return eventHandler_js_1.default.waitForEvent(eventName, this.page, this.elementHandle, timeout);
     }
     async clickForNavigation(option) {
         await this.syncElementHandleWithDOM();
@@ -112,4 +117,5 @@ export default class Element {
         ]);
     }
 }
+exports.default = Element;
 //# sourceMappingURL=element.js.map

@@ -1,9 +1,14 @@
+"use strict";
 /* eslint no-use-before-define: 2 */
-import CheckResult from "../outcome/checkResult.js";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const checkResult_js_1 = __importDefault(require("../outcome/checkResult.js"));
 class BrowserPageHandler {
     static async initHyperskillContext(page) {
-        await page.exposeFunction('correct', CheckResult.correct);
-        await page.exposeFunction('wrong', CheckResult.wrong);
+        await page.exposeFunction('correct', checkResult_js_1.default.correct);
+        await page.exposeFunction('wrong', checkResult_js_1.default.wrong);
     }
     static async initKeyboardEvents(page) {
         await page.evaluate(() => {
@@ -126,5 +131,5 @@ class BrowserPageHandler {
         });
     }
 }
-export default BrowserPageHandler;
+exports.default = BrowserPageHandler;
 //# sourceMappingURL=browserPageHandler.js.map

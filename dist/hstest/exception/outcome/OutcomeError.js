@@ -1,4 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class OutcomeError extends Error {
 }
-export default OutcomeError;
+exports.default = OutcomeError;
 //# sourceMappingURL=OutcomeError.js.map

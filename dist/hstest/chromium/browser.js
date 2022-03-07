@@ -1,4 +1,9 @@
-import puppeteer from 'puppeteer';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const puppeteer_1 = __importDefault(require("puppeteer"));
 class Browser {
     constructor() {
         this.launched = false;
@@ -11,7 +16,7 @@ class Browser {
         };
     }
     async launch() {
-        this.browser = await puppeteer.launch(this.puppeteerLaunchArgs);
+        this.browser = await puppeteer_1.default.launch(this.puppeteerLaunchArgs);
         this.launched = true;
     }
     async newPage() {
@@ -28,5 +33,5 @@ class Browser {
         await this.browser.close();
     }
 }
-export default Browser;
+exports.default = Browser;
 //# sourceMappingURL=browser.js.map

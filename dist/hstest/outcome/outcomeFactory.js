@@ -1,25 +1,31 @@
-import WrongAnswer from "../exception/outcome/WrongAnswer.js";
-import WrongAnswerOutcome from "./wrongAnswerOutcome.js";
-import UnexpectedErrorOutcome from "./unexpectedErrorOutcome.js";
-import CompilationError from "../exception/outcome/CompilationError.js";
-import CompilationErrorOutcome from "./compilationErrorOutcome.js";
-import ErrorOutcome from "./errorOutcome.js";
-export default class OutcomeFactory {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const WrongAnswer_js_1 = __importDefault(require("../exception/outcome/WrongAnswer.js"));
+const wrongAnswerOutcome_js_1 = __importDefault(require("./wrongAnswerOutcome.js"));
+const unexpectedErrorOutcome_js_1 = __importDefault(require("./unexpectedErrorOutcome.js"));
+const CompilationError_js_1 = __importDefault(require("../exception/outcome/CompilationError.js"));
+const compilationErrorOutcome_js_1 = __importDefault(require("./compilationErrorOutcome.js"));
+const errorOutcome_js_1 = __importDefault(require("./errorOutcome.js"));
+class OutcomeFactory {
     static getOutcome(ex, currTest) {
-        if (ex instanceof WrongAnswer) {
-            return new WrongAnswerOutcome(currTest, ex);
+        if (ex instanceof WrongAnswer_js_1.default) {
+            return new wrongAnswerOutcome_js_1.default(currTest, ex);
         }
-        else if (ex instanceof CompilationError) {
-            return new CompilationErrorOutcome(currTest, ex);
+        else if (ex instanceof CompilationError_js_1.default) {
+            return new compilationErrorOutcome_js_1.default(currTest, ex);
         }
         else if (ex.toString().toLowerCase().includes("protocol error")
             || ex.toString().toLowerCase().includes("context was destroyed")
             || ex.toString().toLowerCase().includes("chromium revision is not downloaded")) {
-            return new ErrorOutcome(currTest, ex);
+            return new errorOutcome_js_1.default(currTest, ex);
         }
         else {
-            return new UnexpectedErrorOutcome(currTest, ex);
+            return new unexpectedErrorOutcome_js_1.default(currTest, ex);
         }
     }
 }
+exports.default = OutcomeFactory;
 //# sourceMappingURL=outcomeFactory.js.map

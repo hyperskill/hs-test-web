@@ -1,7 +1,12 @@
-import Browser from "../../chromium/browser.js";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const browser_js_1 = __importDefault(require("../../chromium/browser.js"));
 class TestRunner {
     constructor() {
-        this.browser = new Browser();
+        this.browser = new browser_js_1.default();
     }
     setUp() {
     }
@@ -12,5 +17,5 @@ class TestRunner {
         throw new Error('Test method is not implemented');
     }
 }
-export default TestRunner;
+exports.default = TestRunner;
 //# sourceMappingURL=runner.js.map

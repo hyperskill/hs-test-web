@@ -1,12 +1,9 @@
 import Outcome from "./outcome.js";
 import os from 'os';
 
-import { createRequire } from "module";
-const require = createRequire(import.meta.url); // construct the require method for ES6 modules
-
-const libPackage = require("../../package.json");
-const puppeteerPackage = require("puppeteer/package.json");
-const mochaPackage = require("mocha/package.json");
+import * as libPackage from "../../package.json";
+import * as puppeteerPackage from "puppeteer/package.json";
+import * as mochaPackage from "mocha/package.json";
 
 class UnexpectedErrorOutcome extends Outcome {
 
