@@ -112,10 +112,10 @@ export default class Element {
 
     async findAllBySelector(selector: string) {
         const elements = await this.selectAll(`${selector}`);
-        if (elements?.length === 0) {
+        if (elements.length === 0) {
             return elements;
         }
-        return elements?.map(element => new Element(element, selector, this, this.page));
+        return elements.map(element => new Element(element, selector, this, this.page));
     }
 
     async click(): Promise<void> {
