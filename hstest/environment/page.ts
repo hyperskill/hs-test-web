@@ -38,11 +38,13 @@ class Page {
         };
     }
 
-    viewport() {
+    async viewport() {
+        await this.open();
         return this.pageInstance.viewport();
     }
 
     async setViewport(viewport: puppeteer.Viewport) {
+        await this.open();
         return this.pageInstance.setViewport(viewport);
     }
 

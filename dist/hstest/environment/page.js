@@ -32,10 +32,12 @@ class Page {
             return checkResult_js_1.default.fromJson(result);
         };
     }
-    viewport() {
+    async viewport() {
+        await this.open();
         return this.pageInstance.viewport();
     }
     async setViewport(viewport) {
+        await this.open();
         return this.pageInstance.setViewport(viewport);
     }
     async evaluate(func) {
