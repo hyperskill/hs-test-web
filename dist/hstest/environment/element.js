@@ -90,7 +90,9 @@ class Element {
     }
     async click() {
         await this.syncElementHandleWithDOM();
-        await this.elementHandle.click();
+        await this.elementHandle.evaluate((element) => {
+            element.click();
+        }, this.elementHandle);
     }
     async inputText(text) {
         await this.syncElementHandleWithDOM();

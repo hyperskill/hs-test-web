@@ -22,7 +22,8 @@ class TestFindExistingElementsTest extends StageTest {
             }
 
             return correct()
-        })
+        }),
+
     ]
 }
 

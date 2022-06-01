@@ -120,7 +120,9 @@ export default class Element {
 
     async click(): Promise<void> {
         await this.syncElementHandleWithDOM();
-        await this.elementHandle.click();
+        await this.elementHandle.evaluate((element: any) => {
+            element.click();
+        }, this.elementHandle);
     }
 
     async inputText(text: string): Promise<void> {
