@@ -29,7 +29,7 @@ class TestPageEvaluateResult extends StageTest {
                 }
             })
 
-            const pageViewport = this.page.viewport();
+            const pageViewport = await this.page.viewport();
 
             if (pageViewport.width !== 400 || pageViewport.height !== 600) {
                 return wrong("The page has wrong viewport size!")
