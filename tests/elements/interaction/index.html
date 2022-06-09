@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #update-text {
+            background-color: blue;
+        }
+        #update-text:hover {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="counter">0</div>
+
+<button id="test">
+    Click me
+</button>
+
+
+<input type="text" id="input-text">
+
+<div id="text-from-input">
+
+</div>
+
+<div id="parent-div">
+    <button id="child-button">Click event propagation!</button>
+</div>
+
+<button id="update-text">Update text</button>
+
+</body>
+</html>
+
+<script>
+    const button = document.getElementById('test')
+    button.addEventListener('click', () => {
+        const counter = document.getElementById('counter')
+        counter.innerText = String(parseInt(counter.innerText) + 1)
+    })
+
+    const updateButton = document.getElementById('update-text')
+    updateButton.addEventListener('click', () => {
+        const textFromInput = document.getElementById('text-from-input')
+        const input = document.getElementById('input-text')
+        textFromInput.innerText = input.value
+    })
+    const divBlock = document.getElementById('parent-div')
+    divBlock.addEventListener('click', () => {
+        const textFromInput = document.getElementById('text-from-input')
+        textFromInput.innerText = 'Event propagated!'
+    })
+</script>

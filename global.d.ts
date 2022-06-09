@@ -1,0 +1,1 @@
+type NoArgsFunction = () => void;

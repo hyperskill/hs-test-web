@@ -1,0 +1,1 @@
+{"version":3,"file":"node.js","sourceRoot":"","sources":["../../../hstest/environment/node.ts"],"names":[],"mappings":";;AAAA,MAAM,eAAe;IACjB,OAAO,CAAC,QAAwB;QAC5B,OAAO,KAAK,IAAI,EAAE;YACd,OAAO,QAAQ,EAAE,CAAC;QACtB,CAAC,CAAC;IACN,CAAC;CACJ;AAED,kBAAe,eAAe,CAAC"}

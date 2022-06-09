@@ -1,0 +1,1 @@
+{"version":3,"file":"errorOutcome.js","sourceRoot":"","sources":["../../../hstest/outcome/errorOutcome.ts"],"names":[],"mappings":";;;;;AAAA,8DAAmC;AAEnC,MAAM,YAAa,SAAQ,oBAAO;IAC9B,YAAY,OAAe,EAAE,KAAY;QACrC,KAAK,CAAC,OAAO,EAAE,KAAK,CAAC,QAAQ,EAAE,CAAC,CAAC;IACrC,CAAC;IAED,OAAO;QACH,OAAO,OAAO,CAAC;IACnB,CAAC;CACJ;AAED,kBAAe,YAAY,CAAC"}
