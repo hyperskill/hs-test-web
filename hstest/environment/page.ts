@@ -64,9 +64,8 @@ class Page {
     async _getBodyTag() {
         await this.open();
         const bodySelector = 'body';
-        return new Element(
+        return await Element.new(
             await this.pageInstance.$(bodySelector) as puppeteer.ElementHandle,
-            bodySelector,
             null,
             this.pageInstance
         );

@@ -56,7 +56,7 @@ class Page {
     async _getBodyTag() {
         await this.open();
         const bodySelector = 'body';
-        return new element_js_1.default(await this.pageInstance.$(bodySelector), bodySelector, null, this.pageInstance);
+        return await element_js_1.default.new(await this.pageInstance.$(bodySelector), null, this.pageInstance);
     }
     async findById(id) {
         return await (await this._getBodyTag()).findById(id);
