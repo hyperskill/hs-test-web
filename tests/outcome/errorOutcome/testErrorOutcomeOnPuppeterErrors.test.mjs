@@ -35,7 +35,7 @@ it('Test error outcome on context was destroyed', async () => {
         await new TestErrorOutcomeOnContextWasDestroyed().runTests()
         throw new Error("The test fail with Error outcome!")
     } catch (err) {
-        chai.expect(err.toString()).to.contain("Error: context was destroyed")
+        chai.expect(err.toString()).to.contain("The page has been reloaded or navigated, but it should not")
     }
 });
 

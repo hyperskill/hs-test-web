@@ -13,9 +13,10 @@ export default class OutcomeFactory {
         } else if (ex instanceof CompilationError) {
             return new CompilationErrorOutcome(currTest, ex);
         } else if (ex.toString().toLowerCase().includes("protocol error")
-            || ex.toString().toLowerCase().includes("context was destroyed")
             || ex.toString().toLowerCase().includes("chromium revision is not downloaded")) {
             return new ErrorOutcome(currTest, ex);
+        } else if (ex.toString().toLowerCase().includes("context was destroyed")) {
+            return new WrongAnswerOutcome(currTest, new WrongAnswer("The page has been reloaded or navigated, but it should not"));
         } else {
             return new UnexpectedErrorOutcome(currTest, ex);
         }
