@@ -10,17 +10,18 @@ const TestPassed_js_1 = __importDefault(require("../exception/outcome/TestPassed
 const element_js_1 = __importDefault(require("./element.js"));
 const eventHandler_js_1 = __importDefault(require("../handler/eventHandler.js"));
 class Page {
-    constructor(url, browser) {
+    constructor(url, browser, gotoOptions) {
         this.url = url;
         this.browser = browser;
         this.isOpened = false;
+        this.gotoOptions = gotoOptions;
     }
     async open() {
         if (this.isOpened) {
             return;
         }
         this.pageInstance = await this.browser.newPage();
-        await this.pageInstance.goto(this.url);
+        await this.pageInstance.goto(this.url, this.gotoOptions);
         await browserPageHandler_js_1.default.initHyperskillContext(this.pageInstance);
         await browserPageHandler_js_1.default.initKeyboardEvents(this.pageInstance);
         this.isOpened = true;
