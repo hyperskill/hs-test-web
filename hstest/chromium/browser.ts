@@ -9,6 +9,8 @@ class Browser {
         args: ['--start-maximized', '--disable-infobar'],
         ignoreDefaultArgs: ['--enable-automation'],
         devtools: true,
+        // @ts-ignore
+        ...global.browserOptions
     };
 
     async launch(): Promise<void> {
