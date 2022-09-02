@@ -11,10 +11,10 @@ class Browser {
             headless: (process.env.NODE_ENV || '').trim() === 'test_lib',
             defaultViewport: null,
             args: ['--start-maximized', '--disable-infobar'],
-            ignoreDefaultArgs: ['--enable-automation'],
-            devtools: true,
+            devtools: false,
             // @ts-ignore
-            ...global.browserOptions
+            ...global.browserOptions,
+            ignoreDefaultArgs: ['--enable-automation'],
         };
     }
     async launch() {
