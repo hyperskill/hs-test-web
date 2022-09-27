@@ -6,10 +6,10 @@ runs:
   steps:
     - uses: actions/checkout@v3
     - name: Download Key
-      run: wget https://dl-ssl.google.com/linux/linux_signing_key.pub -O /tmp/google.pub
+      run: wget https://dl-ssl.google.com/linux/linux_signing_key.pub -O google.pub
       shell: bash
     - name: Make a keyring for chrome
-      run: gpg --no-default-keyring --keyring /etc/apt/keyrings/google-chrome.gpg --import /tmp/google.pub
+      run: gpg --no-default-keyring --keyring /etc/apt/keyrings/google-chrome.gpg --import google.pub
       shell: bash
     - name: Set repository
       run: echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
