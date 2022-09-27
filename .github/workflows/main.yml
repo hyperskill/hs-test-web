@@ -1,0 +1,31 @@
+name: Checks
+on: [ push ]
+
+jobs:
+  Node_14:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node14
+      - name: node version
+        run: node --version
+      - name: test
+        run: npm test
+  Node_16:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node16
+      - name: node version
+        run: node --version
+      - name: test
+        run: npm test
+  Node_18:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node18
+      - name: node version
+        run: node --version
+      - name: test
+        run: npm test
