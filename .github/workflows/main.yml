@@ -7,7 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/node14
-      - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
       - name: node version
         run: node --version
@@ -18,7 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/node16
-      - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
       - name: node version
         run: node --version
@@ -29,7 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/node18
-      - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
       - name: node version
         run: node --version
