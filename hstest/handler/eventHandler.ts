@@ -1,16 +1,5 @@
 import puppeteer from "puppeteer";
 
-
-function sleep (ms: number) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-}
-
-function checkTimeout(startTime: number, timeout: number): boolean {
-    return (performance.now() - startTime) < timeout;
-}
-
 class EventHandler {
     static async waitForEvent(eventName: string, pageInstance: puppeteer.Page,
                               elementHandle: puppeteer.ElementHandle | null,
@@ -23,15 +12,23 @@ class EventHandler {
             function listener () {
                 isEventHappened = true;
             }
+            function sleep (ms: number) {
+                return new Promise(resolve => {
+                    setTimeout(resolve, ms);
+                });
+            }
             const sleepTimeout = 200;
 
             element.addEventListener(event, listener);
 
             try {
-                const start = performance.now();
+                const startTime = performance.now();
+                const checkTimeout = (): boolean => {
+                    return (performance.now() - startTime) < (timeout - sleepTimeout);
+                };
 
                 while (!isEventHappened) {
-                    if (!checkTimeout(start, timeout - sleepTimeout)) {
+                    if (!checkTimeout()) {
                       return false;
                     }
                     await sleep(sleepTimeout);

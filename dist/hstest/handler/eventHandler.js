@@ -1,13 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function sleep(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-}
-function checkTimeout(startTime, timeout) {
-    return (performance.now() - startTime) < timeout;
-}
 class EventHandler {
     static async waitForEvent(eventName, pageInstance, elementHandle, timeout = 10000) {
         async function pageFunction(event, elementHandle, timeout) {
@@ -16,12 +8,20 @@ class EventHandler {
             function listener() {
                 isEventHappened = true;
             }
+            function sleep(ms) {
+                return new Promise(resolve => {
+                    setTimeout(resolve, ms);
+                });
+            }
             const sleepTimeout = 200;
             element.addEventListener(event, listener);
             try {
-                const start = performance.now();
+                const startTime = performance.now();
+                const checkTimeout = () => {
+                    return (performance.now() - startTime) < (timeout - sleepTimeout);
+                };
                 while (!isEventHappened) {
-                    if (!checkTimeout(start, timeout - sleepTimeout)) {
+                    if (!checkTimeout()) {
                         return false;
                     }
                     await sleep(sleepTimeout);
