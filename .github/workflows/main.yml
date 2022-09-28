@@ -4,6 +4,8 @@ on: [ push ]
 jobs:
   Node_14:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test_lib
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/node14
@@ -15,6 +17,8 @@ jobs:
         run: npm test
   Node_16:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test_lib
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/node16
@@ -26,6 +30,8 @@ jobs:
         run: npm test
   Node_18:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test_lib
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/node18
