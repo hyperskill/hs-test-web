@@ -9,9 +9,18 @@ const WrongAnswer_js_1 = __importDefault(require("../exception/outcome/WrongAnsw
 class Element {
     constructor(elementHandle, selector, parent, page) {
         this.elementHandle = elementHandle;
-        this.selector = (0, puppeteer_element2selector_1.element2selector)(elementHandle);
+        this.selector = selector;
         this.parent = parent;
         this.page = page;
+    }
+    static async new(elementHandle, parent, page) {
+        try {
+            const selector = await (0, puppeteer_element2selector_1.element2selector)(elementHandle);
+            return new Element(elementHandle, selector, parent, page);
+        }
+        catch (err) {
+            throw new WrongAnswer_js_1.default('Make sure your elements don\'t have duplicated id attribute');
+        }
     }
     async syncElementHandleWithDOM() {
         const selector = await this.selector;
@@ -71,11 +80,10 @@ class Element {
     }
     async findBySelector(selector) {
         const element = await this.select(`${selector}`);
-        const elementWrapper = new Element(element, selector, this, this.page);
         if (element === null) {
             return element;
         }
-        return elementWrapper;
+        return await Element.new(element, this, this.page);
     }
     async findAllByClassName(className) {
         const classSelector = `.${className}`;
@@ -86,7 +94,11 @@ class Element {
         if (elements.length === 0) {
             return elements;
         }
-        return elements.map(element => new Element(element, selector, this, this.page));
+        const resultElements = [];
+        for (let i = 0; i < elements.length; i++) {
+            resultElements.push(await Element.new(elements[i], this, this.page));
+        }
+        return resultElements;
     }
     async click() {
         await this.syncElementHandleWithDOM();

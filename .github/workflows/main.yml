@@ -1,0 +1,53 @@
+name: Checks
+on: [ push ]
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node18
+      - name: node version
+        run: node --version
+      - name: Lint
+        run: npm run lint
+
+  Node_14:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test_lib
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node14
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome --version
+      - name: node version
+        run: node --version
+      - name: Test
+        run: npm run test
+  Node_16:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test_lib
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node16
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome --version
+      - name: node version
+        run: node --version
+      - name: test
+        run: npm run test
+  Node_18:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test_lib
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node18
+      - uses: browser-actions/setup-chrome@latest
+      - run: chrome --version
+      - name: node version
+        run: node --version
+      - name: test
+        run: npm run test

@@ -13,9 +13,18 @@ export default class Element {
 
     constructor(elementHandle: puppeteer.ElementHandle, selector: string, parent: Element | null, page: puppeteer.Page) {
         this.elementHandle = elementHandle;
-        this.selector = element2selector(elementHandle as unknown as puppeteerCore.ElementHandle);
+        this.selector = selector;
         this.parent = parent;
         this.page = page;
+    }
+
+    static async new(elementHandle: puppeteer.ElementHandle, parent: Element | null, page: puppeteer.Page) {
+        try {
+            const selector = await element2selector(elementHandle as unknown as puppeteerCore.ElementHandle);
+            return new Element(elementHandle, selector, parent, page);
+        } catch (err) {
+            throw new WrongAnswer('Make sure your elements don\'t have duplicated id attribute');
+        }
     }
 
     async syncElementHandleWithDOM() {
@@ -98,11 +107,10 @@ export default class Element {
 
     async findBySelector(selector: string) {
         const element = await this.select(`${selector}`);
-        const elementWrapper = new Element(element as puppeteer.ElementHandle, selector, this, this.page);
         if (element === null) {
             return element;
         }
-        return elementWrapper;
+        return await Element.new(element as puppeteer.ElementHandle, this, this.page);
     }
 
     async findAllByClassName(className: string) {
@@ -115,7 +123,12 @@ export default class Element {
         if (elements.length === 0) {
             return elements;
         }
-        return elements.map(element => new Element(element, selector, this, this.page));
+
+        const resultElements = [];
+        for (let i = 0; i < elements.length; i++) {
+            resultElements.push(await Element.new(elements[i], this, this.page));
+        }
+        return resultElements;
     }
 
     async click(): Promise<void> {

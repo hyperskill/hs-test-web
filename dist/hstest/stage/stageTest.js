@@ -18,8 +18,8 @@ class StageTest {
         this.runner = new jsRunner_js_1.default();
         this.tests = [];
     }
-    getPage(url) {
-        return new page_js_1.default(url, this.runner.browser);
+    getPage(url, options = {}) {
+        return new page_js_1.default(url, this.runner.browser, options);
     }
     printTestNum(testNum) {
         console.log("\x1b[1;31m" + "Start test " + testNum + "\x1b[0m");

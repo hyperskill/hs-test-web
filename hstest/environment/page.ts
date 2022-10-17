@@ -12,11 +12,13 @@ class Page {
     browser: Browser;
     isOpened: boolean;
     pageInstance!: puppeteer.Page;
+    gotoOptions: puppeteer.WaitForOptions;
 
-    constructor(url: string, browser: Browser) {
+    constructor(url: string, browser: Browser, gotoOptions: puppeteer.WaitForOptions) {
         this.url = url;
         this.browser = browser;
         this.isOpened = false;
+        this.gotoOptions = gotoOptions;
     }
 
     async open(): Promise<void> {
@@ -24,7 +26,7 @@ class Page {
             return;
         }
         this.pageInstance = await this.browser.newPage();
-        await this.pageInstance.goto(this.url);
+        await this.pageInstance.goto(this.url, this.gotoOptions);
         await BrowserPageHandler.initHyperskillContext(this.pageInstance);
         await BrowserPageHandler.initKeyboardEvents(this.pageInstance);
         this.isOpened = true;
@@ -64,9 +66,8 @@ class Page {
     async _getBodyTag() {
         await this.open();
         const bodySelector = 'body';
-        return new Element(
+        return await Element.new(
             await this.pageInstance.$(bodySelector) as puppeteer.ElementHandle,
-            bodySelector,
             null,
             this.pageInstance
         );

@@ -9,6 +9,7 @@ import Outcome from "../outcome/outcome.js";
 import OutcomeFactory from "../outcome/outcomeFactory.js";
 import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 import UnexpectedErrorOutcome from "../outcome/unexpectedErrorOutcome.js";
+import puppeteer from "puppeteer";
 
 class StageTest {
 
@@ -16,8 +17,8 @@ class StageTest {
     runner: TestRunner = new JsRunner();
     tests: NoArgsFunction[] = [];
 
-    getPage(url: string): Page {
-        return new Page(url, this.runner.browser);
+    getPage(url: string, options: puppeteer.WaitForOptions = {}): Page {
+        return new Page(url, this.runner.browser, options);
     }
 
     printTestNum(testNum: number): void {
