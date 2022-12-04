@@ -15,6 +15,7 @@ class Page {
         this.browser = browser;
         this.isOpened = false;
         this.gotoOptions = gotoOptions;
+        this.requests = [];
     }
     async open() {
         if (this.isOpened) {
@@ -24,7 +25,13 @@ class Page {
         await this.pageInstance.goto(this.url, this.gotoOptions);
         await browserPageHandler_js_1.default.initHyperskillContext(this.pageInstance);
         await browserPageHandler_js_1.default.initKeyboardEvents(this.pageInstance);
+        await this.setUpRequestInterceptor();
         this.isOpened = true;
+    }
+    async setUpRequestInterceptor() {
+        this.pageInstance.on('request', async (request) => {
+            this.requests.push(request);
+        });
     }
     execute(func) {
         return async () => {

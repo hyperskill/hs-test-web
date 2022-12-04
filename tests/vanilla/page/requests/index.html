@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index HTML</title>
+</head>
+<body>
+
+<div id="test">
+    <button id="http">Make HTTP request</button>
+    <a href="test.html" id="navigate">Navigate to another page</a>
+</div>
+
+</body>
+</html>
+
+<script>
+    document.getElementById('http').addEventListener('click', async () => {
+        fetch("https://get.geojs.io/v1/ip/country.json?ip=8.8.8.8")
+    })
+</script>
