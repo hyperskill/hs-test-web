@@ -13,12 +13,14 @@ class Page {
     isOpened: boolean;
     pageInstance!: puppeteer.Page;
     gotoOptions: puppeteer.WaitForOptions;
+    requests: Array<puppeteer.HTTPRequest>;
 
     constructor(url: string, browser: Browser, gotoOptions: puppeteer.WaitForOptions) {
         this.url = url;
         this.browser = browser;
         this.isOpened = false;
         this.gotoOptions = gotoOptions;
+        this.requests = [];
     }
 
     async open(): Promise<void> {
@@ -29,7 +31,14 @@ class Page {
         await this.pageInstance.goto(this.url, this.gotoOptions);
         await BrowserPageHandler.initHyperskillContext(this.pageInstance);
         await BrowserPageHandler.initKeyboardEvents(this.pageInstance);
+        await this.setUpRequestInterceptor();
         this.isOpened = true;
+    }
+
+    setUpRequestInterceptor(): void {
+        this.pageInstance.on('request', async request => {
+            this.requests.push(request);
+        });
     }
 
     execute(func: NoArgsFunction): NoArgsFunction {

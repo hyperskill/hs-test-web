@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test HTML</title>
+</head>
+<body>
+
+<div id="test">
+    <button id="http">Make HTTP request</button>
+</div>
+</body>
+</html>
+
+<script>
+    document.getElementById('http').addEventListener('click', () => {
+        fetch('https://www.google.com').then(console.log)
+    })
+</script>
