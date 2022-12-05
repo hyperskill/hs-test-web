@@ -13,7 +13,7 @@ class Page {
     isOpened: boolean;
     pageInstance!: puppeteer.Page;
     gotoOptions: puppeteer.WaitForOptions;
-    requests: Array<any>;
+    requests: Array<puppeteer.HTTPRequest>;
 
     constructor(url: string, browser: Browser, gotoOptions: puppeteer.WaitForOptions) {
         this.url = url;
@@ -35,7 +35,7 @@ class Page {
         this.isOpened = true;
     }
 
-    async setUpRequestInterceptor(): Promise<void> {
+    setUpRequestInterceptor(): void {
         this.pageInstance.on('request', async request => {
             this.requests.push(request);
         });

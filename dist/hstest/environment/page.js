@@ -28,7 +28,7 @@ class Page {
         await this.setUpRequestInterceptor();
         this.isOpened = true;
     }
-    async setUpRequestInterceptor() {
+    setUpRequestInterceptor() {
         this.pageInstance.on('request', async (request) => {
             this.requests.push(request);
         });
