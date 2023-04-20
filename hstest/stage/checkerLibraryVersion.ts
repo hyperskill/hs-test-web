@@ -30,7 +30,9 @@ class CheckerLibraryVersion {
             const localVersion = packageJson.version;
             if (remoteVersion !== localVersion) {
                 const errorMsg = `The version of the local library (${localVersion}) is different from the version on GitHub (${remoteVersion}). 
-                Please update your local version.`;
+                Please update your local version.
+                You can download the new version of the library at the link: https://github.com/hyperskill/hs-test-web/archive/release.tar.gz
+                To upgrade, install the new version using the command: npm install /path/to/your/archive/hs-test-web-release.tar.gz`;
                 if (throwError) {
                     throw new Error(errorMsg);
                 } else {
