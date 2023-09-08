@@ -9,6 +9,7 @@ import Outcome from "../outcome/outcome.js";
 import OutcomeFactory from "../outcome/outcomeFactory.js";
 import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 import UnexpectedErrorOutcome from "../outcome/unexpectedErrorOutcome.js";
+import CheckerLibraryVersion from "./checkerLibraryVersion";
 import puppeteer from "puppeteer";
 
 class StageTest {
@@ -16,6 +17,15 @@ class StageTest {
     node: NodeEnvironment = new NodeEnvironment();
     runner: TestRunner = new JsRunner();
     tests: NoArgsFunction[] = [];
+
+    checkerLibraryVersion: CheckerLibraryVersion = new CheckerLibraryVersion();
+
+    constructor() {
+        // Perform the library version check upon class instantiation
+        this.checkerLibraryVersion.checkLibraryVersion().catch((error) => {
+            console.error("Error while checking library version:", error);
+        });
+    }
 
     getPage(url: string, options: puppeteer.WaitForOptions = {}): Page {
         return new Page(url, this.runner.browser, options);
