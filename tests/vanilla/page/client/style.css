@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 10px;
+}
+
+.title {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-size: 40px;
+}
+
+textarea {
+    width: 98vw;
+    height: 80vh;
+    border: black solid 1px;
+    align-self: center;
+    margin-top: 6px;
+}
+
+.footer {
+    display: flex;
+    position: relative;
+    margin-top: 15px;
+}
+
+button {
+    background-color: coral;
+    font-size: 25px;
+    margin-left: 20px;
+}
+
+#upper-case {
+
+}
+
+#lower-case {
+
+}
+
+#proper-case {
+
+}
+
+#sentence-case {
+
+}
+
+#save-text-file {
+
+}

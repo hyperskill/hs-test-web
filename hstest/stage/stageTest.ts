@@ -10,7 +10,7 @@ import OutcomeFactory from "../outcome/outcomeFactory.js";
 import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 import UnexpectedErrorOutcome from "../outcome/unexpectedErrorOutcome.js";
 import CheckerLibraryVersion from "./checkerLibraryVersion";
-import puppeteer from "puppeteer";
+import * as puppeteer from 'puppeteer';
 
 class StageTest {
 
