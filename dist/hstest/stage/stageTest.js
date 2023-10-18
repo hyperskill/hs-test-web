@@ -12,17 +12,11 @@ const UnexpectedError_js_1 = __importDefault(require("../exception/outcome/Unexp
 const outcomeFactory_js_1 = __importDefault(require("../outcome/outcomeFactory.js"));
 const WrongAnswer_js_1 = __importDefault(require("../exception/outcome/WrongAnswer.js"));
 const unexpectedErrorOutcome_js_1 = __importDefault(require("../outcome/unexpectedErrorOutcome.js"));
-const checkerLibraryVersion_1 = __importDefault(require("./checkerLibraryVersion"));
 class StageTest {
     constructor() {
         this.node = new node_js_1.default();
         this.runner = new jsRunner_js_1.default();
         this.tests = [];
-        this.checkerLibraryVersion = new checkerLibraryVersion_1.default();
-        // Perform the library version check upon class instantiation
-        this.checkerLibraryVersion.checkLibraryVersion().catch((error) => {
-            console.error("Error while checking library version:", error);
-        });
     }
     getPage(url, options = {}) {
         return new page_js_1.default(url, this.runner.browser, options);
