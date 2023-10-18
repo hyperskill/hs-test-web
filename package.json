@@ -13,14 +13,13 @@
   "dependencies": {
     "@types/callsite": "^1.0.32",
     "callsite": "^1.0.0",
-    "puppeteer": "19.4.0",
+    "puppeteer": "21.3.8",
     "puppeteer-element2selector": "0.0.3"
   },
   "devDependencies": {
     "@babel/core": ">=7.9.6",
     "@babel/preset-env": ">=7.9.6",
     "@babel/preset-react": ">=7.9.4",
-    "@types/puppeteer": "^7.0.4",
     "@types/webpack": "5.28.2",
     "@types/webpack-dev-server": "4.7.2",
     "@typescript-eslint/eslint-plugin": "^6.6.0",

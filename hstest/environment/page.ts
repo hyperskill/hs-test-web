@@ -1,4 +1,4 @@
-import puppeteer, {ElementHandle, EvaluateFn} from 'puppeteer';
+import {ElementHandle, EvaluateFunc} from 'puppeteer';
 import Browser from "../chromium/browser.js";
 import BrowserPageHandler from "../handler/browserPageHandler.js";
 import CheckResult from "../outcome/checkResult.js";
@@ -6,6 +6,7 @@ import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 import TestPassed from "../exception/outcome/TestPassed.js";
 import Element from "./element.js";
 import EventHandler from "../handler/eventHandler.js";
+import * as puppeteer from 'puppeteer';
 
 class Page {
     url: string;
@@ -44,7 +45,7 @@ class Page {
     execute(func: NoArgsFunction): NoArgsFunction {
         return async () => {
             await this.open();
-            const result = await this.pageInstance.evaluate(func as EvaluateFn);
+            const result = await this.pageInstance.evaluate(func as EvaluateFunc<any>);
             return CheckResult.fromJson(result);
         };
     }
@@ -61,7 +62,7 @@ class Page {
 
     async evaluate(func: NoArgsFunction): Promise<object> {
         await this.open();
-        const evaluationResult = await this.pageInstance.evaluate(func as EvaluateFn);
+        const evaluationResult = await this.pageInstance.evaluate(func as EvaluateFunc<any>);
         if (CheckResult.isCheckResult(evaluationResult)) {
             if (!evaluationResult.isCorrect) {
                 throw new WrongAnswer(evaluationResult.feedback);
@@ -80,6 +81,11 @@ class Page {
             null,
             this.pageInstance
         );
+    }
+
+    async getClient(): Promise<puppeteer.Page> {
+        await this.open();
+        return this.pageInstance;
     }
 
     async findById(id: string): Promise<Element | null> {
