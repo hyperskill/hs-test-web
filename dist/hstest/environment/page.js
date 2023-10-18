@@ -66,6 +66,10 @@ class Page {
         const bodySelector = 'body';
         return await element_js_1.default.new(await this.pageInstance.$(bodySelector), null, this.pageInstance);
     }
+    async getClient() {
+        await this.open();
+        return this.pageInstance;
+    }
     async findById(id) {
         return await (await this._getBodyTag()).findById(id);
     }
