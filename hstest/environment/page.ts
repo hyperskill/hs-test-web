@@ -8,7 +8,7 @@ import Element from "./element.js";
 import EventHandler from "../handler/eventHandler.js";
 import * as puppeteer from 'puppeteer';
 
-class Page {
+class Page{
     url: string;
     browser: Browser;
     isOpened: boolean;

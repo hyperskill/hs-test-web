@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="title">Case Converter</div>
+<textarea></textarea>
+<div class="footer">
+    <button id="upper-case">Upper Case</button>
+    <button id="lower-case">Lower Case</button>
+    <button id="proper-case">Proper Case</button>
+    <button id="sentence-case">Sentence Case</button>
+    <button id="save-text-file">Save Text File</button>
+</div>
+<script>
+    function toTitleCase(str) {
+        return str[0].toUpperCase() + str.substring(1).toLowerCase();
+    }
+
+    function download(filename, text) {
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
+    document.getElementById("save-text-file")
+        .addEventListener("click", () => download("hello.txt",textArea.value));
+
+    let textArea = document.querySelector("textarea");
+
+    document.getElementById("upper-case")
+        .addEventListener("click", () => textArea.value = textArea.value.toUpperCase());
+
+    document.getElementById("lower-case")
+        .addEventListener("click", () => textArea.value = textArea.value.toLowerCase());
+
+    document.getElementById("proper-case")
+        .addEventListener("click",
+            () => textArea.value = textArea.value.split(" ").map(toTitleCase).join(" "));
+
+    document.getElementById("sentence-case")
+        .addEventListener("click",
+            () => textArea.value = textArea.value.split("\. ").map(toTitleCase).join(". "));
+
+    document.getElementById("sentence-case")
+        .addEventListener("click",
+            () => textArea.value = textArea.value.split(". ").map(toTitleCase).join(". "));
+</script>
+</body>
+</html>
