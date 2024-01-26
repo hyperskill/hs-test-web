@@ -5,7 +5,7 @@ jobs:
   Lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/node18
       - name: node version
         run: node --version
@@ -17,7 +17,7 @@ jobs:
     env:
       NODE_ENV: test_lib
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/node14
       - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
@@ -30,7 +30,7 @@ jobs:
     env:
       NODE_ENV: test_lib
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/node16
       - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
@@ -43,7 +43,7 @@ jobs:
     env:
       NODE_ENV: test_lib
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/node18
       - uses: browser-actions/setup-chrome@latest
       - run: chrome --version
