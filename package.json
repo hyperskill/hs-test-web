@@ -29,7 +29,7 @@
     "css-loader": "^6.8.1",
     "eslint": "^8.48.0",
     "file-loader": ">=6.0.0",
-    "mocha": "10.1.0",
+    "mocha": "10.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "style-loader": "^3.3.4",
