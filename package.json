@@ -19,7 +19,7 @@
   "devDependencies": {
     "@babel/core": ">=7.9.6",
     "@babel/preset-env": ">=7.23.9",
-    "@babel/preset-react": ">=7.9.4",
+    "@babel/preset-react": ">=7.23.3",
     "@types/webpack": "5.28.5",
     "@types/webpack-dev-server": "4.7.2",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
