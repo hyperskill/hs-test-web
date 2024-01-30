@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "Vladimir Turov & Ainur Gimadeev",
   "dependencies": {
-    "@types/callsite": "^1.0.32",
+    "@types/callsite": "^1.0.34",
     "callsite": "^1.0.0",
     "puppeteer": "21.0.0",
     "puppeteer-element2selector": "0.0.3"
