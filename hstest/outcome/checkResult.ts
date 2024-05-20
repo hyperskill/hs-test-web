@@ -24,7 +24,7 @@ class CheckResult {
         return new CheckResult(false, message);
     }
 
-    static fromJson(json: CheckResultJson) {
+    static fromJson(json: CheckResultJson | unknown) {
         if (!CheckResult.isCheckResult(json)) {
             throw new Error("The result of the evaluate() method should be CheckResult instance!");
         }
@@ -35,10 +35,9 @@ class CheckResult {
         }
     }
 
-    static isCheckResult(json: object) {
-        return !(json == null ||
-            !Object.prototype.hasOwnProperty.call(json, "isCorrect") ||
-            !Object.prototype.hasOwnProperty.call(json, "feedback"));
+    static isCheckResult(json: object | unknown): json is CheckResultJson {
+        return (Object.prototype.hasOwnProperty.call(json, "isCorrect") &&
+            Object.prototype.hasOwnProperty.call(json, "feedback"));
     }
 }
 

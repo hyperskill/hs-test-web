@@ -99,7 +99,7 @@ class ReactRunner extends runner_js_1.default {
         let errors = [];
         const compiler = Webpack(webpackConfig);
         const server = new WebpackDevServer(compiler, webpackConfig.devServer);
-        server.listen(this.port, this.host);
+        server.listen(this.port, this.host, () => { });
         // @ts-ignore
         server.compiler.hooks.afterCompile.tap('afterCompile', async (params) => {
             if (params.errors.length !== 0) {

@@ -88,7 +88,7 @@ class ReactRunner extends TestRunner {
         const compiler = Webpack(webpackConfig);
         const server = new WebpackDevServer(compiler, webpackConfig.devServer);
 
-        server.listen(this.port, this.host);
+        server.listen(this.port, this.host, () => { });
 
 
         // @ts-ignore

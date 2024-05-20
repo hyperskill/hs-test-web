@@ -1,8 +1,8 @@
-import puppeteer, {BrowserConnectOptions, BrowserLaunchArgumentOptions, LaunchOptions} from 'puppeteer';
+import puppeteer, {BrowserConnectOptions, BrowserLaunchArgumentOptions, LaunchOptions, Page, Browser as PuppeteerBrowser} from 'puppeteer';
 
 class Browser {
     private launched = false;
-    private browser!: puppeteer.Browser;
+    private browser!: PuppeteerBrowser;
     private puppeteerLaunchArgs: BrowserLaunchArgumentOptions & LaunchOptions & BrowserConnectOptions = {
         headless: (process.env.NODE_ENV || '').trim() === 'test_lib',
         defaultViewport: null,
@@ -19,8 +19,8 @@ class Browser {
         this.launched = true;
     }
 
-    async newPage(): Promise<puppeteer.Page> {
-        const page: puppeteer.Page = await this.browser.newPage();
+    async newPage(): Promise<Page> {
+        const page: Page = await this.browser.newPage();
         page.on('console', msg => {
             console.log(msg.text());
         });

@@ -1,5 +1,5 @@
-import puppeteer from "puppeteer";
-import puppeteerCore from "puppeteer-core";
+import {ElementHandle, Page} from 'puppeteer';
+import { ElementHandle as ElementHandleCore} from "puppeteer-core";
 import EventHandler from "../handler/eventHandler.js";
 import {element2selector} from "puppeteer-element2selector";
 import WrongAnswer from "../exception/outcome/WrongAnswer.js";
@@ -7,20 +7,20 @@ import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 export default class Element {
 
     private readonly selector: Promise<string> | string;
-    private readonly page: puppeteer.Page;
-    private elementHandle: puppeteer.ElementHandle;
+    private readonly page: Page;
+    private elementHandle: ElementHandle;
     private parent: Element | null;
 
-    constructor(elementHandle: puppeteer.ElementHandle, selector: string, parent: Element | null, page: puppeteer.Page) {
+    constructor(elementHandle: ElementHandle, selector: string, parent: Element | null, page: Page) {
         this.elementHandle = elementHandle;
         this.selector = selector;
         this.parent = parent;
         this.page = page;
     }
 
-    static async new(elementHandle: puppeteer.ElementHandle, parent: Element | null, page: puppeteer.Page) {
+    static async new(elementHandle: ElementHandle, parent: Element | null, page: Page) {
         try {
-            const selector = await element2selector(elementHandle as unknown as puppeteerCore.ElementHandle);
+            const selector = await element2selector(elementHandle as unknown as ElementHandleCore);
             return new Element(elementHandle, selector, parent, page);
         } catch (err) {
             throw new WrongAnswer('Make sure your elements don\'t have duplicated id attribute');
@@ -83,12 +83,12 @@ export default class Element {
         return JSON.parse(stylesStr);
     }
 
-    async select(selector: string): Promise<puppeteer.ElementHandle | null> {
+    async select(selector: string): Promise<ElementHandle | null> {
         await this.syncElementHandleWithDOM();
         return await this.elementHandle.$(selector);
     }
 
-    async selectAll(selector: string): Promise<puppeteer.ElementHandle[]> {
+    async selectAll(selector: string): Promise<ElementHandle[]> {
         await this.syncElementHandleWithDOM();
         return await this.elementHandle.$$(selector);
     }
@@ -110,7 +110,7 @@ export default class Element {
         if (element === null) {
             return element;
         }
-        return await Element.new(element as puppeteer.ElementHandle, this, this.page);
+        return await Element.new(element as ElementHandle, this, this.page);
     }
 
     async findAllByClassName(className: string) {

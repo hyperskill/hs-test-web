@@ -26,9 +26,8 @@ class CheckResult {
         }
     }
     static isCheckResult(json) {
-        return !(json == null ||
-            !Object.prototype.hasOwnProperty.call(json, "isCorrect") ||
-            !Object.prototype.hasOwnProperty.call(json, "feedback"));
+        return (Object.prototype.hasOwnProperty.call(json, "isCorrect") &&
+            Object.prototype.hasOwnProperty.call(json, "feedback"));
     }
 }
 exports.default = CheckResult;
