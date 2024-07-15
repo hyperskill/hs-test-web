@@ -14,11 +14,11 @@
     "dependencies": {
         "@types/callsite": "^1.0.34",
         "callsite": "^1.0.0",
-        "puppeteer": "22.12.1",
+        "puppeteer": "22.13.0",
         "puppeteer-element2selector": "0.0.3"
     },
     "devDependencies": {
-        "@babel/core": ">=7.24.7",
+        "@babel/core": ">=7.24.8",
         "@babel/preset-env": ">=7.24.8",
         "@babel/preset-react": ">=7.24.7",
         "@types/webpack": "5.28.5",
