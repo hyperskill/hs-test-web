@@ -14,7 +14,7 @@
   "dependencies": {
     "@types/callsite": "^1.0.34",
     "callsite": "^1.0.0",
-    "puppeteer": "23.2.1",
+    "puppeteer": "23.2.2",
     "puppeteer-element2selector": "0.0.3"
   },
   "devDependencies": {
