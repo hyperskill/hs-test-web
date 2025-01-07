@@ -24,7 +24,7 @@
     "@types/webpack": "5.28.5",
     "@types/webpack-dev-server": "4.7.2",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^6.20.0",
+    "@typescript-eslint/parser": "^8.19.1",
     "babel-loader": "^9.2.1",
     "chai": "^4.5.0",
     "css-loader": "^7.1.2",
