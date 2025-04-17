@@ -13,7 +13,7 @@ concurrency:
 jobs:
   lint:
     name: Lint
-    runs-on: [ self-hosted, small ]
+    runs-on: arc-runners-small
     steps:
       - uses: actions/checkout@v4
 
@@ -35,7 +35,7 @@ jobs:
 
   tests:
     name: Tests on ${{ matrix.node-version }}
-    runs-on: [ self-hosted, small ]
+    runs-on: arc-runners-small
     env:
       NODE_ENV: test_lib
     strategy:
