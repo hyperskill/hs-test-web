@@ -13,7 +13,7 @@ concurrency:
 jobs:
   lint:
     name: Lint
-    runs-on: [ self-hosted, small ]
+    runs-on: arc-runners-small
     steps:
       - uses: actions/checkout@v4
 
@@ -35,13 +35,13 @@ jobs:
 
   tests:
     name: Tests on ${{ matrix.node-version }}
-    runs-on: [ self-hosted, small ]
+    runs-on: arc-runners-small
     env:
       NODE_ENV: test_lib
     strategy:
       fail-fast: false
       matrix:
-        node-version: [ 16.x, 18.x, 20.x, 21.x ]
+        node-version: [ 18.x, 20.x, 21.x, 22.x ]
     steps:
       - uses: actions/checkout@v4
 
