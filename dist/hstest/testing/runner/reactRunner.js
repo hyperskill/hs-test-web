@@ -67,7 +67,7 @@ class ReactRunner extends runner_js_1.default {
             Webpack = (await Promise.resolve().then(() => __importStar(require("webpack")))).default;
             WebpackDevServer = (await Promise.resolve().then(() => __importStar(require("webpack-dev-server")))).default;
         }
-        catch (err) {
+        catch {
             throw new UnexpectedError_js_1.default("React dependencies are not installed!");
         }
         const webpackConfig = {
@@ -101,17 +101,21 @@ class ReactRunner extends runner_js_1.default {
                 ]
             },
             devServer: {
-                contentBase: path_1.default.join(this.dirPath, "public"),
-                stats: 'errors-only',
+                static: {
+                    directory: path_1.default.join(this.dirPath, "public")
+                },
+                devMiddleware: {
+                    stats: 'errors-only'
+                }
             }
         };
         let isCompilationCompleted = false;
         let errors = [];
         const compiler = Webpack(webpackConfig);
-        const server = new WebpackDevServer(compiler, webpackConfig.devServer);
-        server.listen(this.port, this.host, () => { });
+        const server = new WebpackDevServer(webpackConfig.devServer || {}, compiler);
+        await server.start();
         // @ts-ignore
-        server.compiler.hooks.afterCompile.tap('afterCompile', async (params) => {
+        compiler.hooks.afterCompile.tap('afterCompile', async (params) => {
             if (params.errors.length !== 0) {
                 errors = params.errors;
             }
@@ -120,7 +124,7 @@ class ReactRunner extends runner_js_1.default {
         // @ts-ignore
         server.app.get(`/${this.closeUrl}`, (req, res) => {
             res.sendStatus(200);
-            server.close();
+            server.stop();
         });
         const sleep = (ms) => new Promise(res => setTimeout(res, ms));
         while (!isCompilationCompleted) {
