@@ -22,7 +22,7 @@ export default class Element {
         try {
             const selector = await element2selector(elementHandle as unknown as ElementHandleCore);
             return new Element(elementHandle, selector, parent, page);
-        } catch (err) {
+        } catch {
             throw new WrongAnswer('Make sure your elements don\'t have duplicated id attribute');
         }
     }
