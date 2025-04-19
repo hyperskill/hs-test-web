@@ -5,6 +5,8 @@ import path from "path";
 import http from "http";
 import CompilationError from "../../exception/outcome/CompilationError.js";
 import UnexpectedError from "../../exception/outcome/UnexpectedError.js";
+import { Configuration } from "webpack";
+import { Configuration as DevServerConfiguration } from "webpack-dev-server";
 
 class ReactRunner extends TestRunner {
 
@@ -35,7 +37,6 @@ class ReactRunner extends TestRunner {
     }
 
     private async compileReactProject(): Promise<void> {
-
         let Webpack;
         let WebpackDevServer;
 
@@ -46,7 +47,7 @@ class ReactRunner extends TestRunner {
             throw new UnexpectedError("React dependencies are not installed!");
         }
 
-        const webpackConfig: any = {
+        const webpackConfig: Configuration & DevServerConfiguration = {
             mode: 'development',
             entry: path.join(this.dirPath, "src/index.js"),
             module: {
@@ -77,8 +78,12 @@ class ReactRunner extends TestRunner {
                 ]
             },
             devServer: {
-                contentBase: path.join(this.dirPath, "public"),
-                stats: 'errors-only',
+                static: {
+                    directory: path.join(this.dirPath, "public")
+                },
+                devMiddleware: {
+                    stats: 'errors-only'
+                }
             }
         };
 
@@ -86,13 +91,12 @@ class ReactRunner extends TestRunner {
         let errors: Error[] = [];
 
         const compiler = Webpack(webpackConfig);
-        const server = new WebpackDevServer(compiler, webpackConfig.devServer);
+        const server = new WebpackDevServer(webpackConfig.devServer || {}, compiler);
 
-        server.listen(this.port, this.host, () => { });
-
+        await server.start();
 
         // @ts-ignore
-        server.compiler.hooks.afterCompile.tap('afterCompile', async (params) => {
+        compiler.hooks.afterCompile.tap('afterCompile', async (params) => {
             if (params.errors.length !== 0) {
                 errors = params.errors;
             }
@@ -102,7 +106,7 @@ class ReactRunner extends TestRunner {
         // @ts-ignore
         server.app.get(`/${this.closeUrl}`, (req, res) => {
             res.sendStatus(200);
-            server.close();
+            server.stop();
         });
 
         const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
