@@ -1,6 +1,5 @@
 import {StageTest} from "../../../../dist/hstest/index.js"
-
-import chai from "chai"
+import { expect } from "chai"
 
 class TestVersionsOnUnexpectedError extends StageTest {
 
@@ -18,10 +17,8 @@ it('Test unexpected error message on no tests found', async () => {
             "Mocha version \.+";
 
         const regex = new RegExp(pattern)
-        chai.expect(err.toString()).to.match(new RegExp(pattern))
+        expect(err.toString()).to.match(new RegExp(pattern))
         return
     }
     throw new Error("The test should fail with unexpected error!")
 });
-
-

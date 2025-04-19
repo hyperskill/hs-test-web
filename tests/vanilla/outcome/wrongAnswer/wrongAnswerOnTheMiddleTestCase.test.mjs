@@ -1,6 +1,6 @@
 import {StageTest, correct, wrong} from "../../../../dist/hstest/index.js"
 import path from 'path'
-import chai from 'chai'
+import { expect } from 'chai'
 
 const pagePath = path.join(import.meta.url, '../../index.html')
 
@@ -25,7 +25,7 @@ it('test browser context fail the second test', async () => {
     try {
         await new TestWrongInBrowser().runTests()
     } catch (err) {
-        chai.expect(err.toString()).contain("Wrong answer in test #2\n\n" +
+        expect(err.toString()).contain("Wrong answer in test #2\n\n" +
             "This is error message from the second test case in browser context!")
         return
     }
@@ -51,7 +51,7 @@ it('test node context fail the second test', async () => {
     try {
         await new TestWrongInNode().runTests()
     } catch (err) {
-        chai.expect(err.toString()).contain("Wrong answer in test #2\n\n" +
+        expect(err.toString()).contain("Wrong answer in test #2\n\n" +
             "This is error message from the second test case in node context!")
         return
     }

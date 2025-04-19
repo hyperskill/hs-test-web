@@ -1,53 +1,70 @@
 name: Checks
-on: [ push ]
+on:
+  push:
+    branches:
+      - master
+      - release
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  Lint:
-    runs-on: ubuntu-latest
+  lint:
+    name: Lint
+    runs-on: arc-runners-small
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/node18
-      - name: node version
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Display Node.js version
         run: node --version
+
       - name: Lint
         run: npm run lint
 
-  Node_14:
-    runs-on: ubuntu-latest
+  tests:
+    name: Tests on ${{ matrix.node-version }}
+    runs-on: arc-runners-small
     env:
       NODE_ENV: test_lib
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [ 18.x, 20.x, 21.x, 22.x ]
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/node14
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
       - uses: browser-actions/setup-chrome@latest
-      - run: chrome --version
-      - name: node version
+
+      - name: Display Chrome version
+        run: chrome --version
+
+      - name: Display Node.js version
         run: node --version
-      - name: Test
-        run: npm run test
-  Node_16:
-    runs-on: ubuntu-latest
-    env:
-      NODE_ENV: test_lib
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/node16
-      - uses: browser-actions/setup-chrome@latest
-      - run: chrome --version
-      - name: node version
-        run: node --version
-      - name: test
-        run: npm run test
-  Node_18:
-    runs-on: ubuntu-latest
-    env:
-      NODE_ENV: test_lib
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/node18
-      - uses: browser-actions/setup-chrome@latest
-      - run: chrome --version
-      - name: node version
-        run: node --version
-      - name: test
+
+      - name: Run tests
         run: npm run test

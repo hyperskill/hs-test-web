@@ -60,7 +60,7 @@ class Page{
         return this.pageInstance.setViewport(viewport);
     }
 
-    async evaluate(func: NoArgsFunction): Promise<object> {
+    async evaluate(func: NoArgsFunction): Promise<object | undefined | unknown> {
         await this.open();
         const evaluationResult = await this.pageInstance.evaluate(func as EvaluateFunc<any>);
         if (CheckResult.isCheckResult(evaluationResult)) {

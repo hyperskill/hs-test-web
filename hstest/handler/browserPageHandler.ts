@@ -1,16 +1,16 @@
 /* eslint no-use-before-define: 2 */
 
-import puppeteer from 'puppeteer';
+import {Page} from 'puppeteer';
 import CheckResult from "../outcome/checkResult.js";
 
 class BrowserPageHandler {
-    static async initHyperskillContext(page: puppeteer.Page) {
+    static async initHyperskillContext(page: Page) {
         await page.exposeFunction('correct', CheckResult.correct);
         await page.exposeFunction('wrong', CheckResult.wrong);
     }
 
 
-    static async initKeyboardEvents(page: puppeteer.Page) {
+    static async initKeyboardEvents(page: Page) {
         await page.evaluate(() => {
             const unusualCharToCode: any = {
                 '`': 'Backquote',

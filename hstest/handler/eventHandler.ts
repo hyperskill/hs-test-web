@@ -1,10 +1,10 @@
-import puppeteer from "puppeteer";
+import {ElementHandle, Page} from 'puppeteer';
 
 class EventHandler {
-    static async waitForEvent(eventName: string, pageInstance: puppeteer.Page,
-                              elementHandle: puppeteer.ElementHandle | null,
+    static async waitForEvent(eventName: string, pageInstance: Page,
+                              elementHandle: ElementHandle | null,
                               timeout = 10000): Promise<any> {
-        async function pageFunction (event: string, elementHandle: HTMLElement,
+        async function pageFunction (event: string, elementHandle: Element | null,
                                      timeout: number): Promise<boolean> {
             const element = elementHandle || window;
             let isEventHappened = false;

@@ -1,5 +1,5 @@
 import {StageTest, correct, WrongAnswer} from "../../../../dist/hstest/index.js"
-import chai from 'chai'
+import { expect } from 'chai'
 
 class TestThrowWrongAnswerInTestCase extends StageTest {
     tests = [
@@ -22,7 +22,7 @@ it('test node context fail the second test', async () => {
     try {
         await new TestThrowWrongAnswerInTestCase().runTests()
     } catch (err) {
-        chai.expect(err.toString()).contain("Wrong answer in test #2\n\n" +
+        expect(err.toString()).contain("Wrong answer in test #2\n\n" +
             "This is error message thrown from a test case!")
         return
     }

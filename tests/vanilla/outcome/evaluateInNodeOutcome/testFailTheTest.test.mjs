@@ -1,6 +1,6 @@
 import {StageTest, correct, wrong} from "../../../../dist/hstest/index.js"
 import path from 'path'
-import chai from 'chai'
+import { expect } from 'chai'
 
 const pagePath = path.join(import.meta.url, '../../index.html')
 
@@ -30,7 +30,7 @@ it('Fail the test in evaluate method from node context', async () => {
     try {
         await new TestFailTheTestTest().runTests()
     } catch (err) {
-        chai.expect(err.toString()).contain("Wrong answer in test #2\n\nThis test case is failed from evaluate method!")
+        expect(err.toString()).contain("Wrong answer in test #2\n\nThis test case is failed from evaluate method!")
         return
     }
     throw new Error("The test should fail with wrong answer message!")
