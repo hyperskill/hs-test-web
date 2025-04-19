@@ -42,7 +42,7 @@ class ReactRunner extends TestRunner {
         try {
             Webpack = (await import("webpack")).default;
             WebpackDevServer = (await import("webpack-dev-server")).default;
-        } catch (err) {
+        } catch {
             throw new UnexpectedError("React dependencies are not installed!");
         }
 
