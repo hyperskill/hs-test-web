@@ -1,5 +1,5 @@
 import {ReactTest, correct, wrong} from "../../../../dist/hstest/index.js"
-import chai from 'chai'
+import { expect } from 'chai'
 
 
 class TestCompileError extends ReactTest {
@@ -28,8 +28,8 @@ it('Test react compile error', async () => {
         await new TestCompileError().runTests()
         throw new Error("The test should fail with compile error!")
     } catch (err) {
-        chai.expect(err.toString()).to.contain("Compilation error during testing")
-        chai.expect(err.toString()).to.contain("Module not found: Error: Can't resolve './index.csss'")
-        chai.expect(err.toString()).to.contain("Error: Can't resolve './logo.svgs'")
+        expect(err.toString()).to.contain("Compilation error during testing")
+        expect(err.toString()).to.contain("Module not found: Error: Can't resolve './index.csss'")
+        expect(err.toString()).to.contain("Error: Can't resolve './logo.svgs'")
     }
 }).timeout(30000);

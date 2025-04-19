@@ -1,5 +1,5 @@
-import {StageTest, correct, wrong} from "../../../../dist/hstest/index.js"
-import chai from "chai";
+import {StageTest, correct} from "../../../../dist/hstest/index.js"
+import { expect } from "chai";
 
 class TestErrorOutcomeOnProtocolError extends StageTest {
 
@@ -16,7 +16,7 @@ it('Test error outcome on protocol error', async () => {
         await new TestErrorOutcomeOnProtocolError().runTests()
         throw new Error("The test fail with Error outcome!")
     } catch (err) {
-        chai.expect(err.toString()).to.contain("Error: Protocol error!")
+        expect(err.toString()).to.contain("Error: Protocol error!")
     }
 });
 
@@ -35,7 +35,7 @@ it('Test error outcome on context was destroyed', async () => {
         await new TestErrorOutcomeOnContextWasDestroyed().runTests()
         throw new Error("The test fail with Error outcome!")
     } catch (err) {
-        chai.expect(err.toString()).to.contain("The page has been reloaded or navigated, but it should not")
+        expect(err.toString()).to.contain("The page has been reloaded or navigated, but it should not")
     }
 });
 
@@ -54,6 +54,6 @@ it('Test error outcome on revision is not downloaded', async () => {
         await new TestErrorOutcomeOnRevisionIsNotDownloaded().runTests()
         throw new Error("The test fail with Error outcome!")
     } catch (err) {
-        chai.expect(err.toString()).to.contain("Error: Chromium revision is not downloaded")
+        expect(err.toString()).to.contain("Error: Chromium revision is not downloaded")
     }
 });
