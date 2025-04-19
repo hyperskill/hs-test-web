@@ -67,7 +67,7 @@ class ReactRunner extends runner_js_1.default {
             Webpack = (await Promise.resolve().then(() => __importStar(require("webpack")))).default;
             WebpackDevServer = (await Promise.resolve().then(() => __importStar(require("webpack-dev-server")))).default;
         }
-        catch (err) {
+        catch {
             throw new UnexpectedError_js_1.default("React dependencies are not installed!");
         }
         const webpackConfig = {
