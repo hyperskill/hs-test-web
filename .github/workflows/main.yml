@@ -33,6 +33,28 @@ jobs:
       - name: Lint
         run: npm run lint
 
+  type-check:
+    name: Type Check
+    runs-on: arc-runners-small
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Display Node.js version
+        run: node --version
+
+      - name: Type Check
+        run: npm run type-check
+
   tests:
     name: Tests on ${{ matrix.node-version }}
     runs-on: arc-runners-small
