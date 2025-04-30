@@ -1,9 +1,13 @@
-import puppeteer, {BrowserConnectOptions, BrowserLaunchArgumentOptions, LaunchOptions} from 'puppeteer';
+import puppeteer, {
+    LaunchOptions,
+    Page,
+    Browser as PuppeteerBrowser
+} from 'puppeteer';
 
 class Browser {
     private launched = false;
-    private browser!: puppeteer.Browser;
-    private puppeteerLaunchArgs: BrowserLaunchArgumentOptions & LaunchOptions & BrowserConnectOptions = {
+    private browser!: PuppeteerBrowser;
+    private puppeteerLaunchArgs: LaunchOptions = {
         headless: (process.env.NODE_ENV || '').trim() === 'test_lib',
         defaultViewport: null,
         args: ['--start-maximized', '--disable-infobar'],
@@ -11,7 +15,6 @@ class Browser {
         // @ts-ignore
         ...global.browserOptions,
         ignoreDefaultArgs: ['--enable-automation'],
-
     };
 
     async launch(): Promise<void> {
@@ -19,8 +22,8 @@ class Browser {
         this.launched = true;
     }
 
-    async newPage(): Promise<puppeteer.Page> {
-        const page: puppeteer.Page = await this.browser.newPage();
+    async newPage(): Promise<Page> {
+        const page: Page = await this.browser.newPage();
         page.on('console', msg => {
             console.log(msg.text());
         });

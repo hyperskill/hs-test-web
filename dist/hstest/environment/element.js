@@ -18,7 +18,7 @@ class Element {
             const selector = await (0, puppeteer_element2selector_1.element2selector)(elementHandle);
             return new Element(elementHandle, selector, parent, page);
         }
-        catch (err) {
+        catch {
             throw new WrongAnswer_js_1.default('Make sure your elements don\'t have duplicated id attribute');
         }
     }
