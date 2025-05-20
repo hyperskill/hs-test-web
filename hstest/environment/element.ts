@@ -1,7 +1,6 @@
 import {ElementHandle, Page} from 'puppeteer';
-import { ElementHandle as ElementHandleCore} from "puppeteer-core";
 import EventHandler from "../handler/eventHandler.js";
-import {element2selector} from "puppeteer-element2selector";
+import {element2selector} from "../utils/element2selector.js";
 import WrongAnswer from "../exception/outcome/WrongAnswer.js";
 
 export default class Element {
@@ -20,7 +19,7 @@ export default class Element {
 
     static async new(elementHandle: ElementHandle, parent: Element | null, page: Page) {
         try {
-            const selector = await element2selector(elementHandle as unknown as ElementHandleCore);
+            const selector = await element2selector(elementHandle as ElementHandle);
             return new Element(elementHandle, selector, parent, page);
         } catch {
             throw new WrongAnswer('Make sure your elements don\'t have duplicated id attribute');
@@ -102,7 +101,11 @@ export default class Element {
 
     async findByClassName(className: string) {
         const classSelector = `.${className}`;
-        return await this.findBySelector(classSelector);
+        const element = await this.select(classSelector);
+        if (element === null) {
+            return element;
+        }
+        return new Element(element as ElementHandle, classSelector, this, this.page);
     }
 
     async findBySelector(selector: string) {
