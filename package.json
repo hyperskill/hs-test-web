@@ -1,6 +1,6 @@
 {
-  "name": "hs-test-web-ts",
-  "version": "4.1.3",
+  "name": "hs-test-web",
+  "version": "4.2.1",
   "description": "Hyperskill Testing Library on TypeScript",
   "main": "dist/hstest/index.js",
   "scripts": {
