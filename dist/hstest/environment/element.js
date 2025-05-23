@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const eventHandler_js_1 = __importDefault(require("../handler/eventHandler.js"));
-const puppeteer_element2selector_1 = require("puppeteer-element2selector");
+const element2selector_js_1 = require("../utils/element2selector.js");
 const WrongAnswer_js_1 = __importDefault(require("../exception/outcome/WrongAnswer.js"));
 class Element {
     constructor(elementHandle, selector, parent, page) {
@@ -15,7 +15,7 @@ class Element {
     }
     static async new(elementHandle, parent, page) {
         try {
-            const selector = await (0, puppeteer_element2selector_1.element2selector)(elementHandle);
+            const selector = await (0, element2selector_js_1.element2selector)(elementHandle);
             return new Element(elementHandle, selector, parent, page);
         }
         catch {
@@ -76,7 +76,11 @@ class Element {
     }
     async findByClassName(className) {
         const classSelector = `.${className}`;
-        return await this.findBySelector(classSelector);
+        const element = await this.select(classSelector);
+        if (element === null) {
+            return element;
+        }
+        return new Element(element, classSelector, this, this.page);
     }
     async findBySelector(selector) {
         const element = await this.select(`${selector}`);

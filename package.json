@@ -1,6 +1,6 @@
 {
-  "name": "hs-test-web-ts",
-  "version": "4.1.1",
+  "name": "hs-test-web",
+  "version": "4.2.1",
   "description": "Hyperskill Testing Library on TypeScript",
   "main": "dist/hstest/index.js",
   "scripts": {
@@ -13,21 +13,25 @@
   "keywords": [],
   "author": "Vladimir Turov & Ainur Gimadeev",
   "dependencies": {
+    "@medv/finder": "^4.0.2",
     "@types/callsite": "^1.0.34",
     "callsite": "^1.0.0",
-    "puppeteer": "24.6.1",
-    "puppeteer-element2selector": "0.0.3"
+    "puppeteer": "24.6.1"
   },
   "devDependencies": {
     "@babel/core": ">=7.26.0",
     "@babel/preset-env": ">=7.26.0",
     "@babel/preset-react": ">=7.26.3",
+    "@types/chai": "^5.2.2",
+    "@types/chai-as-promised": "^8.0.2",
+    "@types/mocha": "^10.0.10",
     "@types/webpack": "5.28.5",
     "@types/webpack-dev-server": "4.7.2",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
     "babel-loader": "^9.2.1",
     "chai": "^5.2.0",
+    "chai-as-promised": "^8.0.1",
     "css-loader": "^7.1.2",
     "eslint": "^8.57.1",
     "file-loader": ">=6.0.0",
