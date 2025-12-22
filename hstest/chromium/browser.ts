@@ -14,7 +14,7 @@ class Browser {
         devtools: false,
         // @ts-ignore
         ...global.browserOptions,
-        ignoreDefaultArgs: ['--enable-automation'],
+        ignoreDefaultArgs: ['--enable-automation', '--disable-extensions'],
     };
 
     async launch(): Promise<void> {
